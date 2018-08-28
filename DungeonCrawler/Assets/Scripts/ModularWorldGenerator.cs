@@ -1,13 +1,14 @@
 ﻿using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 using System.Collections.Generic;
 
-public class ModularWorldGenerator : MonoBehaviour
-{
+public class ModularWorldGenerator : MonoBehaviour {
     public Module[] Modules;
     public Module StartModule;
     public Module EndModule;
     public GameObject player;
+    public NavMeshSurface navsurface;
 
     public int MainPathRooms = 50;
     public int MaxRoomCount = 40;
@@ -21,8 +22,7 @@ public class ModularWorldGenerator : MonoBehaviour
     private List<Module> mainPath = new List<Module>();
     private List<ModuleConnector> pendingExits = new List<ModuleConnector>();
 
-    void Start()
-    {
+    void Start() {
         var startModule = (Module)Instantiate(StartModule, transform.position, transform.rotation);
         startModule.gameObject.name = "Start";
         mainPath.Add(startModule);
@@ -34,27 +34,23 @@ public class ModularWorldGenerator : MonoBehaviour
 
         BuildPathEndings();
 
+        startModule.GetComponent<NavMeshSurface>().BuildNavMesh();
+
         SpawnPlayer();
     }
 
     //BUILD PATHS
-    private void BuildMainPath()
-    {
+    private void BuildMainPath() {
         MeshCollider endOfPathCollider;
-        while (mainPath.Count() < MainPathRooms)
-        {
+        while (mainPath.Count() < MainPathRooms) {
 
-            if (LastCount == mainPath.Count())
-            {
+            if (LastCount == mainPath.Count()) {
                 timesSameIteration++;
-            }
-            else
-            {
+            } else {
                 timesSameIteration = 0;
             }
 
-            if (timesSameIteration >= 5)
-            {
+            if (timesSameIteration >= 5) {
                 Backtrack(2);
 
                 timesSameIteration = 0;
@@ -75,16 +71,14 @@ public class ModularWorldGenerator : MonoBehaviour
             var mainModuleCollider = mainModule.GetComponent<MeshCollider>();
             endOfPathCollider = mainExit.GetComponentInParent<MeshCollider>();
 
-            if (CollisionDetection(mainModuleCollider, endOfPathCollider))
-            {
+            if (CollisionDetection(mainModuleCollider, endOfPathCollider)) {
                 mainModule.gameObject.SetActive(false);
                 Debug.Log("Gameobject " + mainModule.name + " disabled");
                 GameObject.DestroyImmediate(mainModule.gameObject);
                 mainModule = null;
             }
 
-            if (mainModule != null)
-            {
+            if (mainModule != null) {
                 mainExit.SetMatched(true);
                 exitToMatch.SetMatched(true);
                 mainPath.Add(mainModule);
@@ -109,13 +103,10 @@ public class ModularWorldGenerator : MonoBehaviour
 
         CurrentRooms++;
         mainPath.Add(finalModule);
-        if (CollisionDetection(finalModuleCollider, endOfPathCollider))
-        {
+        if (CollisionDetection(finalModuleCollider, endOfPathCollider)) {
             Backtrack(3);
             BuildMainPath();
-        }
-        else
-        {
+        } else {
             finalExit.SetMatched(true);
             finalExitToMatch.SetMatched(true);
 
@@ -125,12 +116,10 @@ public class ModularWorldGenerator : MonoBehaviour
 
     }
 
-    private void BuildAdditionalRooms()
-    {
+    private void BuildAdditionalRooms() {
 
         int save = 0;
-        while (CurrentRooms <= MaxRoomCount && pendingExits.Count() > 0 && save < 100)
-        {
+        while (CurrentRooms <= MaxRoomCount && pendingExits.Count() > 0 && save < 100) {
             save++;
 
             var newExit = GetRandom(pendingExits.ToArray());
@@ -145,8 +134,7 @@ public class ModularWorldGenerator : MonoBehaviour
             var newModuleCollider = newModule.GetComponent<MeshCollider>();
             var endOfPathCollider = newExit.GetComponentInParent<MeshCollider>();
 
-            if (CollisionDetection(newModuleCollider, endOfPathCollider))
-            {
+            if (CollisionDetection(newModuleCollider, endOfPathCollider)) {
                 //var triedModules = new List<Module>();
                 //triedModules.Add(newModule);
                 newModule.gameObject.SetActive(false);
@@ -156,8 +144,7 @@ public class ModularWorldGenerator : MonoBehaviour
 
             }
 
-            if (newModule != null)
-            {
+            if (newModule != null) {
                 newExit.SetMatched(true);
                 exitToMatch.SetMatched(true);
 
@@ -170,13 +157,10 @@ public class ModularWorldGenerator : MonoBehaviour
         }
     }
 
-    private void BuildPathEndings()
-    {
+    private void BuildPathEndings() {
 
-        foreach (var pendingExit in pendingExits)
-        {
-            if (Random.value < EndRoomChance)
-            {
+        foreach (var pendingExit in pendingExits) {
+            if (Random.value < EndRoomChance) {
                 //var newTag = GetRandom(pendingExit.Tags);
                 var newModulePrefab = GetRandom((Modules.Where(e => e.GetExits().Count() == 1).ToArray()));
                 var newModule = (Module)Instantiate(newModulePrefab);
@@ -189,8 +173,7 @@ public class ModularWorldGenerator : MonoBehaviour
                 var newModuleCollider = newModule.GetComponent<MeshCollider>();
                 var endOfPathCollider = pendingExit.GetComponentInParent<MeshCollider>();
 
-                if (CollisionDetection(newModuleCollider, endOfPathCollider))
-                {
+                if (CollisionDetection(newModuleCollider, endOfPathCollider)) {
                     //var triedModules = new List<Module>();
                     //triedModules.Add(newModule);
                     newModule.gameObject.SetActive(false);
@@ -199,20 +182,15 @@ public class ModularWorldGenerator : MonoBehaviour
                     newModule = null;
                 }
 
-                if (newModule != null)
-                {
+                if (newModule != null) {
                     pendingExit.SetMatched(true);
                     exitToMatch.SetMatched(true);
 
                     CurrentRooms++;
-                }
-                else
-                {
+                } else {
                     pendingExit.gameObject.SetActive(false);
                 }
-            }
-            else
-            {
+            } else {
                 pendingExit.gameObject.SetActive(false);
             }
         }
@@ -221,20 +199,16 @@ public class ModularWorldGenerator : MonoBehaviour
 
 
     //PATH UTILITY
-    private void Backtrack(int backSteps)
-    {
+    private void Backtrack(int backSteps) {
 
-        for (int steps = 0; steps < backSteps && backSteps < mainPath.Count(); steps++)
-        {
+        for (int steps = 0; steps < backSteps && backSteps < mainPath.Count(); steps++) {
             Debug.LogWarning("Backsteps to make: " + (backSteps - steps));
             Debug.LogWarning("Modules in list before deletion: " + mainPath.Count());
             Module moduleToDelete = mainPath.Last();
 
             var exitsToDelete = moduleToDelete.GetExits();
-            foreach (var exitToDelete in exitsToDelete)
-            {
-                if (pendingExits.Contains(exitToDelete))
-                {
+            foreach (var exitToDelete in exitsToDelete) {
+                if (pendingExits.Contains(exitToDelete)) {
                     pendingExits.Remove(exitToDelete);
                 }
             }
@@ -248,24 +222,19 @@ public class ModularWorldGenerator : MonoBehaviour
         }
         var exitsDetached = mainPath.Last().GetExits().Where(e => e.IsMatched() == true);
 
-        foreach (var exitdetached in exitsDetached)
-        {
+        foreach (var exitdetached in exitsDetached) {
             exitdetached.SetMatched(false);
         }
 
     }
 
-    private bool CollisionDetection(MeshCollider newModule, MeshCollider currentModule)
-    {
+    private bool CollisionDetection(MeshCollider newModule, MeshCollider currentModule) {
         var possibleCollisions = Physics.OverlapSphere(newModule.bounds.center, newModule.bounds.extents.magnitude);
-        foreach (var possibleCollision in possibleCollisions.Where(e => e != newModule && e != currentModule && e.GetComponent<Module>()!=null))
-        {
-            if (newModule != null)
-            {
+        foreach (var possibleCollision in possibleCollisions.Where(e => e != newModule && e != currentModule && e.GetComponent<Module>() != null)) {
+            if (newModule != null) {
                 Debug.Log("Collision of " + newModule.name + " with " + possibleCollision.gameObject.name + " :" + newModule.bounds.Intersects(possibleCollision.bounds));
 
-                if (newModule.bounds.Intersects(possibleCollision.bounds))
-                {
+                if (newModule.bounds.Intersects(possibleCollision.bounds)) {
                     return true;
                 }
             }
@@ -275,8 +244,7 @@ public class ModularWorldGenerator : MonoBehaviour
     }
 
 
-    private void MatchExits(ModuleConnector oldExit, ModuleConnector newExit)
-    {
+    private void MatchExits(ModuleConnector oldExit, ModuleConnector newExit) {
         var newModule = newExit.transform.parent;
         var forwardVectorToMatch = -oldExit.transform.forward;
         var correctiveRotation = Azimuth(forwardVectorToMatch) - Azimuth(newExit.transform.forward);
@@ -292,21 +260,20 @@ public class ModularWorldGenerator : MonoBehaviour
         Quaternion spawnRotation = Quaternion.identity;
         Debug.Log("Spawn Point located at: " + spawnPoint.ToString());
 
-        GameObject newPlayer = (GameObject) Instantiate(player, spawnPoint, spawnRotation);
+        GameObject newPlayer = (GameObject)Instantiate(player, spawnPoint, spawnRotation);
         Debug.Log("Player created");
         Camera.main.GetComponent<FollowCam>().target = newPlayer.transform;
+        newPlayer.gameObject.AddComponent<NavMeshAgent>();
+        newPlayer.gameObject.AddComponent<MoveToClickPoint>();
     }
 
 
     // OTHER UTILITY
-    private static TItem GetRandom<TItem>(TItem[] array)
-    {
+    private static TItem GetRandom<TItem>(TItem[] array) {
         return array[Random.Range(0, array.Length)];
     }
 
-
-    private static Module GetRandomWithTag(IEnumerable<Module> modules, string tagToMatch)
-    {
+    private static Module GetRandomWithTag(IEnumerable<Module> modules, string tagToMatch) {
         //Debug.Log("Modules: "+modules.Count());
         var matchingModules = modules.Where(m => m.Tags.Contains(tagToMatch)).ToArray();
         //Debug.Log("Matching Modules for "+tagToMatch+": "+matchingModules.Count());
@@ -314,8 +281,7 @@ public class ModularWorldGenerator : MonoBehaviour
     }
 
 
-    private static float Azimuth(Vector3 vector)
-    {
+    private static float Azimuth(Vector3 vector) {
         return Vector3.Angle(Vector3.forward, vector) * Mathf.Sign(vector.x);
     }
 }
