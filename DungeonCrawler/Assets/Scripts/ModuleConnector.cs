@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
-
+using UnityEngine.AI;
 
 public class ModuleConnector : MonoBehaviour
 {
 	public string[] Tags;
 	public bool IsDefault;
     private bool ExitMatched;
+    private ModuleConnector otherSide;
+    public NavMeshAgent player;
 
     void OnDrawGizmos()
 	{
@@ -32,5 +34,18 @@ public class ModuleConnector : MonoBehaviour
 
     public bool IsMatched() {
         return ExitMatched;
+    }
+
+    public void setOtherSide(ModuleConnector other) {
+        otherSide = other;
+    }
+    public ModuleConnector getOtherSide() {
+        return otherSide;
+    }
+    public void UpdateArrows() {
+        SendMessageUpwards("UpdateModuleArrows");
+        otherSide.SendMessageUpwards("UpdateModuleArrows");
+
+        player.destination = otherSide.GetComponentInParent<Renderer>().bounds.center;
     }
 }

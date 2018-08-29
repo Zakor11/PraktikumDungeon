@@ -350,6 +350,7 @@ MonoBehaviour:
   Tags:
   - corridor
   IsDefault: 0
+  player: {fileID: 19597056, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
 --- !u!1 &130733797
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,8 +390,8 @@ MonoBehaviour:
   - {fileID: 1890144941}
   StartModule: {fileID: 591216557}
   EndModule: {fileID: 557566516}
-  player: {fileID: 0}
-  navsurface: {fileID: 0}
+  player: {fileID: 113348, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
+  seed: 531
   MainPathRooms: 20
   MaxRoomCount: 50
   EndRoomChance: 0.5
@@ -677,6 +678,7 @@ MonoBehaviour:
   Tags:
   - corridor
   IsDefault: 0
+  player: {fileID: 19597056, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
 --- !u!4 &291936553 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4666101607457776, guid: b8d6a66d539fed344ae4e6d042dc818d,
@@ -820,6 +822,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tags:
   - corridor
+  ConnectorPreset: {fileID: 636759445}
 --- !u!1 &347889694
 GameObject:
   m_ObjectHideFlags: 11
@@ -964,6 +967,68 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &378925044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 378925047}
+  - component: {fileID: 378925046}
+  - component: {fileID: 378925045}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &378925045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 378925044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &378925046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 378925044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &378925047
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 378925044}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &401828166
 GameObject:
   m_ObjectHideFlags: 0
@@ -1007,6 +1072,7 @@ MonoBehaviour:
   Tags:
   - corridor
   IsDefault: 0
+  player: {fileID: 19597056, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
 --- !u!1 &419066487
 GameObject:
   m_ObjectHideFlags: 0
@@ -1050,6 +1116,7 @@ MonoBehaviour:
   Tags:
   - corridor
   IsDefault: 0
+  player: {fileID: 19597056, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
 --- !u!43 &421491362
 Mesh:
   m_ObjectHideFlags: 0
@@ -1321,6 +1388,7 @@ MonoBehaviour:
   - room
   - junction
   IsDefault: 0
+  player: {fileID: 19597056, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
 --- !u!1 &553424107
 GameObject:
   m_ObjectHideFlags: 0
@@ -1455,6 +1523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tags:
   - junction
+  ConnectorPreset: {fileID: 636759445}
 --- !u!1 &557566509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1586,6 +1655,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tags:
   - room
+  ConnectorPreset: {fileID: 636759445}
 --- !u!21 &580670053
 Material:
   serializedVersion: 6
@@ -1654,6 +1724,7 @@ MonoBehaviour:
   Tags:
   - corridor
   IsDefault: 0
+  player: {fileID: 19597056, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
 --- !u!43 &588266044
 Mesh:
   m_ObjectHideFlags: 0
@@ -1943,6 +2014,106 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tags:
   - room
+  ConnectorPreset: {fileID: 636759445}
+--- !u!1 &636759444
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 636759449}
+  - component: {fileID: 636759448}
+  - component: {fileID: 636759447}
+  - component: {fileID: 636759446}
+  - component: {fileID: 636759445}
+  m_Layer: 0
+  m_Name: Plane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &636759445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 636759444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 785af3e4c7cfd22418debafb4c90a8a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!64 &636759446
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 636759444}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &636759447
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 636759444}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &636759448
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 636759444}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &636759449
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 636759444}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -996, y: -1000, z: -1002}
+  m_LocalScale: {x: 0.063562, y: 0.063562, z: 0.063562}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &673124195
 Mesh:
   m_ObjectHideFlags: 0
@@ -2142,6 +2313,7 @@ MonoBehaviour:
   - room
   - junction
   IsDefault: 0
+  player: {fileID: 0}
 --- !u!1 &764230875
 GameObject:
   m_ObjectHideFlags: 0
@@ -2238,6 +2410,7 @@ MonoBehaviour:
   Tags:
   - corridor
   IsDefault: 0
+  player: {fileID: 19597056, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
 --- !u!1001 &806919924
 Prefab:
   m_ObjectHideFlags: 0
@@ -2245,6 +2418,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 764230876}
     m_Modifications:
+    - target: {fileID: 114723943066874580, guid: b8d6a66d539fed344ae4e6d042dc818d,
+        type: 2}
+      propertyPath: Tags.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4666101607457776, guid: b8d6a66d539fed344ae4e6d042dc818d, type: 2}
       propertyPath: m_LocalPosition.x
       value: -12.2
@@ -2281,6 +2459,16 @@ Prefab:
       propertyPath: m_Name
       value: Kurve
       objectReference: {fileID: 0}
+    - target: {fileID: 114723943066874580, guid: b8d6a66d539fed344ae4e6d042dc818d,
+        type: 2}
+      propertyPath: Tags.Array.data[2]
+      value: corridor
+      objectReference: {fileID: 0}
+    - target: {fileID: 114879185660083962, guid: b8d6a66d539fed344ae4e6d042dc818d,
+        type: 2}
+      propertyPath: ConnectorPreset
+      value: 
+      objectReference: {fileID: 636759445}
     m_RemovedComponents:
     - {fileID: 95207119448094804, guid: b8d6a66d539fed344ae4e6d042dc818d, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: b8d6a66d539fed344ae4e6d042dc818d, type: 2}
@@ -2361,6 +2549,7 @@ MonoBehaviour:
   Tags:
   - corridor
   IsDefault: 0
+  player: {fileID: 19597056, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
 --- !u!21 &950006756
 Material:
   serializedVersion: 6
@@ -2518,6 +2707,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tags:
   - corridor
+  ConnectorPreset: {fileID: 636759445}
 --- !u!1 &967635875
 GameObject:
   m_ObjectHideFlags: 0
@@ -2563,6 +2753,7 @@ MonoBehaviour:
   - junction
   - room
   IsDefault: 0
+  player: {fileID: 0}
 --- !u!43 &972237032
 Mesh:
   m_ObjectHideFlags: 0
@@ -3071,6 +3262,7 @@ MonoBehaviour:
   Tags:
   - corridor
   IsDefault: 0
+  player: {fileID: 19597056, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
 --- !u!1 &1085934311
 GameObject:
   m_ObjectHideFlags: 0
@@ -3114,6 +3306,7 @@ MonoBehaviour:
   Tags:
   - corridor
   IsDefault: 0
+  player: {fileID: 19597056, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
 --- !u!1 &1113539735
 GameObject:
   m_ObjectHideFlags: 0
@@ -3158,6 +3351,7 @@ MonoBehaviour:
   - room
   - junction
   IsDefault: 0
+  player: {fileID: 19597056, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
 --- !u!1 &1117688073
 GameObject:
   m_ObjectHideFlags: 0
@@ -3201,6 +3395,7 @@ MonoBehaviour:
   Tags:
   - corridor
   IsDefault: 0
+  player: {fileID: 19597056, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
 --- !u!1 &1120249000
 GameObject:
   m_ObjectHideFlags: 0
@@ -3245,6 +3440,7 @@ MonoBehaviour:
   - room
   - junction
   IsDefault: 0
+  player: {fileID: 19597056, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
 --- !u!1 &1151266671
 GameObject:
   m_ObjectHideFlags: 0
@@ -3288,6 +3484,7 @@ MonoBehaviour:
   Tags:
   - corridor
   IsDefault: 0
+  player: {fileID: 19597056, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
 --- !u!1001 &1164091135
 Prefab:
   m_ObjectHideFlags: 0
@@ -3783,6 +3980,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tags:
   - junction
+  ConnectorPreset: {fileID: 636759445}
 --- !u!1 &1315731460
 GameObject:
   m_ObjectHideFlags: 0
@@ -3826,6 +4024,7 @@ MonoBehaviour:
   Tags:
   - corridor
   IsDefault: 0
+  player: {fileID: 19597056, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
 --- !u!1 &1470961459
 GameObject:
   m_ObjectHideFlags: 0
@@ -4342,6 +4541,7 @@ MonoBehaviour:
   Tags:
   - corridor
   IsDefault: 0
+  player: {fileID: 19597056, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
 --- !u!1 &1762689376
 GameObject:
   m_ObjectHideFlags: 0
@@ -4445,6 +4645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tags:
   - corridor
+  ConnectorPreset: {fileID: 0}
 --- !u!1 &1766974075
 GameObject:
   m_ObjectHideFlags: 0
@@ -4488,6 +4689,7 @@ MonoBehaviour:
   Tags:
   - corridor
   IsDefault: 0
+  player: {fileID: 19597056, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
 --- !u!1001 &1772023374
 Prefab:
   m_ObjectHideFlags: 0
@@ -4527,6 +4729,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 114143392634455066, guid: 8e8f942a47f2aac4b9544d67ed1ec01b,
+        type: 2}
+      propertyPath: ConnectorPreset
+      value: 
+      objectReference: {fileID: 636759445}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e8f942a47f2aac4b9544d67ed1ec01b, type: 2}
   m_IsPrefabAsset: 0
@@ -4715,6 +4922,7 @@ MonoBehaviour:
   - room
   - junction
   IsDefault: 0
+  player: {fileID: 0}
 --- !u!43 &1818222200
 Mesh:
   m_ObjectHideFlags: 0
@@ -5182,6 +5390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tags:
   - room
+  ConnectorPreset: {fileID: 636759445}
 --- !u!1 &1920524597
 GameObject:
   m_ObjectHideFlags: 0
@@ -5225,6 +5434,7 @@ MonoBehaviour:
   Tags:
   - corridor
   IsDefault: 0
+  player: {fileID: 0}
 --- !u!1 &1955227002
 GameObject:
   m_ObjectHideFlags: 0
@@ -5268,6 +5478,7 @@ MonoBehaviour:
   Tags:
   - corridor
   IsDefault: 0
+  player: {fileID: 19597056, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
 --- !u!1 &1960238405
 GameObject:
   m_ObjectHideFlags: 0
@@ -5422,6 +5633,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tags:
   - room
+  ConnectorPreset: {fileID: 636759445}
 --- !u!64 &1974894808
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5537,6 +5749,7 @@ MonoBehaviour:
   - room
   - junction
   IsDefault: 0
+  player: {fileID: 19597056, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
 --- !u!4 &2019635560
 Transform:
   m_ObjectHideFlags: 0
@@ -5683,6 +5896,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tags:
   - junction
+  ConnectorPreset: {fileID: 636759445}
 --- !u!43 &2087311991
 Mesh:
   m_ObjectHideFlags: 0

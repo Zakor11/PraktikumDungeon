@@ -8,7 +8,6 @@ public class ModularWorldGenerator : MonoBehaviour {
     public Module StartModule;
     public Module EndModule;
     public GameObject player;
-    public NavMeshSurface navsurface;
     public int seed = 1337;
 
     public int MainPathRooms = 50;
@@ -36,6 +35,8 @@ public class ModularWorldGenerator : MonoBehaviour {
         mainPath.First().GetComponent<NavMeshSurface>().BuildNavMesh();
 
         SpawnPlayer();
+
+        mainPath.First().UpdateModuleArrows();
     }
 
     private void Awake() {
@@ -87,7 +88,9 @@ public class ModularWorldGenerator : MonoBehaviour {
 
             if (mainModule != null) {
                 mainExit.SetMatched(true);
+                mainExit.setOtherSide(exitToMatch);
                 exitToMatch.SetMatched(true);
+                exitToMatch.setOtherSide(mainExit);
                 mainPath.Add(mainModule);
                 mainModule.GetComponent<MeshRenderer>().material.color = Color.red;
                 pendingExits.AddRange(mainExits.Where(e => e.IsMatched() != true));
@@ -115,7 +118,9 @@ public class ModularWorldGenerator : MonoBehaviour {
             BuildMainPath();
         } else {
             finalExit.SetMatched(true);
+            finalExit.setOtherSide(finalExitToMatch);
             finalExitToMatch.SetMatched(true);
+            finalExitToMatch.setOtherSide(finalExit);
 
             pendingExits.AddRange(finalExits.Where(e => e.IsMatched() != true));
             pendingExits.AddRange(finalModuleExits.Where(e => e.IsMatched() != true));
@@ -157,7 +162,9 @@ public class ModularWorldGenerator : MonoBehaviour {
 
             if (newModule != null) {
                 newExit.SetMatched(true);
+                newExit.setOtherSide(exitToMatch);
                 exitToMatch.SetMatched(true);
+                exitToMatch.setOtherSide(newExit);
 
                 pendingExits.Remove(newExit);
                 pendingExits.AddRange(newModuleExits.Where(e => e.IsMatched() != true));
@@ -195,7 +202,9 @@ public class ModularWorldGenerator : MonoBehaviour {
 
                 if (newModule != null) {
                     pendingExit.SetMatched(true);
+                    pendingExit.setOtherSide(exitToMatch);
                     exitToMatch.SetMatched(true);
+                    exitToMatch.setOtherSide(pendingExit);
 
                     CurrentRooms++;
                 } else {
@@ -291,6 +300,7 @@ public class ModularWorldGenerator : MonoBehaviour {
         Camera.main.GetComponent<FollowCam>().target = newPlayer.transform;
         newPlayer.gameObject.AddComponent<NavMeshAgent>();
         newPlayer.gameObject.AddComponent<MoveToClickPoint>();
+       
     }
 
 
