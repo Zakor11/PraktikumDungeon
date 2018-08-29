@@ -9,6 +9,7 @@ public class ModularWorldGenerator : MonoBehaviour {
     public Module EndModule;
     public GameObject player;
     public NavMeshSurface navsurface;
+    public int seed = 1337;
 
     public int MainPathRooms = 50;
     public int MaxRoomCount = 40;
@@ -23,20 +24,26 @@ public class ModularWorldGenerator : MonoBehaviour {
     private List<ModuleConnector> pendingExits = new List<ModuleConnector>();
 
     void Start() {
-        var startModule = (Module)Instantiate(StartModule, transform.position, transform.rotation);
-        startModule.gameObject.name = "Start";
-        mainPath.Add(startModule);
-        CurrentRooms++;
-
+        
         BuildMainPath();
+
+        CleanUp();
 
         BuildAdditionalRooms();
 
         BuildPathEndings();
 
-        startModule.GetComponent<NavMeshSurface>().BuildNavMesh();
+        mainPath.First().GetComponent<NavMeshSurface>().BuildNavMesh();
 
         SpawnPlayer();
+    }
+
+    private void Awake() {
+        Random.InitState(seed);
+        var startModule = (Module)Instantiate(StartModule, transform.position, transform.rotation);
+        startModule.gameObject.name = "Start";
+        mainPath.Add(startModule);
+        CurrentRooms++;
     }
 
     //BUILD PATHS
@@ -114,6 +121,10 @@ public class ModularWorldGenerator : MonoBehaviour {
             pendingExits.AddRange(finalModuleExits.Where(e => e.IsMatched() != true));
         }
 
+    }
+
+    private void CleanUp() {
+        pendingExits = new List<ModuleConnector>(pendingExits.Where(e => e != null));
     }
 
     private void BuildAdditionalRooms() {
@@ -200,32 +211,43 @@ public class ModularWorldGenerator : MonoBehaviour {
 
     //PATH UTILITY
     private void Backtrack(int backSteps) {
+        if (backSteps < mainPath.Count()) {
+            for (int steps = 0; steps < backSteps; steps++) {
+                Debug.LogWarning("Backsteps to make: " + (backSteps - steps));
+                Debug.LogWarning("Modules in list before deletion: " + mainPath.Count());
+                Module moduleToDelete = mainPath.Last();
 
-        for (int steps = 0; steps < backSteps && backSteps < mainPath.Count(); steps++) {
-            Debug.LogWarning("Backsteps to make: " + (backSteps - steps));
-            Debug.LogWarning("Modules in list before deletion: " + mainPath.Count());
-            Module moduleToDelete = mainPath.Last();
-
-            var exitsToDelete = moduleToDelete.GetExits();
-            foreach (var exitToDelete in exitsToDelete) {
-                if (pendingExits.Contains(exitToDelete)) {
-                    pendingExits.Remove(exitToDelete);
+                var exitsToDelete = moduleToDelete.GetExits();
+                foreach (var exitToDelete in exitsToDelete) {
+                    if (pendingExits.Contains(exitToDelete)) {
+                        pendingExits.Remove(exitToDelete);
+                    }
                 }
+
+                mainPath.Remove(moduleToDelete);
+                moduleToDelete.gameObject.SetActive(false);
+                GameObject.DestroyImmediate(moduleToDelete.gameObject);
+                Debug.LogWarning("Modules in list after deletion: " + mainPath.Count());
+                CurrentRooms--;
+
+            }
+            var exitsDetached = mainPath.Last().GetExits().Where(e => e.IsMatched() == true);
+
+            foreach (var exitdetached in exitsDetached) {
+                exitdetached.SetMatched(false);
             }
 
-            mainPath.Remove(moduleToDelete);
-            moduleToDelete.gameObject.SetActive(false);
-            GameObject.DestroyImmediate(moduleToDelete.gameObject);
-            Debug.LogWarning("Modules in list after deletion: " + mainPath.Count());
-            CurrentRooms--;
+        } else {
+            var startModule = mainPath.First();
+            mainPath = new List<Module> {
+                startModule
+            };
+            var exitsDetached = startModule.GetExits().Where(e => e.IsMatched() == true);
 
+            foreach (var exitdetached in exitsDetached) {
+                exitdetached.SetMatched(false);
+            }
         }
-        var exitsDetached = mainPath.Last().GetExits().Where(e => e.IsMatched() == true);
-
-        foreach (var exitdetached in exitsDetached) {
-            exitdetached.SetMatched(false);
-        }
-
     }
 
     private bool CollisionDetection(MeshCollider newModule, MeshCollider currentModule) {
@@ -245,12 +267,16 @@ public class ModularWorldGenerator : MonoBehaviour {
 
 
     private void MatchExits(ModuleConnector oldExit, ModuleConnector newExit) {
-        var newModule = newExit.transform.parent;
-        var forwardVectorToMatch = -oldExit.transform.forward;
-        var correctiveRotation = Azimuth(forwardVectorToMatch) - Azimuth(newExit.transform.forward);
-        newModule.RotateAround(newExit.transform.position, Vector3.up, correctiveRotation);
-        var correctiveTranslation = oldExit.transform.position - newExit.transform.position;
-        newModule.transform.position += correctiveTranslation;
+        try {
+            var newModule = newExit.transform.parent;
+            var forwardVectorToMatch = -oldExit.transform.forward;
+            var correctiveRotation = Azimuth(forwardVectorToMatch) - Azimuth(newExit.transform.forward);
+            newModule.RotateAround(newExit.transform.position, Vector3.up, correctiveRotation);
+            var correctiveTranslation = oldExit.transform.position - newExit.transform.position;
+            newModule.transform.position += correctiveTranslation;
+        } catch (MissingReferenceException e) {
+            Debug.Log("Missing Ref catched");
+        }
     }
 
     //PLAYER SPAWN

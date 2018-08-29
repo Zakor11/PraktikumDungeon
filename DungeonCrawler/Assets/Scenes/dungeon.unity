@@ -389,7 +389,7 @@ MonoBehaviour:
   - {fileID: 1890144941}
   StartModule: {fileID: 591216557}
   EndModule: {fileID: 557566516}
-  player: {fileID: 113348, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
+  player: {fileID: 0}
   navsurface: {fileID: 0}
   MainPathRooms: 20
   MaxRoomCount: 50
