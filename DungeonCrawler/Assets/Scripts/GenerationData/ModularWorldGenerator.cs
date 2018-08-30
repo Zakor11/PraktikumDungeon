@@ -4,23 +4,20 @@ using UnityEngine.AI;
 using System.Collections.Generic;
 
 public class ModularWorldGenerator : MonoBehaviour {
-    public Module[] Modules;
-    public Module StartModule;
-    public Module EndModule;
+    public LevelGenData levelGenData;
+    private LevelParams genParams;
+    private ModuleDatabase Database;
+    private Module[] Modules;
     public GameObject player;
-    public int seed = 1337;
-
-    public int MainPathRooms = 50;
-    public int MaxRoomCount = 40;
-    private int CurrentRooms = 0;
-    public float EndRoomChance = 0.5f;
-
-
+  
     private int LastCount = -1;
     private int timesSameIteration = 0;
+    private int CurrentRooms = 0;
 
     private List<Module> mainPath = new List<Module>();
     private List<ModuleConnector> pendingExits = new List<ModuleConnector>();
+
+    public const string FALLBACK_TAG = "corridor";
 
     void Start() {
         
@@ -40,8 +37,11 @@ public class ModularWorldGenerator : MonoBehaviour {
     }
 
     private void Awake() {
-        Random.InitState(seed);
-        var startModule = (Module)Instantiate(StartModule, transform.position, transform.rotation);
+        Database = levelGenData.database;
+        genParams = levelGenData.genParams;
+        Modules = Database.getModulesWithMaxExits(genParams.maxExits);
+        Random.InitState(genParams.seed);
+        var startModule = (Module)Instantiate(Database.getStartRoom(), transform.position, transform.rotation);
         startModule.gameObject.name = "Start";
         mainPath.Add(startModule);
         CurrentRooms++;
@@ -50,7 +50,7 @@ public class ModularWorldGenerator : MonoBehaviour {
     //BUILD PATHS
     private void BuildMainPath() {
         MeshCollider endOfPathCollider;
-        while (mainPath.Count() < MainPathRooms) {
+        while (mainPath.Count() < genParams.mainPathRooms) {
 
             if (LastCount == mainPath.Count()) {
                 timesSameIteration++;
@@ -68,8 +68,7 @@ public class ModularWorldGenerator : MonoBehaviour {
 
             var mainExits = mainPath.Last().GetExits();
             var mainExit = GetRandom(mainPath.Last().GetExits().Where(e => e.IsMatched() != true).ToArray());
-            var mainTag = GetRandom(mainExit.Tags);
-            var mainModulePrefab = GetRandomWithTag(Modules.Where(e => e.GetExits().Count() > 1), mainTag);
+            var mainModulePrefab = GetRandomMatchingTile(mainExit);
             var mainModule = (Module)Instantiate(mainModulePrefab);
             mainModule.gameObject.name = CurrentRooms + "";
             var mainModuleExits = mainModule.GetExits();
@@ -101,8 +100,7 @@ public class ModularWorldGenerator : MonoBehaviour {
 
         var finalExits = mainPath.Last().GetExits().Where(e => e.IsMatched() != true).ToArray();
         var finalExit = GetRandom(finalExits);
-        //var finalTag = GetRandom(finalExit.Tags);
-        var finalModule = (Module)Instantiate(EndModule);
+        var finalModule = (Module)Instantiate(Database.getEndRoom());
         finalModule.gameObject.name = "Final";
         var finalModuleExits = finalModule.GetExits();
         var finalExitToMatch = finalModuleExits.FirstOrDefault(x => x.IsDefault) ?? GetRandom(finalModuleExits);
@@ -128,6 +126,23 @@ public class ModularWorldGenerator : MonoBehaviour {
 
     }
 
+    private Module GetRandomMatchingTile(ModuleConnector mainExit) {
+        var exitsToTest = mainExit.Tags;
+        var testTag = "";
+        while (exitsToTest.Length>0) {
+            testTag = GetRandom(exitsToTest);
+            if (Modules.Where(e => e.Tags.Contains(testTag) && !e.Tags.Contains("deadend")).Count() == 0) {
+                exitsToTest = exitsToTest.Where(e => e != testTag).ToArray();
+                testTag = "";
+            } else { break; }
+         }
+        if (testTag != "") {
+            return GetRandom<Module>(Modules.Where(e => e.Tags.Contains(testTag) && !e.Tags.Contains("deadend")).ToArray());
+        } else {
+            return GetRandom<Module>(Modules.Where(e => e.Tags.Contains(FALLBACK_TAG) && !e.Tags.Contains("deadend")).ToArray());
+        }
+    }
+
     private void CleanUp() {
         pendingExits = new List<ModuleConnector>(pendingExits.Where(e => e != null));
     }
@@ -135,12 +150,11 @@ public class ModularWorldGenerator : MonoBehaviour {
     private void BuildAdditionalRooms() {
 
         int save = 0;
-        while (CurrentRooms <= MaxRoomCount && pendingExits.Count() > 0 && save < 100) {
+        while (CurrentRooms < genParams.maxRoomCount && pendingExits.Count() > 0 && save < 100) {
             save++;
 
             var newExit = GetRandom(pendingExits.ToArray());
-            var newTag = GetRandom(newExit.Tags);
-            var newModulePrefab = GetRandomWithTag(Modules, newTag);
+            var newModulePrefab = GetRandomMatchingTile(newExit);
             var newModule = (Module)Instantiate(newModulePrefab);
             newModule.gameObject.name = CurrentRooms + "";
             var newModuleExits = newModule.GetExits();
@@ -178,9 +192,8 @@ public class ModularWorldGenerator : MonoBehaviour {
     private void BuildPathEndings() {
 
         foreach (var pendingExit in pendingExits) {
-            if (Random.value < EndRoomChance) {
-                //var newTag = GetRandom(pendingExit.Tags);
-                var newModulePrefab = GetRandom((Modules.Where(e => e.GetExits().Count() == 1).ToArray()));
+            if (Random.value < genParams.endRoomChance) {
+                var newModulePrefab = GetRandomMatchingTile(pendingExit);
                 var newModule = (Module)Instantiate(newModulePrefab);
                 newModule.gameObject.name = CurrentRooms + "";
 
@@ -284,7 +297,7 @@ public class ModularWorldGenerator : MonoBehaviour {
             var correctiveTranslation = oldExit.transform.position - newExit.transform.position;
             newModule.transform.position += correctiveTranslation;
         } catch (MissingReferenceException e) {
-            Debug.Log("Missing Ref catched");
+            Debug.Log("Missing Ref catched: "+e.Message);
         }
     }
 
@@ -306,7 +319,7 @@ public class ModularWorldGenerator : MonoBehaviour {
 
     // OTHER UTILITY
     private static TItem GetRandom<TItem>(TItem[] array) {
-        return array[Random.Range(0, array.Length)];
+            return array[Random.Range(0, array.Length)];
     }
 
     private static Module GetRandomWithTag(IEnumerable<Module> modules, string tagToMatch) {
