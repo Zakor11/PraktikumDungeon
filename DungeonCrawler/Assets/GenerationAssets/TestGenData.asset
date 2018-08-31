@@ -11,5 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2b57b2d14a56454a8bf3ed62ebc3186, type: 3}
   m_Name: TestGenData
   m_EditorClassIdentifier: 
-  database: {fileID: 0}
-  genParams: {fileID: 0}
+  database: {fileID: 11400000, guid: c061bff60416d454da0810754edd01a0, type: 2}
+  genParams: {fileID: 11400000, guid: ba6dd1ba93dd0784fbca7b4b67032a1e, type: 2}

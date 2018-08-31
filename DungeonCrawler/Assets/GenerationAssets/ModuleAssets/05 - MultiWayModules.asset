@@ -8,7 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a431da7c84bcb0f4d85d0dd82e42e42a, type: 3}
-  m_Name: FourWayModules
+  m_Script: {fileID: 11500000, guid: 49f53bed5f7bc0a498105601ca7586a7, type: 3}
+  m_Name: 05 - MultiWayModules
   m_EditorClassIdentifier: 
   modules: []

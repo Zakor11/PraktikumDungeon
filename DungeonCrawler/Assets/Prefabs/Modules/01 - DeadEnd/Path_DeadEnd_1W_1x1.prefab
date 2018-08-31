@@ -185,7 +185,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a3ca7bcd69ac0429638843420da499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tags:
-  - corridor
-  - deadend
+  tags: 10
   ConnectorPreset: {fileID: 0}

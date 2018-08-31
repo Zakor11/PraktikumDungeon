@@ -3,11 +3,17 @@ guid: ef11b7e24dc078749bb3cd88bc51f9d4
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
+    100000: locator1
+    100002: locator2
+    100004: //RootNode
+    100006: pCube1
+    400000: locator1
+    400002: locator2
+    400004: //RootNode
+    400006: pCube1
     2100000: lambert1
-    2300000: //RootNode
-    3300000: //RootNode
+    2300000: pCube1
+    3300000: pCube1
     4300000: pCube1
   externalObjects: {}
   materials:

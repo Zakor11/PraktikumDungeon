@@ -3,7 +3,8 @@ using UnityEngine.AI;
 
 public class ModuleConnector : MonoBehaviour
 {
-	public string[] Tags;
+    [SerializeField][EnumFlagsAttribute]
+    public TileTagsEnum tags;
 	public bool IsDefault;
     private bool ExitMatched;
     private ModuleConnector otherSide;
@@ -42,10 +43,8 @@ public class ModuleConnector : MonoBehaviour
     public ModuleConnector getOtherSide() {
         return otherSide;
     }
-    public void UpdateArrows() {
-        SendMessageUpwards("UpdateModuleArrows");
-        otherSide.SendMessageUpwards("UpdateModuleArrows");
 
-        player.destination = otherSide.GetComponentInParent<Renderer>().bounds.center;
+    public bool hasTag(TileTagsEnum tag) {
+        return (tags & tag) != TileTagsEnum.None;
     }
 }

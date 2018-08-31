@@ -9,7 +9,7 @@ public class ModularWorldGenerator : MonoBehaviour {
     private ModuleDatabase Database;
     private Module[] Modules;
     public GameObject player;
-  
+
     private int LastCount = -1;
     private int timesSameIteration = 0;
     private int CurrentRooms = 0;
@@ -17,10 +17,10 @@ public class ModularWorldGenerator : MonoBehaviour {
     private List<Module> mainPath = new List<Module>();
     private List<ModuleConnector> pendingExits = new List<ModuleConnector>();
 
-    public const string FALLBACK_TAG = "corridor";
+    public const TileTagsEnum FALLBACK_TAG = TileTagsEnum.Corridor;
 
     void Start() {
-        
+
         BuildMainPath();
 
         CleanUp();
@@ -33,7 +33,7 @@ public class ModularWorldGenerator : MonoBehaviour {
 
         SpawnPlayer();
 
-        mainPath.First().UpdateModuleArrows();
+        //mainPath.First().UpdateModuleArrows();
     }
 
     private void Awake() {
@@ -91,7 +91,7 @@ public class ModularWorldGenerator : MonoBehaviour {
                 exitToMatch.SetMatched(true);
                 exitToMatch.setOtherSide(mainExit);
                 mainPath.Add(mainModule);
-                mainModule.GetComponent<MeshRenderer>().material.color = Color.red;
+                mainModule.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
                 pendingExits.AddRange(mainExits.Where(e => e.IsMatched() != true));
                 CurrentRooms++;
             }
@@ -127,19 +127,12 @@ public class ModularWorldGenerator : MonoBehaviour {
     }
 
     private Module GetRandomMatchingTile(ModuleConnector mainExit) {
-        var exitsToTest = mainExit.Tags;
-        var testTag = "";
-        while (exitsToTest.Length>0) {
-            testTag = GetRandom(exitsToTest);
-            if (Modules.Where(e => e.Tags.Contains(testTag) && !e.Tags.Contains("deadend")).Count() == 0) {
-                exitsToTest = exitsToTest.Where(e => e != testTag).ToArray();
-                testTag = "";
-            } else { break; }
-         }
-        if (testTag != "") {
-            return GetRandom<Module>(Modules.Where(e => e.Tags.Contains(testTag) && !e.Tags.Contains("deadend")).ToArray());
+        //module tags match at least one exittag and modules aren't a deadend
+        var possibleModules = Modules.Where(e => e.hasTag(mainExit.tags) && !e.hasTag(TileTagsEnum.DeadEnd));
+        if (possibleModules.Count()>0) {
+            return GetRandom<Module>(possibleModules.ToArray());
         } else {
-            return GetRandom<Module>(Modules.Where(e => e.Tags.Contains(FALLBACK_TAG) && !e.Tags.Contains("deadend")).ToArray());
+            return GetRandom<Module>(Modules.Where(e => e.hasTag(FALLBACK_TAG) && !e.hasTag(TileTagsEnum.DeadEnd)).ToArray());
         }
     }
 
@@ -297,7 +290,7 @@ public class ModularWorldGenerator : MonoBehaviour {
             var correctiveTranslation = oldExit.transform.position - newExit.transform.position;
             newModule.transform.position += correctiveTranslation;
         } catch (MissingReferenceException e) {
-            Debug.Log("Missing Ref catched: "+e.Message);
+            Debug.Log("Missing Ref catched: " + e.Message);
         }
     }
 
@@ -313,21 +306,21 @@ public class ModularWorldGenerator : MonoBehaviour {
         Camera.main.GetComponent<FollowCam>().target = newPlayer.transform;
         newPlayer.gameObject.AddComponent<NavMeshAgent>();
         newPlayer.gameObject.AddComponent<MoveToClickPoint>();
-       
+
     }
 
 
     // OTHER UTILITY
     private static TItem GetRandom<TItem>(TItem[] array) {
-            return array[Random.Range(0, array.Length)];
+        return array[Random.Range(0, array.Length)];
     }
 
-    private static Module GetRandomWithTag(IEnumerable<Module> modules, string tagToMatch) {
-        //Debug.Log("Modules: "+modules.Count());
-        var matchingModules = modules.Where(m => m.Tags.Contains(tagToMatch)).ToArray();
-        //Debug.Log("Matching Modules for "+tagToMatch+": "+matchingModules.Count());
-        return GetRandom(matchingModules);
-    }
+    //private static Module GetRandomWithTag(IEnumerable<Module> modules, string tagToMatch) {
+    //    //Debug.Log("Modules: "+modules.Count());
+    //    var matchingModules = modules.Where(m => m.Tags.Contains(tagToMatch)).ToArray();
+    //    //Debug.Log("Matching Modules for "+tagToMatch+": "+matchingModules.Count());
+    //    return GetRandom(matchingModules);
+    //}
 
 
     private static float Azimuth(Vector3 vector) {

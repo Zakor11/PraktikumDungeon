@@ -1,9 +1,26 @@
 ﻿using UnityEngine;
 
-public class Module : MonoBehaviour {
-    public string[] Tags;
-    public ClickableRoomConnection ConnectorPreset;
+[System.Flags]
+public enum TileTagsEnum : int {
+    None = 0x00,
+    Room = 1,
+    Corridor = 2,
+    Junction = 4,
+    DeadEnd = 8,
+    Start = 16,
+    Path = 32,
+    Entrance = 64,
+    Outdoor = 128
+}
 
+
+public class Module : MonoBehaviour {
+
+    [SerializeField] [EnumFlagsAttribute]
+    public TileTagsEnum tags;
+
+    public ClickableRoomConnection ConnectorPreset;
+    
     public ModuleConnector[] GetExits() {
         return GetComponentsInChildren<ModuleConnector>();
     }
@@ -11,18 +28,8 @@ public class Module : MonoBehaviour {
         return GetComponentsInChildren<PlayerSpawn>();
     }
 
-    public void UpdateModuleArrows() {
-
-        foreach (ModuleConnector exit in GetExits()) {
-            if (exit.GetComponentInChildren<ClickableRoomConnection>() == null) {
-                ClickableRoomConnection connection = (ClickableRoomConnection)Instantiate(ConnectorPreset, exit.transform.position+new Vector3(0,1,0), exit.transform.rotation);
-                connection.transform.parent = exit.transform;
-            } else {
-                var connector = exit.GetComponentInChildren<ClickableRoomConnection>();
-                connector.gameObject.SetActive(!connector.gameObject.activeSelf);
-            }
-        }
+    public bool hasTag(TileTagsEnum tag) {
+        return (tags & tag) != TileTagsEnum.None;
     }
-
 }
 

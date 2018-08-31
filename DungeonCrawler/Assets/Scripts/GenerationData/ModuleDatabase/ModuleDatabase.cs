@@ -53,12 +53,12 @@ public class ModuleDatabase : ScriptableObject {
             case 5:
             case 4:
             case 3:
-                StartRoom = threeWays.getModulesFromData().Find(e => e.Tags.Equals("Start"));
+                //StartRoom = threeWays.getModulesFromData().Find(e => e.Tags.Equals("Start"));
                 break;
             case 2:
                 IEnumerable<Module> Twomodules = twoWays.getModulesFromData();
-                StartRoom = Twomodules.Where(e => e.Tags.Contains("Start")).ToArray().First();
-                Debug.Log(StartRoom == null);
+                StartRoom = Twomodules.Where(e => e.hasTag(TileTagsEnum.Start)).First();
+                Debug.Log("Startraum gefunden: "+ (StartRoom != null));
                 break;
             default:
                 Debug.LogError("Unknown Identifier for maxExits");

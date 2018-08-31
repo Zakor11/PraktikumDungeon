@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 935a2a74d64125c4e9e5f3e3ccff0e63
+guid: 1e503e973d908b84f97b392aa567e10e
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -59,7 +59,7 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
     previousCalculatedGlobalScale: 1
     hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
