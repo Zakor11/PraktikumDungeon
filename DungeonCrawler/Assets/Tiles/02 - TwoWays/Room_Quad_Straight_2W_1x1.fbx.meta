@@ -4,11 +4,20 @@ ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
+    100002: locator26
+    100004: locator27
+    100006: pCube14
     400000: //RootNode
+    400002: locator26
+    400004: locator27
+    400006: pCube14
     2100000: lambert1
     2300000: //RootNode
+    2300002: pCube14
     3300000: //RootNode
+    3300002: pCube14
     4300000: pCube14
+    6400000: pCube14
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -42,7 +51,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1

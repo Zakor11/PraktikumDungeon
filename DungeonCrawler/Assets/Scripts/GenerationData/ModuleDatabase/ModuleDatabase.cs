@@ -10,7 +10,7 @@ public class ModuleDatabase : ScriptableObject {
     public ThreeWayModuleData threeWays;
     public FourWayModuleData fourWays;
     public MultiWayModuleData multiWays;
-    private Module StartRoom;
+    private Module[] StartRooms;
     public Module EndRoom;
 
     // Use this for initialization
@@ -49,25 +49,27 @@ public class ModuleDatabase : ScriptableObject {
     }
 
     private void initStartAndEnd(int maxExits) {
+        List<Module> starts = new List<Module>();
         switch (maxExits) {
             case 5:
             case 4:
             case 3:
-                //StartRoom = threeWays.getModulesFromData().Find(e => e.Tags.Equals("Start"));
-                break;
+                starts.AddRange(threeWays.getModulesFromData().Where(e => e.hasTag(TileTagsEnum.Start)));
+                goto case 2;
             case 2:
-                IEnumerable<Module> Twomodules = twoWays.getModulesFromData();
-                StartRoom = Twomodules.Where(e => e.hasTag(TileTagsEnum.Start)).First();
-                Debug.Log("Startraum gefunden: "+ (StartRoom != null));
+                starts.AddRange(twoWays.getModulesFromData().Where(e => e.hasTag(TileTagsEnum.Start)));
+                starts.AddRange(oneWays.getModulesFromData().Where(e => e.hasTag(TileTagsEnum.Start)));
+                Debug.Log("Starträume gefunden: " + (StartRooms.Length > 0));
                 break;
             default:
                 Debug.LogError("Unknown Identifier for maxExits");
                 break;
         }
+        StartRooms = starts.ToArray();
     }
 
-    public Module getStartRoom() {
-        return StartRoom;
+    public Module[] getStartRooms() {
+        return StartRooms;
     }
     public Module getEndRoom() {
         return EndRoom;

@@ -12,5 +12,14 @@ MonoBehaviour:
   m_Name: 02 - TwoWayModules
   m_EditorClassIdentifier: 
   modules:
+  - {fileID: 114367312634258132, guid: 8f702cb312d32f549a0054412c288dd8, type: 2}
+  - {fileID: 114520540755512388, guid: 84b4c649f34e810488d05a3c02e7e7e2, type: 2}
+  - {fileID: 114908759093651760, guid: 0d12684acd46894468aaf4fd4856b796, type: 2}
+  - {fileID: 114160920688075562, guid: 6c1c9fa1078eecb45a9d25323c7bef7f, type: 2}
+  - {fileID: 114287981156296570, guid: 3b0104243324d794b9fd002f02dec223, type: 2}
+  - {fileID: 114869462638280944, guid: 58b4001a4cb10c74a809f03e947acecd, type: 2}
+  - {fileID: 114605251072368306, guid: 9f0a71f53dd55cd47b563d7a64246a1e, type: 2}
   - {fileID: 114100967035909762, guid: e0e5701794c88f74a960db453ab827a8, type: 2}
-  - {fileID: 114029147391349714, guid: e64bf6c13c55ccc48b8ffbead876561c, type: 2}
+  - {fileID: 114368023709367442, guid: c0917bd8a38bbaa4a8d5ee0b9ad26bcd, type: 2}
+  - {fileID: 114129187055428406, guid: e64bf6c13c55ccc48b8ffbead876561c, type: 2}
+  - {fileID: 114520540755512388, guid: ceb97cf2eeaee8c499d2c12c70935005, type: 2}

@@ -16,4 +16,4 @@ MonoBehaviour:
   threeWays: {fileID: 11400000, guid: 96bc47bbb794b5b49a5d3b19a444a18b, type: 2}
   fourWays: {fileID: 11400000, guid: c48c7e4e39f530a4fa996746319026f5, type: 2}
   multiWays: {fileID: 11400000, guid: f3f1dca86d079ef4eb351f9d447b2f60, type: 2}
-  EndRoom: {fileID: 114312261132318088, guid: dfb5021be1047fc4cb36d6a0a2937cf0, type: 2}
+  EndRoom: {fileID: 114059607645914646, guid: dfb5021be1047fc4cb36d6a0a2937cf0, type: 2}

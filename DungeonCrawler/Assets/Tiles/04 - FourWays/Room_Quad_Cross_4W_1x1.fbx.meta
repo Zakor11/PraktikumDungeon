@@ -1,14 +1,24 @@
 fileFormatVersion: 2
-guid: 935a2a74d64125c4e9e5f3e3ccff0e63
+guid: 3a800ba685ee5da4c903df62359a7643
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
+    100000: locator31
+    100002: locator32
+    100004: locator33
+    100006: locator34
+    100008: pCube16
+    100010: //RootNode
+    400000: locator31
+    400002: locator32
+    400004: locator33
+    400006: locator34
+    400008: pCube16
+    400010: //RootNode
     2100000: lambert1
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: pCube13
+    2300000: pCube16
+    3300000: pCube16
+    4300000: pCube16
   externalObjects: {}
   materials:
     importMaterials: 1

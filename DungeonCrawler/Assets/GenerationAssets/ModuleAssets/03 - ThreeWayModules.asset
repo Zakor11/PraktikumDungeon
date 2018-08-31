@@ -11,4 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 286577387b53fda48814fab7867fe342, type: 3}
   m_Name: 03 - ThreeWayModules
   m_EditorClassIdentifier: 
-  modules: []
+  modules:
+  - {fileID: 114265293381743284, guid: ca377989753c911459d9ea41c2c2b844, type: 2}
+  - {fileID: 114344197561285264, guid: 719119e23a546f341baced004d60b425, type: 2}
+  - {fileID: 114438050979503884, guid: 2a57244352759454cb9ff6d95760abc8, type: 2}

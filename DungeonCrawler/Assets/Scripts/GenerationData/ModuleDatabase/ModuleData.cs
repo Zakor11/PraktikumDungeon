@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class ModuleData : UpdatableData {
 
     [SerializeField]
-    private Module[] modules;
+    protected Module[] modules;
 
     public List<Module> getModulesFromData() {
         return new List<Module>(modules);
