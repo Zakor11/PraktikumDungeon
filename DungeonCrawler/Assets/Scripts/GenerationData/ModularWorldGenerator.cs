@@ -8,7 +8,7 @@ public class ModularWorldGenerator : MonoBehaviour {
 
     public LevelGenData levelGenData;
     public GameObject player;
-    //public MovementController moveControllerPrefab;
+    public MovementController moveControllerPrefab;
 
     private LevelParams genParams;
     private ModuleDatabase Database;
@@ -280,7 +280,7 @@ public class ModularWorldGenerator : MonoBehaviour {
         Camera.main.GetComponent<FollowCam>().target = newPlayer.transform;
         newPlayer.gameObject.AddComponent<NavMeshAgent>();
         newPlayer.tag = "Player";
-        //MovementController movementController = Instantiate(moveControllerPrefab);
+        MovementController movementController = Instantiate(moveControllerPrefab);
 
     }
 
