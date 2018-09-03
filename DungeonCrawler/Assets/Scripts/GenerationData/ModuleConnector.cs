@@ -8,7 +8,6 @@ public class ModuleConnector : MonoBehaviour
 	public bool IsDefault;
     private bool ExitMatched;
     private ModuleConnector otherSide;
-    public NavMeshAgent player;
 
     void OnDrawGizmos()
 	{

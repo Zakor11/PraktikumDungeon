@@ -4,11 +4,15 @@ using UnityEngine.AI;
 using System.Collections.Generic;
 
 public class ModularWorldGenerator : MonoBehaviour {
+    public const TileTagsEnum FALLBACK_TAG = TileTagsEnum.Corridor;
+
     public LevelGenData levelGenData;
+    public GameObject player;
+    //public MovementController moveControllerPrefab;
+
     private LevelParams genParams;
     private ModuleDatabase Database;
     private Module[] Modules;
-    public GameObject player;
 
     private int LastCount = -1;
     private int timesSameIteration = 0;
@@ -17,14 +21,12 @@ public class ModularWorldGenerator : MonoBehaviour {
     private List<Module> mainPath = new List<Module>();
     private List<ModuleConnector> pendingExits = new List<ModuleConnector>();
 
-    public const TileTagsEnum FALLBACK_TAG = TileTagsEnum.Corridor;
-
     private void Awake() {
         Database = levelGenData.database;
         genParams = levelGenData.genParams;
         Modules = Database.getModulesWithMaxExits(genParams.maxExits);
         Random.InitState(genParams.seed);
-        var startModule = (Module)Instantiate(GetRandom(Database.getStartRooms()), transform.position, transform.rotation);
+        var startModule = Instantiate(GetRandom(Database.getStartRooms()), transform.position, transform.rotation);
         startModule.gameObject.name = "Start";
         mainPath.Add(startModule);
         CurrentRooms++;
@@ -257,7 +259,7 @@ public class ModularWorldGenerator : MonoBehaviour {
         try {
             var newModule = newExit.transform.parent;
             var forwardVectorToMatch = -oldExit.transform.forward;
-            var correctiveRotation = Azimuth(forwardVectorToMatch) - Azimuth(newExit.transform.forward);
+            var correctiveRotation = Helper.Azimuth(forwardVectorToMatch) - Helper.Azimuth(newExit.transform.forward);
             newModule.RotateAround(newExit.transform.position, Vector3.up, correctiveRotation);
             var correctiveTranslation = oldExit.transform.position - newExit.transform.position;
             newModule.transform.position += correctiveTranslation;
@@ -277,7 +279,8 @@ public class ModularWorldGenerator : MonoBehaviour {
         Debug.Log("Player created");
         Camera.main.GetComponent<FollowCam>().target = newPlayer.transform;
         newPlayer.gameObject.AddComponent<NavMeshAgent>();
-        newPlayer.gameObject.AddComponent<MoveToClickPoint>();
+        newPlayer.tag = "Player";
+        //MovementController movementController = Instantiate(moveControllerPrefab);
 
     }
 
@@ -305,9 +308,5 @@ public class ModularWorldGenerator : MonoBehaviour {
         } else {
             return GetRandom<Module>(Modules.Where(e => e.hasTag(FALLBACK_TAG) && !e.hasTag(TileTagsEnum.DeadEnd)).ToArray());
         }
-    }
-
-    private static float Azimuth(Vector3 vector) {
-        return Vector3.Angle(Vector3.forward, vector) * Mathf.Sign(vector.x);
     }
 }

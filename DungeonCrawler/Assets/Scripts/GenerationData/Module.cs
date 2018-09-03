@@ -18,8 +18,6 @@ public class Module : MonoBehaviour {
 
     [SerializeField] [EnumFlagsAttribute]
     public TileTagsEnum tags;
-
-    public ClickableRoomConnection ConnectorPreset;
     
     public ModuleConnector[] GetExits() {
         return GetComponentsInChildren<ModuleConnector>();

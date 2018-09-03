@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114599947882526770}
   m_Layer: 0
   m_Name: ModuleConnector
-  m_TagString: Untagged
+  m_TagString: back
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -171,7 +171,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tags: 10
-  ConnectorPreset: {fileID: 0}
 --- !u!114 &114599947882526770
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -185,7 +184,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: 7
   IsDefault: 0
-  player: {fileID: 0}
 --- !u!114 &114911960831604546
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -211,6 +209,6 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.06666667
+  m_VoxelSize: 0.033333335
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 0}
