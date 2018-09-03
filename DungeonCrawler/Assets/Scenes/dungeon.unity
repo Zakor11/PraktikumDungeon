@@ -208,6 +208,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelGenData: {fileID: 11400000, guid: 59819d4fea6ae3040ae0c769b64ea048, type: 2}
   player: {fileID: 113348, guid: 54eb5844754051b40a918a84c33b7c1a, type: 2}
+  moveControllerPrefab: {fileID: 114821245240045748, guid: c55267442dd0444448348820d118bb56,
+    type: 2}
 --- !u!4 &130733799
 Transform:
   m_ObjectHideFlags: 0
