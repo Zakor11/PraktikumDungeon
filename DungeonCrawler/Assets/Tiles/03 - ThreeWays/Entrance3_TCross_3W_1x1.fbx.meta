@@ -8,15 +8,52 @@ ModelImporter:
     100004: locator71
     100006: locator72
     100008: pCube29
+    100010: Floor
+    100012: MovePoint
+    100014: Railing021
+    100016: Railing022
+    100018: Railing023
+    100020: Railing024
+    100022: Railing025
+    100024: Railing026
     400000: //RootNode
     400002: locator69
     400004: locator71
     400006: locator72
     400008: pCube29
+    400010: Floor
+    400012: MovePoint
+    400014: Railing021
+    400016: Railing022
+    400018: Railing023
+    400020: Railing024
+    400022: Railing025
+    400024: Railing026
     2100000: lambert1
     2300000: pCube29
+    2300002: Floor
+    2300004: Railing021
+    2300006: Railing022
+    2300008: Railing023
+    2300010: Railing024
+    2300012: Railing025
+    2300014: Railing026
     3300000: pCube29
+    3300002: Floor
+    3300004: Railing021
+    3300006: Railing022
+    3300008: Railing023
+    3300010: Railing024
+    3300012: Railing025
+    3300014: Railing026
     4300000: pCube29
+    4300002: Floor
+    4300004: Railing024
+    4300006: Railing023
+    4300008: Railing022
+    4300010: Railing021
+    4300012: Railing026
+    4300014: Railing025
   externalObjects: {}
   materials:
     importMaterials: 1

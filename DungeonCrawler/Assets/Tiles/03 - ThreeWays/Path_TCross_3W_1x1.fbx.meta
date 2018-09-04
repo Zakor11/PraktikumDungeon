@@ -8,11 +8,13 @@ ModelImporter:
     100004: locator5
     100006: //RootNode
     100008: pCube2
+    100010: MovePoint
     400000: locator3
     400002: locator4
     400004: locator5
     400006: //RootNode
     400008: pCube2
+    400010: MovePoint
     2100000: lambert1
     2300000: pCube2
     3300000: pCube2

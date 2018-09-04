@@ -9,16 +9,63 @@ ModelImporter:
     100006: locator23
     100008: locator24
     100010: polySurface7
+    100012: Floor
+    100014: MovePoint
+    100016: Wall01
+    100018: Wall02
+    100020: Wall03
+    100022: Wall04
+    100024: Wall05
+    100026: Wall06
+    100028: Wall07
+    100030: Wall09
     400000: //RootNode
     400002: locator21
     400004: locator22
     400006: locator23
     400008: locator24
     400010: polySurface7
+    400012: Floor
+    400014: MovePoint
+    400016: Wall01
+    400018: Wall02
+    400020: Wall03
+    400022: Wall04
+    400024: Wall05
+    400026: Wall06
+    400028: Wall07
+    400030: Wall09
     2100000: lambert1
     2300000: polySurface7
+    2300002: Floor
+    2300004: Wall01
+    2300006: Wall02
+    2300008: Wall03
+    2300010: Wall04
+    2300012: Wall05
+    2300014: Wall06
+    2300016: Wall07
+    2300018: Wall09
     3300000: polySurface7
+    3300002: Floor
+    3300004: Wall01
+    3300006: Wall02
+    3300008: Wall03
+    3300010: Wall04
+    3300012: Wall05
+    3300014: Wall06
+    3300016: Wall07
+    3300018: Wall09
     4300000: polySurface7
+    4300002: Floor
+    4300004: Wall01
+    4300006: Wall02
+    4300008: Wall03
+    4300010: Wall04
+    4300012: Wall05
+    4300014: Wall06
+    4300016: Wall07
+    4300018: Wall09
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -69,7 +116,7 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
     previousCalculatedGlobalScale: 1
     hasPreviousCalculatedGlobalScale: 0
   tangentSpace:

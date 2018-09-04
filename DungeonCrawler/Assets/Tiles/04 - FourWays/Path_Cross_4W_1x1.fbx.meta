@@ -9,12 +9,14 @@ ModelImporter:
     100006: locator9
     100008: //RootNode
     100010: pCube5
+    100012: MovePoint
     400000: locator10
     400002: locator11
     400004: locator12
     400006: locator9
     400008: //RootNode
     400010: pCube5
+    400012: MovePoint
     2100000: lambert1
     2300000: pCube5
     3300000: pCube5
@@ -69,7 +71,7 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
     previousCalculatedGlobalScale: 1
     hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
