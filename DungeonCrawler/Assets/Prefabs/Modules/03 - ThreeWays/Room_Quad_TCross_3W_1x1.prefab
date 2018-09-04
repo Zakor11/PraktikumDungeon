@@ -260,9 +260,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 511df0b57e059d34bbc82570cc741269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tags: 75
+  tags: 79
   IsDefault: 0
-  player: {fileID: 0}
 --- !u!114 &114226881867299306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -286,9 +285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 511df0b57e059d34bbc82570cc741269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tags: 75
+  tags: 79
   IsDefault: 0
-  player: {fileID: 0}
 --- !u!114 &114438050979503884
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -301,7 +299,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tags: 17
-  ConnectorPreset: {fileID: 0}
 --- !u!114 &114502308512749698
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -327,7 +324,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.033333335
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 0}
 --- !u!114 &114836804753350682
@@ -341,6 +338,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 511df0b57e059d34bbc82570cc741269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tags: 75
+  tags: 79
   IsDefault: 0
-  player: {fileID: 0}

@@ -96,7 +96,7 @@ public class MovementController : MonoBehaviour {
                 default:
                     break;
             }
-            if (agentDestinationModuleConnector != null) {
+            if (agentDestinationModuleConnector != null && agentDestinationModuleConnector.getOtherSide()!=null) {
                 agent.destination = agentDestinationModuleConnector.getOtherSide().GetComponentInParent<Module>().GetComponentInChildren<Renderer>().bounds.center;
                 disableArrows(currentModule);
             }
