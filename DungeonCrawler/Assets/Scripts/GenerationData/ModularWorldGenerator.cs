@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections.Generic;
+using TMPro;
 
 public class ModularWorldGenerator : MonoBehaviour {
     public const TileTagsEnum FALLBACK_TAG = TileTagsEnum.Corridor;
@@ -74,63 +75,62 @@ public class ModularWorldGenerator : MonoBehaviour {
             LastCount = mainPath.Count();
 
             var mainExits = mainPath.Last().GetExits();
-            var mainExit = GetRandom(mainPath.Last().GetExits().Where(e => e.IsMatched() != true).ToArray());
-            var mainModulePrefab = GetRandomMatchingTile(mainExit, false);
-            var mainModule = (Module)Instantiate(mainModulePrefab);
-            mainModule.gameObject.name = CurrentRooms + "";
-            var exitToMatch = GetRandomExitWithTag(mainModule, mainExit.GetComponentInParent<Module>().tags);
-            MatchExits(mainExit, exitToMatch);
+            var mainExitToMatch = GetRandom(mainPath.Last().GetExits().Where(e => e.IsMatched() != true).ToArray());
+            var newMainModulePrefab = GetRandomMatchingTile(mainExitToMatch, false);
+            var newMainModule = (Module)Instantiate(newMainModulePrefab);
+            newMainModule.gameObject.name = CurrentRooms + "";
+            var newModuleExitToMatch = GetRandomExitWithTag(newMainModule, mainExitToMatch.GetComponentInParent<Module>().tags);
+            MatchExits(mainExitToMatch, newModuleExitToMatch);
 
-            if (CollisionDetection(mainModule, mainExit.GetComponentInParent<Module>())) {
-                mainModule.gameObject.SetActive(false);
-                Debug.Log("Gameobject " + mainModule.name + " disabled");
-                GameObject.DestroyImmediate(mainModule.gameObject);
-                mainModule = null;
+            if (CollisionDetection(newMainModule, mainExitToMatch.GetComponentInParent<Module>())) {
+                newMainModule.gameObject.SetActive(false);
+                Debug.Log("Gameobject " + newMainModule.name + " disabled");
+                GameObject.DestroyImmediate(newMainModule.gameObject);
+                newMainModule = null;
             }
-
-            if (mainModule != null) {
-                mainExit.SetMatched(true);
-                mainExit.setOtherSide(exitToMatch);
-                exitToMatch.SetMatched(true);
-                exitToMatch.setOtherSide(mainExit);
-                mainModule.transform.parent = moduleHolder.transform;
-                mainPath.Add(mainModule);
-                mainModule.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
-                pendingExits.AddRange(mainExits.Where(e => e.IsMatched() != true));
+            
+            if (newMainModule != null) {
+                mainExitToMatch.SetMatched(true);
+                mainExitToMatch.setOtherSide(newModuleExitToMatch);
+                newModuleExitToMatch.SetMatched(true);
+                newModuleExitToMatch.setOtherSide(mainExitToMatch);
+                mainPath.Add(newMainModule);
+                newMainModule.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
+                pendingExits.AddRange(mainExits.Where(e => !e.IsMatched()));
                 CurrentRooms++;
             }
 
         }
 
-        var finalExits = mainPath.Last().GetExits().Where(e => e.IsMatched() != true).ToArray();
-        var finalExit = GetRandom(finalExits);
-        var finalModulePrefab = GetRandomMatchingTile(finalExit, true);
-        var finalModule = Instantiate(finalModulePrefab);
-        finalModule.gameObject.name = "Final";
-        var finalExitToMatch = GetRandomExitWithTag(finalModule, finalExit.GetComponentInParent<Module>().tags);
-        MatchExits(finalExit, finalExitToMatch);
+        var finalMainExits = mainPath.Last().GetExits().Where(e => e.IsMatched() != true).ToArray();
+        var finalMainExit = GetRandom(finalMainExits);
+        var endModulePrefab = GetRandomMatchingTile(finalMainExit, true);
+        var endModule = Instantiate(endModulePrefab);
+        endModule.gameObject.name = "Final";
+        var finalExitToMatch = GetRandomExitWithTag(endModule, finalMainExit.GetComponentInParent<Module>().tags);
+        MatchExits(finalMainExit, finalExitToMatch);
 
         CurrentRooms++;
-        mainPath.Add(finalModule);
-        if (CollisionDetection(finalModule, finalExit.GetComponentInParent<Module>())) {
+        mainPath.Add(endModule);
+        if (CollisionDetection(endModule, finalMainExit.GetComponentInParent<Module>())) {
             Backtrack(3);
             BuildMainPath();
         } else {
-            finalExit.SetMatched(true);
-            finalExit.setOtherSide(finalExitToMatch);
+            finalMainExit.SetMatched(true);
+            finalMainExit.setOtherSide(finalExitToMatch);
             finalExitToMatch.SetMatched(true);
-            finalExitToMatch.setOtherSide(finalExit);
-
-            finalModule.transform.parent = moduleHolder.transform;
-            pendingExits.AddRange(finalExits.Where(e => e.IsMatched() != true));
-            pendingExits.AddRange(finalModule.GetExits().Where(e => e.IsMatched() != true));
+            finalExitToMatch.setOtherSide(finalMainExit);
+            endModule.transform.parent = moduleHolder.transform;
+            pendingExits.AddRange(finalMainExits.Where(e => e.IsMatched() != true));
+            pendingExits.AddRange(endModule.GetExits().Where(e => e.IsMatched() != true));
         }
 
     }
 
     //Dirty Workaround for null in pending exits
     private void CleanUp() {
-        pendingExits = new List<ModuleConnector>(pendingExits.Where(e => e != null));
+        pendingExits = pendingExits.Where(e => e != null && !(e.IsMatched() || e.getOtherSide() != null)).ToList();
+
     }
 
     private void BuildAdditionalRooms() {
@@ -168,7 +168,7 @@ public class ModularWorldGenerator : MonoBehaviour {
 
     private void BuildPathEndings() {
 
-        for(int i=0;i<pendingExits.Count();i++) {
+        while (pendingExits.Count() > 0) {
             //if (Random.value < genParams.endRoomChance) {
             //    var newModulePrefab = GetRandomMatchingTile(pendingExit,true);
             //    var newModule = (Module)Instantiate(newModulePrefab);
@@ -200,43 +200,95 @@ public class ModularWorldGenerator : MonoBehaviour {
             //} else {
             //    pendingExit.gameObject.SetActive(false);
             //}
-            var pendingExit = pendingExits.ElementAt(i);
-            if (pendingExit.gameObject.activeSelf) {
-                var newModulePrefab = GetRandomMatchingTile(pendingExit, true);
+            var pendingExit = pendingExits.First();
+            if (pendingExit.gameObject.activeSelf && pendingExit.transform.parent.gameObject.activeSelf) {
+                Module newModulePrefab = GetRandomMatchingTile(pendingExit, true);
                 var newModule = (Module)Instantiate(newModulePrefab);
-                newModule.gameObject.name = CurrentRooms + "";
+                newModule.gameObject.name = "Endroom " + CurrentRooms;
 
                 var newModuleExits = newModule.GetExits();
-                var exitToMatch = newModuleExits.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newModuleExits);
+                ModuleConnector exitToMatch = GetRandomExitWithTag(newModule, pendingExit.GetComponentInParent<Module>().tags);
                 MatchExits(pendingExit, exitToMatch);
 
                 EndRoomCollisionHandling(newModule, pendingExit);
             }
+            pendingExits = pendingExits.Where(e => (!e.IsMatched() || e.getOtherSide() == null) && e.transform.parent.gameObject.activeSelf).ToList();
         }
-
     }
 
     private void EndRoomCollisionHandling(Module newModule, ModuleConnector currentModuleConnector) {
         var newModuleCollider = newModule.GetComponentInChildren<MeshCollider>();
         var currentModuleCollider = currentModuleConnector.GetComponentInParent<Module>().GetComponentInChildren<MeshCollider>();
         var possibleCollisions = Physics.OverlapSphere(newModuleCollider.bounds.center, newModuleCollider.bounds.extents.magnitude);
-        if (possibleCollisions.Where(e => e != newModuleCollider && e != currentModuleCollider && e.GetComponentInParent<Module>() != null).Count() == 1) {
-            var collidingModule = possibleCollisions.Where(e => e != newModuleCollider && e != currentModuleCollider && e.GetComponentInParent<Module>() != null).First().GetComponentInParent<Module>();
-            int exits = collidingModule.GetExits().Length;
-            newModule.gameObject.SetActive(false);
-            Debug.Log("Gameobject " + newModule.name + " disabled");
-            GameObject.Destroy(newModule.gameObject);
-            bool matched = FindMatchingModuleWithExits(exits + 1, currentModuleConnector, collidingModule);
-            Debug.Log("Endroommatching: " + matched);
+        var relevantCollisions = possibleCollisions.Where(e => e != newModuleCollider && e != currentModuleCollider && e.GetComponentInParent<Module>() != null);
+        int intersects = 0;
+        foreach (var collision in relevantCollisions) {
+            if (newModuleCollider.bounds.Intersects(collision.bounds)) {
+                intersects++;
+                Debug.Log("Relevante Collision für Tile " + newModule.name + ":" + collision.transform.parent.gameObject.name);
+            }
         }
+        Debug.Log("Relevante Collisions für Anschluss an Tile " + currentModuleConnector.transform.parent.name + ":" + intersects);
+        if (intersects > 0) {
+            var collidingModules = relevantCollisions.Where(e => e.bounds.IntersectRay(new Ray(currentModuleConnector.transform.position, currentModuleConnector.transform.forward))).ToList();
+            if (collidingModules.Count() > 0) {
+
+                if (collidingModules.Count() > 1) {
+                    Debug.Log("Need to sort raycast intersects");
+                    //collidingModules.ForEach(e => Debug.Log("Intersected Module: " + e.transform.parent.name));
+                    collidingModules
+                        .Sort((e1,e2) => e1.ClosestPoint(currentModuleConnector.transform.position).magnitude.CompareTo(e2.ClosestPoint(currentModuleConnector.transform.position).magnitude));
+                }
+                Module collidingModule = collidingModules.First().GetComponentInParent<Module>();
+                Debug.Log("Colliding Module to work with: " + collidingModule.name);
+
+
+                int exits = collidingModule.GetExits().Where(e => e.IsMatched()).Count();
+                newModule.gameObject.SetActive(false);
+                Debug.Log("DeadEnd " + newModule.name + " disabled");
+                GameObject.Destroy(newModule.gameObject);
+                bool exitsFit = checkIfExitsFitDirectly(currentModuleConnector, collidingModule);
+                bool matched = false;
+
+                Debug.Log("Exits to find: " + (exits + 1));
+                if (!exitsFit) {
+                    matched = FindMatchingModuleWithExits(exits + 1, currentModuleConnector, collidingModule);
+                }
+                Debug.Log("Endroommatching: " + (matched | exitsFit));
+                if (matched) {
+                    collidingModule.gameObject.SetActive(false);
+                    Destroy(collidingModule);
+                } else {
+                    //buildDeadendOutOfCurrentRoom();
+                    Debug.Log("No Match Case");
+                    collidingModule.gameObject.SetActive(true);
+                }
+            }
+        }
+        //currentModuleConnector.gameObject.SetActive(false);
+        pendingExits.Remove(currentModuleConnector);
         CurrentRooms++;
+
+    }
+    private bool checkIfExitsFitDirectly(ModuleConnector currentModuleConnector, Module collidingModule) {
+        var possibleExits = collidingModule.GetExits();
+        foreach (ModuleConnector exit in possibleExits) {
+            if (exit.transform.position.Equals(currentModuleConnector.transform.position)) {
+                exit.setOtherSide(currentModuleConnector);
+                currentModuleConnector.setOtherSide(exit);
+                exit.SetMatched(true);
+                currentModuleConnector.SetMatched(true);
+                return true;
+            }
+        }
+        return false;
     }
 
     private bool FindMatchingModuleWithExits(int exits, ModuleConnector exitToMatch, Module otherModule) {
         List<Collider> colliderList = new List<Collider> {
             exitToMatch.GetComponentInParent<Module>().GetComponentInChildren<MeshCollider>()
         };
-        foreach (ModuleConnector exit in otherModule.GetExits().Where(e => e.IsMatched())) {
+        foreach (ModuleConnector exit in otherModule.GetExits().Where(e => e.IsMatched() && e.getOtherSide() != null)) {
             var exitOfModuleToMatch = exit.getOtherSide();
             colliderList.Add(exitOfModuleToMatch.
                 GetComponentInParent<Module>().
@@ -246,7 +298,7 @@ public class ModularWorldGenerator : MonoBehaviour {
         var possibleModules = Modules.Where(e => e.GetExits().Count() == exits);
         List<ModuleConnector> exitsToMatch = new List<ModuleConnector>();
         exitsToMatch.Add(exitToMatch);
-        foreach (ModuleConnector exit in otherModule.GetExits()) {
+        foreach (ModuleConnector exit in otherModule.GetExits().Where(e => e.IsMatched() && e.getOtherSide() != null)) {
             exitsToMatch.Add(exit.getOtherSide());
         }
         for (int i = 0; i < possibleModules.Count(); i++) {
@@ -254,26 +306,37 @@ public class ModularWorldGenerator : MonoBehaviour {
 
             Module testedModulePrefab = possibleModules.ElementAt(i);
             Module testedModule = Instantiate(testedModulePrefab);
-
             while (rotations < 4) {
+                Debug.Log("Testing Module " + testedModule.name + " at " + (90 * rotations) + "°");
                 var exitsLeftToMatch = exitsToMatch;
-                foreach (ModuleConnector newModuleExit in testedModule.GetExits()) {
+                foreach (ModuleConnector testedModuleExit in testedModule.GetExits()) {
 
-                    exitsLeftToMatch = exitsLeftToMatch.Except(exitsLeftToMatch.Where(e => e.transform.forward == -newModuleExit.transform.forward &&
+                    exitsLeftToMatch = exitsLeftToMatch.Except(exitsLeftToMatch.Where(e => e.transform.forward == -testedModuleExit.transform.forward &&
                      e.hasTag(testedModule.tags) &&
-                     newModuleExit.hasTag(e.GetComponentInParent<Module>().tags))).ToList();
+                     testedModuleExit.hasTag(e.GetComponentInParent<Module>().tags))).ToList();
 
                 }
                 if (exitsLeftToMatch.Count() > 0) {
-                    Debug.Log(exitsLeftToMatch.Count());
+                    //Debug.Log(exitsLeftToMatch.Count());
                     exitsLeftToMatch = exitsToMatch;
                     testedModule.transform.Rotate(Vector3.up, 90);
                     rotations++;
                 } else {
-                    testedModule.transform.position -=
+                    var testedModuleExits = testedModule.GetExits();
+
+                    testedModule.gameObject.transform.position -=
                         (testedModule.GetExits().First().transform.position -
-                        exitsToMatch.Where(e => e.transform.forward == -testedModule.GetExits().First().transform.forward).First().transform.position);
+                        exitsToMatch.Where(e => e.transform.forward == -testedModuleExits.First().transform.forward).First().transform.position);
                     exitsToMatch.ForEach(e => e.SetMatched(true));
+                    exitsToMatch.ForEach(e => e.setOtherSide(testedModuleExits.Where(d => -d.transform.forward == e.transform.forward).First()));
+                    testedModuleExits.ToList().
+                        ForEach(e => e.setOtherSide(
+                            exitsToMatch.Where(d => -d.transform.forward == e.transform.forward)
+                            .First()));
+                    testedModuleExits.ToList().ForEach(e => e.SetMatched(true));
+
+                    testedModule.gameObject.name = "Endroom " + CurrentRooms;
+                    Debug.Log("Matching suceess: " + testedModule.gameObject.name);
                     return true;
                 }
             }
@@ -332,7 +395,7 @@ public class ModularWorldGenerator : MonoBehaviour {
         e != currentModuleCollider &&
         e.GetComponent<Module>() != null)) {
             if (newModule != null) {
-                Debug.Log("Collision of " + newModule.name + " with " + possibleCollision.gameObject.name + " :" + newModuleCollider.bounds.Intersects(possibleCollision.bounds));
+                Debug.Log("Collision of " + newModule.name + " with " + possibleCollision.transform.parent.name + " :" + newModuleCollider.bounds.Intersects(possibleCollision.bounds));
 
                 if (newModuleCollider.bounds.Intersects(possibleCollision.bounds)) {
                     return true;
@@ -381,15 +444,17 @@ public class ModularWorldGenerator : MonoBehaviour {
     private static ModuleConnector GetRandomExitWithTag(Module module, TileTagsEnum tagToMatch) {
         //Debug.Log("Modules: "+modules.Count());
         var possibleExits = module.GetExits();
-        var matchingExits = possibleExits.Where(e => (e.tags & tagToMatch) != TileTagsEnum.None);
+        var matchingExits = possibleExits.Where(e => (e.hasTag(tagToMatch)));
         //Debug.Log("Matching Modules for "+tagToMatch+": "+matchingModules.Count());
         return GetRandom<ModuleConnector>(matchingExits.ToArray());
     }
 
     private Module GetRandomMatchingTile(ModuleConnector mainExit, bool deadendNeeded) {
         //module tags match at least one exittag and have an exit that matches the current module and modules that match deadendneeded
+        Debug.Log("MainExit " + mainExit.tag + " of tile " + mainExit.transform.parent.name);
         var possibleModules = Modules.Where(e => e.hasTag(mainExit.tags) &&
-        e.GetComponentsInChildren<ModuleConnector>().Where(d => d.hasTag(mainExit.GetComponentInParent<Module>().tags)).Count() > 0 &&
+        e.GetComponentsInChildren<ModuleConnector>().
+        Where(d => d.hasTag(mainExit.GetComponentInParent<Module>().tags)).Count() > 0 &&
         e.hasTag(TileTagsEnum.DeadEnd) == deadendNeeded);
         if (possibleModules.Count() > 0) {
             return GetRandom<Module>(possibleModules.ToArray());
