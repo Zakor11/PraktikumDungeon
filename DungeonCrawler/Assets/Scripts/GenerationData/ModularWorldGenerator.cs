@@ -87,7 +87,6 @@ public class ModularWorldGenerator : MonoBehaviour {
                 GameObject.DestroyImmediate(newMainModule.gameObject);
                 newMainModule = null;
             }
-            
             if (newMainModule != null) {
                 mainExitToMatch.SetMatched(true);
                 mainExitToMatch.setOtherSide(newModuleExitToMatch);
