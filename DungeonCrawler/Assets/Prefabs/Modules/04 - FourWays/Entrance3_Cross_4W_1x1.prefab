@@ -795,7 +795,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1637769657868834}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 6, y: 3.5, z: 6}
@@ -837,6 +837,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: 11
   IsDefault: 0
+  ExitMatched: 0
+  otherSide: {fileID: 0}
 --- !u!114 &114345566423840034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -850,6 +852,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: 108
   IsDefault: 0
+  ExitMatched: 0
+  otherSide: {fileID: 0}
 --- !u!114 &114604651882275734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -863,6 +867,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: 11
   IsDefault: 0
+  ExitMatched: 0
+  otherSide: {fileID: 0}
 --- !u!114 &114971752689353090
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -876,6 +882,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: 11
   IsDefault: 0
+  ExitMatched: 0
+  otherSide: {fileID: 0}
 --- !u!208 &208043992369403546
 NavMeshObstacle:
   m_ObjectHideFlags: 1

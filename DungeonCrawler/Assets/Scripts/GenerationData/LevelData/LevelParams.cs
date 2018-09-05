@@ -18,6 +18,10 @@ public class LevelParams : UpdatableData {
         } else if (maxRoomCount > 3 * mainPathRooms) {
             maxRoomCount = 3 * mainPathRooms;
         }
+        if (mainPathRooms<1){
+            mainPathRooms = 1;
+            maxRoomCount = 1;
+        }
         base.OnValidate();
 
     }

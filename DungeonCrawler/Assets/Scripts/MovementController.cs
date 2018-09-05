@@ -26,12 +26,13 @@ public class MovementController : MonoBehaviour {
                 currentModule = possibleCollision.GetComponentInParent<Module>();
                 var exits = currentModule.GetExits();
                 foreach (ModuleConnector exit in exits) {
+#pragma warning disable CS0618 // Typ oder Element ist veraltet know, but unity is shit
+                    exit.gameObject.SetActiveRecursively(true);
+#pragma warning restore CS0618 // Typ oder Element ist veraltet
                     if (exit.GetComponentInChildren<HoveringArrow>() == null) {
                         HoveringArrow arrow = Instantiate(arrowPrefab, exit.transform.position + heightOffset, Quaternion.LookRotation(-exit.transform.forward));
                         arrow.transform.parent = exit.transform;
                     }
-                    if (!exit.GetComponentInChildren<HoveringArrow>().gameObject.activeSelf)
-                        exit.GetComponentInChildren<HoveringArrow>().gameObject.SetActive(true);
                 }
             }
             handleMovement();
@@ -48,8 +49,9 @@ public class MovementController : MonoBehaviour {
             Debug.Log("RotationTile: " + forwardVectorToMatch + ", Rotation Cam: " + Camera.main.transform.forward + ",Correction: " + correctiveRotation);
             ModuleConnector agentDestinationModuleConnector = null;
 
-            switch ((int)correctiveRotation) {
+            switch (Convert.ToInt32(correctiveRotation)) {
                 case 0:
+                    Debug.Log("no matching rotation for movement: " + Convert.ToInt32(correctiveRotation));
                     if (h < 0) {
                         agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "left");
                     } else if (h > 0) {
@@ -61,6 +63,7 @@ public class MovementController : MonoBehaviour {
                     }
                     break;
                 case 90:
+                    Debug.Log("no matching rotation for movement: " + Convert.ToInt32(correctiveRotation));
                     if (h < 0) {
                         agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "back");
                     } else if (h > 0) {
@@ -72,6 +75,7 @@ public class MovementController : MonoBehaviour {
                     }
                     break;
                 case -90:
+                    Debug.Log("no matching rotation for movement: " + Convert.ToInt32(correctiveRotation));
                     if (h < 0) {
                         agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "front");
                     } else if (h > 0) {
@@ -83,6 +87,7 @@ public class MovementController : MonoBehaviour {
                     }
                     break;
                 case 180:
+                    Debug.Log("no matching rotation for movement: " + Convert.ToInt32(correctiveRotation));
                     if (h < 0) {
                         agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "right");
                     } else if (h > 0) {
@@ -94,6 +99,7 @@ public class MovementController : MonoBehaviour {
                     }
                     break;
                 default:
+                    Debug.Log("no matching rotation for movement: " + Convert.ToInt32(correctiveRotation));
                     break;
             }
             if (agentDestinationModuleConnector != null && agentDestinationModuleConnector.getOtherSide() != null) {
