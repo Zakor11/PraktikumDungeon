@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4827638914482730}
   - component: {fileID: 114865397741297036}
+  - component: {fileID: 65066888348358128}
   m_Layer: 0
   m_Name: Corridor_DeadEnd_1W_1x1
   m_TagString: Untagged
@@ -192,7 +193,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1085793043633542}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.275183, y: 30.615482, z: -10.652273}
+  m_LocalPosition: {x: -16.173, y: 6.958475, z: -17.183392}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4612407083423526}
@@ -412,6 +413,18 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300002, guid: 483619144cce23149a9ad6c721302f39, type: 3}
+--- !u!65 &65066888348358128
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1085793043633542}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 3, z: 4.5}
+  m_Center: {x: 0, y: 1.5, z: -0.75}
 --- !u!65 &65292997502611366
 BoxCollider:
   m_ObjectHideFlags: 1

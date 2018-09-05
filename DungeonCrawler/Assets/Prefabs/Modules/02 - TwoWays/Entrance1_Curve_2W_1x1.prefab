@@ -104,6 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4369468349645360}
   - component: {fileID: 114020422513645824}
+  - component: {fileID: 65837079511285498}
   m_Layer: 0
   m_Name: Entrance1_Curve_2W_1x1
   m_TagString: Untagged
@@ -189,7 +190,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1535573201489936}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.522968, y: 35.39456, z: -19.607979}
+  m_LocalPosition: {x: -22.581968, y: 27.130821, z: -31.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4238614763730240}
@@ -391,6 +392,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 3.5, z: 1.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65837079511285498
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1535573201489936}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.5, y: 3.5, z: 4}
+  m_Center: {x: -0.75, y: 1.75, z: -1}
 --- !u!114 &114020422513645824
 MonoBehaviour:
   m_ObjectHideFlags: 1

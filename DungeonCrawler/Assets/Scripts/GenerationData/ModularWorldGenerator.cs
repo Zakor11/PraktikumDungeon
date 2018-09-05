@@ -249,16 +249,12 @@ public class ModularWorldGenerator : MonoBehaviour {
     }
 
     private bool CollisionDetection(Module newModule, Module currentModule) {
-        var newModuleWallColliders = newModule.GetComponentsInChildren<BoxCollider>();
-        var currentModuleWallColliders = currentModule.GetComponentsInChildren<BoxCollider>();
-        var newModuleCollider = newModule.GetComponentInChildren<MeshCollider>();
-        var currentModuleCollider = currentModule.GetComponentInChildren<MeshCollider>();
+        var newModuleCollider = newModule.GetComponent<BoxCollider>();
+        var currentModuleCollider = currentModule.GetComponent<BoxCollider>();
         var possibleCollisions = Physics.OverlapSphere(newModuleCollider.bounds.center, newModuleCollider.bounds.extents.magnitude);
-        foreach (var possibleCollision in possibleCollisions.Where(e => !currentModuleWallColliders.Contains(e) && 
-        !newModuleWallColliders.Contains(e) &&
-        e != newModuleCollider &&
+        foreach (var possibleCollision in possibleCollisions.Where(e => e != newModuleCollider &&
         e != currentModuleCollider &&
-        e.GetComponentInParent<Module>() != null)) {
+        e.GetComponent<Module>() != null)) {
             if (newModule != null) {
                 Debug.Log("Collision of " + newModule.name + " with " + possibleCollision.gameObject.name + " :" + newModuleCollider.bounds.Intersects(possibleCollision.bounds));
 

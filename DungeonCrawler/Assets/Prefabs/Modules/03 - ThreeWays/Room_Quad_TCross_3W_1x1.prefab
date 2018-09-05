@@ -235,6 +235,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4956682365330198}
   - component: {fileID: 114079887376881534}
+  - component: {fileID: 65621199191113702}
   m_Layer: 0
   m_Name: Room_Quad_TCross_3W_1x1
   m_TagString: Untagged
@@ -392,7 +393,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1895256891371724}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.04074, y: 69.68635, z: -43.51345}
+  m_LocalPosition: {x: -21.70641, y: 19.43, z: -36.94}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4328528010443974}
@@ -809,6 +810,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5000002, y: 2.5, z: 0.5000005}
   m_Center: {x: -1.7500001, y: 1.75, z: -2.7499998}
+--- !u!65 &65621199191113702
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1895256891371724}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6, y: 3, z: 6}
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!65 &65685939428079046
 BoxCollider:
   m_ObjectHideFlags: 1

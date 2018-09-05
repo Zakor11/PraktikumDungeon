@@ -215,6 +215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4828246739839772}
   - component: {fileID: 114802106569123532}
+  - component: {fileID: 65408017353829050}
   m_Layer: 0
   m_Name: Entrance4_Cross_4W_1x1
   m_TagString: Untagged
@@ -439,7 +440,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1915712955076350}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -22.909714, y: 99.78301, z: -74.19615}
+  m_LocalPosition: {x: -20.183205, y: 7.57, z: -40.64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4120768917649910}
@@ -913,6 +914,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5000001, y: 3.5, z: 1.5000004}
   m_Center: {x: -1.2500002, y: 0, z: -2.2500005}
+--- !u!65 &65408017353829050
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1915712955076350}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6, y: 3.5, z: 6}
+  m_Center: {x: 0, y: 1.75, z: 0}
 --- !u!65 &65700863879869094
 BoxCollider:
   m_ObjectHideFlags: 1

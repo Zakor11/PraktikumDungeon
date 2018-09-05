@@ -58,6 +58,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4152698330868080}
   - component: {fileID: 114222143912309522}
+  - component: {fileID: 65332522154383028}
   m_Layer: 0
   m_Name: Corridor_Curve_2W_1x1
   m_TagString: Untagged
@@ -175,7 +176,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211005299676738}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.399315, y: 36.670593, z: -20.260382}
+  m_LocalPosition: {x: -30.081968, y: 24.277443, z: -25.548992}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4586092041121108}
@@ -517,6 +518,18 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300002, guid: 446baf8660b91e847b7e973a8aee9616, type: 3}
+--- !u!65 &65332522154383028
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1211005299676738}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.5, y: 3, z: 4.5}
+  m_Center: {x: -0.75, y: 1.5, z: -0.75}
 --- !u!65 &65336929616442600
 BoxCollider:
   m_ObjectHideFlags: 1

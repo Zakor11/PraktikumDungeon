@@ -36,6 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4935431720702068}
   - component: {fileID: 114098678891917428}
+  - component: {fileID: 65030520249636186}
   m_Layer: 0
   m_Name: Path_Cross_4W_1x1
   m_TagString: Untagged
@@ -209,7 +210,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1091048322936544}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -28.103512, y: 97.01681, z: -75.446625}
+  m_LocalPosition: {x: -28.83, y: 7.91, z: -39.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4614042131988846}
@@ -277,6 +278,18 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 68254b7e3ae281d49b8354756f4f5d4d, type: 3}
+--- !u!65 &65030520249636186
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1091048322936544}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6, y: 3, z: 6}
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!114 &114098678891917428
 MonoBehaviour:
   m_ObjectHideFlags: 1

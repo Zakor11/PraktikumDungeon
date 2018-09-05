@@ -184,6 +184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4768226845065534}
   - component: {fileID: 114786230237255738}
+  - component: {fileID: 65824161743333104}
   m_Layer: 0
   m_Name: Room_Quad_Straight_2W_1x1
   m_TagString: Untagged
@@ -331,7 +332,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1818706462154314}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -19.76647, y: 46.566948, z: -23.398417}
+  m_LocalPosition: {x: -6.71, y: 33.063656, z: -27.241016}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4129699713226756}
@@ -740,6 +741,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5000005, y: 2.5000005, z: 6}
   m_Center: {x: -2.7500002, y: 1.7499998, z: 0}
+--- !u!65 &65824161743333104
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1818706462154314}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6, y: 3, z: 6}
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!114 &114072067416704520
 MonoBehaviour:
   m_ObjectHideFlags: 1

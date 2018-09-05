@@ -127,6 +127,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4111480867314088}
   - component: {fileID: 114492624815741050}
+  - component: {fileID: 65843667743492102}
   m_Layer: 0
   m_Name: Room_Quad_DeadEnd_1W_1x1
   m_TagString: Untagged
@@ -192,7 +193,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1630200364100964}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.770266, y: 26.100737, z: -15.479139}
+  m_LocalPosition: {x: 1.598563, y: 5.5191813, z: 0.4527545}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4745752548942900}
@@ -623,6 +624,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 2.5, z: 0.5}
   m_Center: {x: 0, y: 1.75, z: 2.75}
+--- !u!65 &65843667743492102
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1630200364100964}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6, y: 3, z: 6}
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!114 &114393614496531032
 MonoBehaviour:
   m_ObjectHideFlags: 1
