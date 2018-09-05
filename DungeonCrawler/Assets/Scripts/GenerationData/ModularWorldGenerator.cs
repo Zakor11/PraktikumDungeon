@@ -14,6 +14,8 @@ public class ModularWorldGenerator : MonoBehaviour {
     private ModuleDatabase Database;
     private Module[] Modules;
 
+    private GameObject moduleHolder;
+
     private int LastCount = -1;
     private int timesSameIteration = 0;
     private int CurrentRooms = 0;
@@ -26,7 +28,9 @@ public class ModularWorldGenerator : MonoBehaviour {
         genParams = levelGenData.genParams;
         Modules = Database.getModulesWithMaxExits(genParams.maxExits);
         Random.InitState(genParams.seed);
+        moduleHolder = new GameObject();
         var startModule = Instantiate(GetRandom(Database.getStartRooms()), transform.position, transform.rotation);
+        startModule.transform.parent = moduleHolder.transform;
         startModule.gameObject.name = "Start";
         mainPath.Add(startModule);
         CurrentRooms++;
@@ -42,7 +46,9 @@ public class ModularWorldGenerator : MonoBehaviour {
 
         BuildPathEndings();
 
-        mainPath.First().GetComponent<NavMeshSurface>().BuildNavMesh();
+        moduleHolder.AddComponent<NavMeshSurface>();
+        moduleHolder.GetComponent<NavMeshSurface>().collectObjects = CollectObjects.Children;
+        moduleHolder.GetComponent<NavMeshSurface>().BuildNavMesh();
 
         SpawnPlayer();
 
@@ -87,6 +93,7 @@ public class ModularWorldGenerator : MonoBehaviour {
                 mainExit.setOtherSide(exitToMatch);
                 exitToMatch.SetMatched(true);
                 exitToMatch.setOtherSide(mainExit);
+                mainModule.transform.parent = moduleHolder.transform;
                 mainPath.Add(mainModule);
                 mainModule.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
                 pendingExits.AddRange(mainExits.Where(e => e.IsMatched() != true));
@@ -114,6 +121,7 @@ public class ModularWorldGenerator : MonoBehaviour {
             finalExitToMatch.SetMatched(true);
             finalExitToMatch.setOtherSide(finalExit);
 
+            finalModule.transform.parent = moduleHolder.transform;
             pendingExits.AddRange(finalExits.Where(e => e.IsMatched() != true));
             pendingExits.AddRange(finalModule.GetExits().Where(e => e.IsMatched() != true));
         }
@@ -146,6 +154,7 @@ public class ModularWorldGenerator : MonoBehaviour {
             }
 
             if (newModule != null) {
+                newModule.transform.parent = moduleHolder.transform;
                 newExit.SetMatched(true);
                 newExit.setOtherSide(exitToMatch);
                 exitToMatch.SetMatched(true);
@@ -179,6 +188,7 @@ public class ModularWorldGenerator : MonoBehaviour {
                 }
 
                 if (newModule != null) {
+                    newModule.transform.parent = moduleHolder.transform;
                     pendingExit.SetMatched(true);
                     pendingExit.setOtherSide(exitToMatch);
                     exitToMatch.SetMatched(true);
@@ -239,10 +249,16 @@ public class ModularWorldGenerator : MonoBehaviour {
     }
 
     private bool CollisionDetection(Module newModule, Module currentModule) {
+        var newModuleWallColliders = newModule.GetComponentsInChildren<BoxCollider>();
+        var currentModuleWallColliders = currentModule.GetComponentsInChildren<BoxCollider>();
         var newModuleCollider = newModule.GetComponentInChildren<MeshCollider>();
         var currentModuleCollider = currentModule.GetComponentInChildren<MeshCollider>();
         var possibleCollisions = Physics.OverlapSphere(newModuleCollider.bounds.center, newModuleCollider.bounds.extents.magnitude);
-        foreach (var possibleCollision in possibleCollisions.Where(e => e != newModuleCollider && e != currentModuleCollider && e.GetComponentInParent<Module>() != null)) {
+        foreach (var possibleCollision in possibleCollisions.Where(e => !currentModuleWallColliders.Contains(e) && 
+        !newModuleWallColliders.Contains(e) &&
+        e != newModuleCollider &&
+        e != currentModuleCollider &&
+        e.GetComponentInParent<Module>() != null)) {
             if (newModule != null) {
                 Debug.Log("Collision of " + newModule.name + " with " + possibleCollision.gameObject.name + " :" + newModuleCollider.bounds.Intersects(possibleCollision.bounds));
 

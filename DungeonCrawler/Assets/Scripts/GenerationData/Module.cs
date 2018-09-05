@@ -5,12 +5,11 @@ public enum TileTagsEnum : int {
     None = 0x00,
     Room = 1,
     Corridor = 2,
-    Junction = 4,
+    Outdoor = 4,
     DeadEnd = 8,
     Start = 16,
     Path = 32,
-    Entrance = 64,
-    Outdoor = 128
+    Entrance = 64
 }
 
 

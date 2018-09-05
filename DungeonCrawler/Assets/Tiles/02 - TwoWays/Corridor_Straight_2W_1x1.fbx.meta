@@ -7,15 +7,35 @@ ModelImporter:
     100002: locator16
     100004: locator17
     100006: pCube6
+    100008: Floor
+    100010: MovePoint
+    100012: Wall01
+    100014: Wall02
     400000: //RootNode
     400002: locator16
     400004: locator17
     400006: pCube6
+    400008: Floor
+    400010: MovePoint
+    400012: Wall01
+    400014: Wall02
     2100000: lambert1
     2300000: pCube6
+    2300002: Floor
+    2300004: Wall01
+    2300006: Wall02
     3300000: pCube6
+    3300002: Floor
+    3300004: Wall01
+    3300006: Wall02
     4300000: pCube6
+    4300002: Floor
+    4300004: Wall01
+    4300006: Wall02
     6400000: pCube6
+    6400002: Floor
+    6400004: Wall01
+    6400006: Wall02
   externalObjects: {}
   materials:
     importMaterials: 1

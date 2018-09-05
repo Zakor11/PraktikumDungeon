@@ -9,16 +9,43 @@ ModelImporter:
     100006: locator67
     100008: locator68
     100010: pCube28
+    100012: Floor
+    100014: MovePoint
+    100016: Railing017
+    100018: Railing018
+    100020: Railing019
+    100022: Railing020
     400000: //RootNode
     400002: locator65
     400004: locator66
     400006: locator67
     400008: locator68
     400010: pCube28
+    400012: Floor
+    400014: MovePoint
+    400016: Railing017
+    400018: Railing018
+    400020: Railing019
+    400022: Railing020
     2100000: lambert1
     2300000: pCube28
+    2300002: Floor
+    2300004: Railing017
+    2300006: Railing018
+    2300008: Railing019
+    2300010: Railing020
     3300000: pCube28
+    3300002: Floor
+    3300004: Railing017
+    3300006: Railing018
+    3300008: Railing019
+    3300010: Railing020
     4300000: pCube28
+    4300002: Floor
+    4300004: Railing020
+    4300006: Railing019
+    4300008: Railing018
+    4300010: Railing017
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -69,7 +96,7 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
     previousCalculatedGlobalScale: 1
     hasPreviousCalculatedGlobalScale: 0
   tangentSpace:

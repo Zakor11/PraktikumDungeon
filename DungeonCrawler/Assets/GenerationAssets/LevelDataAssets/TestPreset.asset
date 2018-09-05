@@ -13,6 +13,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seed: 2082
   maxExits: 3
-  mainPathRooms: 30
-  maxRoomCount: 60
+  mainPathRooms: 10
+  maxRoomCount: 12
   endRoomChance: 1

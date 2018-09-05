@@ -97,7 +97,7 @@ public class MovementController : MonoBehaviour {
                     break;
             }
             if (agentDestinationModuleConnector != null) {
-                agent.destination = agentDestinationModuleConnector.getOtherSide().GetComponentInParent<Module>().GetComponentInChildren<Renderer>().bounds.center;
+                agent.destination = Helper.FindComponentInChildWithTag<Transform>(agentDestinationModuleConnector.getOtherSide().GetComponentInParent<Module>().gameObject, "movePoint").transform.position;
                 disableArrows(currentModule);
             }
         }
