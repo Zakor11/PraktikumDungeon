@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2b57b2d14a56454a8bf3ed62ebc3186, type: 3}
+  m_Name: TestGenData
+  m_EditorClassIdentifier: 
+  database: {fileID: 11400000, guid: c061bff60416d454da0810754edd01a0, type: 2}
+  genParams: {fileID: 11400000, guid: ba6dd1ba93dd0784fbca7b4b67032a1e, type: 2}
