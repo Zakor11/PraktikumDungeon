@@ -415,8 +415,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 511df0b57e059d34bbc82570cc741269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tags: 11
+  tags: 9
   IsDefault: 0
+  ExitMatched: 0
+  otherSide: {fileID: 0}
 --- !u!114 &114441406545572632
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -430,6 +432,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: 108
   IsDefault: 0
+  ExitMatched: 0
+  otherSide: {fileID: 0}
 --- !u!114 &114511604355510960
 MonoBehaviour:
   m_ObjectHideFlags: 1
