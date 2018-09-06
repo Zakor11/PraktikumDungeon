@@ -270,7 +270,7 @@ public class ModularWorldGenerator : MonoBehaviour {
                 Debug.Log("Endroommatching: " + (matched | exitsFit));
                 if (matched) {
                     adjacentModule.gameObject.SetActive(false);
-                    Destroy(adjacentModule);
+                   // Destroy(adjacentModule);
                 } else {
                     Debug.Log("No Match Case");
                     buildDeadendOutOfCurrentRoom(currentModuleConnector);
@@ -385,7 +385,7 @@ public class ModularWorldGenerator : MonoBehaviour {
         bool matched = FindMatchingModuleWithExits(exitsToMatch.Count(), exitToMatch.getOtherSide(), moduleToChange);
         if (matched) {
             moduleToChange.gameObject.SetActive(false);
-            Destroy(moduleToChange.gameObject);
+            //Destroy(moduleToChange.gameObject);
         } else {
             Debug.LogError("No DeadendMatch!");
         }
@@ -396,7 +396,6 @@ public class ModularWorldGenerator : MonoBehaviour {
         if (backSteps < mainPath.Count()) {
             for (int steps = 0; steps < backSteps; steps++) {
                 Debug.LogWarning("Backsteps to make: " + (backSteps - steps));
-                Debug.LogWarning("Modules in list before deletion: " + mainPath.Count());
                 Module moduleToDelete = mainPath.Last();
 
                 var exitsToDelete = moduleToDelete.GetExits();
@@ -408,12 +407,11 @@ public class ModularWorldGenerator : MonoBehaviour {
 
                 mainPath.Remove(moduleToDelete);
                 moduleToDelete.gameObject.SetActive(false);
-                GameObject.DestroyImmediate(moduleToDelete.gameObject);
-                Debug.LogWarning("Modules in list after deletion: " + mainPath.Count());
+                DestroyImmediate(moduleToDelete.gameObject);
                 CurrentRooms--;
 
             }
-            var exitsDetached = mainPath.Last().GetExits().Where(e => e.IsMatched() == true);
+            var exitsDetached = mainPath.Last().GetExits().Where(e => e.IsMatched() == true && e.getOtherSide()==null);
 
             foreach (var exitdetached in exitsDetached) {
                 exitdetached.SetMatched(false);
