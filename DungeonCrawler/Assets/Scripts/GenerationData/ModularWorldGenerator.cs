@@ -21,15 +21,20 @@ public class ModularWorldGenerator : MonoBehaviour {
     private int CurrentRooms = 0;
 
     private List<Module> mainPath = new List<Module>();
+    private List<Module> allModules = new List<Module>();
+   
     private List<ModuleConnector> pendingExits = new List<ModuleConnector>();
 
-    private void Awake() {
+    public void PrepareGeneration() {
+        //Abfrage für keygen
+        //allModules.Where(e => (e.hasTag(TileTagsEnum.Room)||e.hasTag(TileTagsEnum.DeadEnd)) && e != mainPath.First() && e != mainPath.Last());
         Database = levelGenData.database;
         genParams = levelGenData.genParams;
         Modules = Database.getModulesWithMaxExits(genParams.maxExits);
         Random.InitState(genParams.seed);
         moduleHolder = new GameObject();
         moduleHolder.name = "Module Holder";
+        moduleHolder.transform.parent = this.transform.parent;
         var startModule = Instantiate(GetRandom(Database.getStartRooms()), transform.position, transform.rotation);
         startModule.transform.parent = moduleHolder.transform;
         startModule.gameObject.name = "Start";
@@ -37,23 +42,32 @@ public class ModularWorldGenerator : MonoBehaviour {
         CurrentRooms++;
     }
 
-    void Start() {
+    public void GenerateRooms() {
 
         BuildMainPath();
 
         CleanUp();
 
+        allModules.AddRange(mainPath);
+
         BuildAdditionalRooms();
 
         BuildPathEndings();
+
+        ColorMainPath();
 
         moduleHolder.AddComponent<NavMeshSurface>();
         moduleHolder.GetComponent<NavMeshSurface>().collectObjects = CollectObjects.Children;
         moduleHolder.GetComponent<NavMeshSurface>().BuildNavMesh();
 
         SpawnPlayer();
+        
+    }
 
-        //mainPath.First().UpdateModuleArrows();
+    private void ColorMainPath() {
+        foreach (Module mainModule in mainPath) {
+            mainModule.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
+        }
     }
 
     //BUILD PATHS
@@ -85,7 +99,7 @@ public class ModularWorldGenerator : MonoBehaviour {
             if (CollisionDetection(newMainModule, mainExitToMatch.GetComponentInParent<Module>())) {
                 newMainModule.gameObject.SetActive(false);
                 Debug.Log("Gameobject " + newMainModule.name + " disabled");
-                GameObject.DestroyImmediate(newMainModule.gameObject);
+                Destroy(newMainModule.gameObject);
                 newMainModule = null;
             }
             if (newMainModule != null) {
@@ -95,7 +109,6 @@ public class ModularWorldGenerator : MonoBehaviour {
                 newModuleExitToMatch.setOtherSide(mainExitToMatch);
                 mainPath.Add(newMainModule);
                 newMainModule.transform.parent = moduleHolder.transform;
-                newMainModule.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
                 pendingExits.AddRange(mainExits.Where(e => !e.IsMatched()));
                 CurrentRooms++;
             }
@@ -108,6 +121,7 @@ public class ModularWorldGenerator : MonoBehaviour {
         var endModule = Instantiate(endModulePrefab);
         endModule.gameObject.name = "Final";
         //TODO Throws Nullpointer if last on mainpath can't connect to room currently, fixed by creating a bridgeroom before final
+        //TODO Catch deadend match
         var finalExitToMatch = GetRandomExitWithTag(endModule, finalMainExit.GetComponentInParent<Module>().tags);
         MatchExits(finalMainExit, finalExitToMatch);
 
@@ -154,7 +168,7 @@ public class ModularWorldGenerator : MonoBehaviour {
             if (CollisionDetection(newModule, newExit.GetComponentInParent<Module>())) {
                 newModule.gameObject.SetActive(false);
                 Debug.Log("Gameobject " + newModule.name + " disabled");
-                GameObject.Destroy(newModule.gameObject);
+                Destroy(newModule.gameObject);
                 newModule = null;
             }
 
@@ -167,6 +181,7 @@ public class ModularWorldGenerator : MonoBehaviour {
                 pendingExits.Remove(newExit);
                 newModule.transform.parent = moduleHolder.transform;
                 pendingExits.AddRange(newModule.GetExits().Where(e => e.IsMatched() != true));
+                allModules.Add(newModule);
                 CurrentRooms++;
             }
         }
@@ -263,7 +278,7 @@ public class ModularWorldGenerator : MonoBehaviour {
                 int exits = adjacentModule.GetExits().Where(e => e.IsMatched()).Count();
                 newModule.gameObject.SetActive(false);
                 Debug.Log("DeadEnd " + newModule.name + " disabled");
-                GameObject.Destroy(newModule.gameObject);
+                Destroy(newModule.gameObject);
                 bool exitsFit = checkIfExitsFitDirectly(currentModuleConnector, adjacentModule);
                 bool matched = false;
 
@@ -274,7 +289,7 @@ public class ModularWorldGenerator : MonoBehaviour {
                 Debug.Log("Endroommatching: " + (matched | exitsFit));
                 if (matched) {
                     adjacentModule.gameObject.SetActive(false);
-                   // Destroy(adjacentModule);
+                    Destroy(adjacentModule.gameObject);
                 } else {
                     Debug.Log("No Match Case");
                     buildDeadendOutOfCurrentRoom(currentModuleConnector);
@@ -283,6 +298,7 @@ public class ModularWorldGenerator : MonoBehaviour {
             } else {
                 Debug.Log("No Frontal Collision");
                 newModule.transform.parent = moduleHolder.transform;
+                allModules.Add(newModule);
                 currentModuleConnector.SetMatched(true);
                 var matchedExit = newModule.GetExits().First();
                 currentModuleConnector.setOtherSide(matchedExit);
@@ -292,6 +308,7 @@ public class ModularWorldGenerator : MonoBehaviour {
         } else {
             Debug.Log("No Collision");
             newModule.transform.parent = moduleHolder.transform;
+            allModules.Add(newModule);
             currentModuleConnector.SetMatched(true);
             var matchedExit = newModule.GetExits().First();
             currentModuleConnector.setOtherSide(matchedExit);
@@ -370,7 +387,11 @@ public class ModularWorldGenerator : MonoBehaviour {
                             exitsToMatch.Where(d => -d.transform.forward == e.transform.forward)
                             .First()));
                     testedModuleExits.ToList().ForEach(e => e.SetMatched(true));
-
+                    allModules.Add(testedModule);
+                    if (mainPath.Contains(otherModule)){
+                        int index = mainPath.IndexOf(otherModule);
+                        mainPath.Insert(index,testedModule);
+                    }
                     testedModule.gameObject.name = "Endroom " + CurrentRooms;
                     testedModule.gameObject.transform.parent = moduleHolder.transform;
                     Debug.Log("Matching suceess: " + testedModule.gameObject.name);
@@ -389,7 +410,7 @@ public class ModularWorldGenerator : MonoBehaviour {
         bool matched = FindMatchingModuleWithExits(exitsToMatch.Count(), exitToMatch.getOtherSide(), moduleToChange);
         if (matched) {
             moduleToChange.gameObject.SetActive(false);
-            //Destroy(moduleToChange.gameObject);
+            Destroy(moduleToChange.gameObject);
         } else {
             Debug.LogError("No DeadendMatch!");
         }
@@ -411,11 +432,12 @@ public class ModularWorldGenerator : MonoBehaviour {
 
                 mainPath.Remove(moduleToDelete);
                 moduleToDelete.gameObject.SetActive(false);
+                //NEEDS TO STAY IMMEDIATE DUE TO LATER CALL
                 DestroyImmediate(moduleToDelete.gameObject);
                 CurrentRooms--;
 
             }
-            var exitsDetached = mainPath.Last().GetExits().Where(e => e.IsMatched() == true && e.getOtherSide()==null);
+            var exitsDetached = mainPath.Last().GetExits().Where(e => e.IsMatched() == true && (e.getOtherSide()==null));
 
             foreach (var exitdetached in exitsDetached) {
                 exitdetached.SetMatched(false);
@@ -427,7 +449,7 @@ public class ModularWorldGenerator : MonoBehaviour {
             while (moduleToDelete != startModule) {
                 mainPath.Remove(moduleToDelete);
                 moduleToDelete.gameObject.SetActive(false);
-                DestroyImmediate(moduleToDelete.gameObject);
+                Destroy(moduleToDelete.gameObject);
                 moduleToDelete = mainPath.Last();
             }
             
