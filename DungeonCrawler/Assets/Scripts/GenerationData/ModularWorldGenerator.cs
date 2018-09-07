@@ -104,9 +104,10 @@ public class ModularWorldGenerator : MonoBehaviour {
 
         var finalMainExits = mainPath.Last().GetExits().Where(e => e.IsMatched() != true).ToArray();
         var finalMainExit = GetRandom(finalMainExits);
-        var endModulePrefab = GetRandomMatchingTile(finalMainExit, true);
+        var endModulePrefab = Database.getEndRoom();
         var endModule = Instantiate(endModulePrefab);
         endModule.gameObject.name = "Final";
+        //TODO Throws Nullpointer if last on mainpath can't connect to room currently, fixed by creating a bridgeroom before final
         var finalExitToMatch = GetRandomExitWithTag(endModule, finalMainExit.GetComponentInParent<Module>().tags);
         MatchExits(finalMainExit, finalExitToMatch);
 
@@ -130,8 +131,11 @@ public class ModularWorldGenerator : MonoBehaviour {
     //Dirty Workaround for null in pending exits
     private void CleanUp() {
         //TODO DEBUG HERE
+        int pendingsExitBeforeCleanup = pendingExits.Count();
         pendingExits = pendingExits.Where(e => e != null && !(e.IsMatched() || e.getOtherSide() != null)).ToList();
-
+        if (pendingExits.Count() < pendingsExitBeforeCleanup) {
+            Debug.LogError("Cleanup had to remove exits!");
+        }
     }
 
     private void BuildAdditionalRooms() {
@@ -264,7 +268,7 @@ public class ModularWorldGenerator : MonoBehaviour {
                 bool matched = false;
 
                 Debug.Log("Exits to find: " + (exits + 1));
-                if (!exitsFit) {
+                if (!exitsFit && adjacentModule.tag!="immutable") {
                     matched = FindMatchingModuleWithExits(exits + 1, currentModuleConnector, adjacentModule);
                 }
                 Debug.Log("Endroommatching: " + (matched | exitsFit));
@@ -418,13 +422,17 @@ public class ModularWorldGenerator : MonoBehaviour {
             }
 
         } else {
-            //TODO Delete existing
             var startModule = mainPath.First();
-            mainPath = new List<Module> {
-                startModule
-            };
+            var moduleToDelete = mainPath.Last();
+            while (moduleToDelete != startModule) {
+                mainPath.Remove(moduleToDelete);
+                moduleToDelete.gameObject.SetActive(false);
+                DestroyImmediate(moduleToDelete.gameObject);
+                moduleToDelete = mainPath.Last();
+            }
+            
             var exitsDetached = startModule.GetExits().Where(e => e.IsMatched() == true);
-
+            CurrentRooms = 1;
             foreach (var exitdetached in exitsDetached) {
                 exitdetached.SetMatched(false);
             }

@@ -8,6 +8,8 @@ TagManager:
   - front
   - left
   - right
+  - movePoint
+  - immutable
   layers:
   - Default
   - TransparentFX
