@@ -284,7 +284,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 27, y: 2}
-  m_SizeDelta: {x: 40, y: 20}
+  m_SizeDelta: {x: 60, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &286495625
 MonoBehaviour:
@@ -318,7 +318,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: x 0
+  m_Text: x0 / 0
 --- !u!222 &286495626
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1397,6 +1397,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dungeonGenerator: {fileID: 114302770339911902, guid: 4aa1a1f22ca80c545aecef7aa4362c29,
     type: 2}
+  KeyPickUpGenerator: {fileID: 114881353534000176, guid: 1e350a11f74fe7e4fa2660cb3923fa61,
+    type: 2}
+  keysCollectedGameText: {fileID: 286495625}
 --- !u!4 &1104972461
 Transform:
   m_ObjectHideFlags: 0
@@ -1841,7 +1844,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -25, y: 1}
+  m_AnchoredPosition: {x: -33.3, y: 1}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1891614693
@@ -2018,8 +2021,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 53, y: -32}
-  m_SizeDelta: {x: 100, y: 60}
+  m_AnchoredPosition: {x: 64.2, y: -32}
+  m_SizeDelta: {x: 130, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2011476670
 MonoBehaviour:

@@ -26,8 +26,7 @@ public class ModularWorldGenerator : MonoBehaviour {
     private List<ModuleConnector> pendingExits = new List<ModuleConnector>();
 
     public void PrepareGeneration() {
-        //Abfrage für keygen
-        //allModules.Where(e => (e.hasTag(TileTagsEnum.Room)||e.hasTag(TileTagsEnum.DeadEnd)) && e != mainPath.First() && e != mainPath.Last());
+        
         Database = levelGenData.database;
         genParams = levelGenData.genParams;
         Modules = Database.getModulesWithMaxExits(genParams.maxExits);
@@ -35,7 +34,7 @@ public class ModularWorldGenerator : MonoBehaviour {
         moduleHolder = new GameObject();
         moduleHolder.name = "Module Holder";
         moduleHolder.transform.parent = this.transform.parent;
-        var startModule = Instantiate(GetRandom(Database.getStartRooms()), transform.position, transform.rotation);
+        var startModule = Instantiate(Helper.GetRandom(Database.getStartRooms()), transform.position, transform.rotation);
         startModule.transform.parent = moduleHolder.transform;
         startModule.gameObject.name = "Start";
         mainPath.Add(startModule);
@@ -89,7 +88,7 @@ public class ModularWorldGenerator : MonoBehaviour {
             LastCount = mainPath.Count();
 
             var mainExits = mainPath.Last().GetExits();
-            var mainExitToMatch = GetRandom(mainPath.Last().GetExits().Where(e => e.IsMatched() != true).ToArray());
+            var mainExitToMatch = Helper.GetRandom(mainPath.Last().GetExits().Where(e => e.IsMatched() != true).ToArray());
             var newMainModulePrefab = GetRandomMatchingTile(mainExitToMatch, false);
             var newMainModule = (Module)Instantiate(newMainModulePrefab);
             newMainModule.gameObject.name = CurrentRooms + "";
@@ -116,7 +115,7 @@ public class ModularWorldGenerator : MonoBehaviour {
         }
 
         var finalMainExits = mainPath.Last().GetExits().Where(e => e.IsMatched() != true).ToArray();
-        var finalMainExit = GetRandom(finalMainExits);
+        var finalMainExit = Helper.GetRandom(finalMainExits);
         var endModulePrefab = Database.getEndRoom();
         var endModule = Instantiate(endModulePrefab);
         endModule.gameObject.name = "Final";
@@ -158,7 +157,7 @@ public class ModularWorldGenerator : MonoBehaviour {
         while (CurrentRooms < genParams.maxRoomCount && pendingExits.Count() > 0 && save < 100) {
             save++;
 
-            var newExit = GetRandom(pendingExits.ToArray());
+            var newExit = Helper.GetRandom(pendingExits.ToArray());
             var newModulePrefab = GetRandomMatchingTile(newExit, false);
             var newModule = (Module)Instantiate(newModulePrefab);
             newModule.gameObject.name = CurrentRooms + "";
@@ -406,7 +405,7 @@ public class ModularWorldGenerator : MonoBehaviour {
     private void buildDeadendOutOfCurrentRoom(ModuleConnector currentModuleConnector) {
         Module moduleToChange = currentModuleConnector.transform.parent.GetComponent<Module>();
         var exitsToMatch = moduleToChange.GetExits().Where(e => e.IsMatched()).ToArray();
-        var exitToMatch = GetRandom<ModuleConnector>(exitsToMatch);
+        var exitToMatch = Helper.GetRandom<ModuleConnector>(exitsToMatch);
         bool matched = FindMatchingModuleWithExits(exitsToMatch.Count(), exitToMatch.getOtherSide(), moduleToChange);
         if (matched) {
             moduleToChange.gameObject.SetActive(false);
@@ -496,7 +495,7 @@ public class ModularWorldGenerator : MonoBehaviour {
     //PLAYER SPAWN
     private void SpawnPlayer() {
 
-        Vector3 spawnPoint = GetRandom(mainPath.First().GetSpawns()).transform.parent.position;
+        Vector3 spawnPoint = Helper.GetRandom(mainPath.First().GetSpawns()).transform.parent.position;
         Quaternion spawnRotation = Quaternion.identity;
         Debug.Log("Spawn Point located at: " + spawnPoint.ToString());
 
@@ -511,8 +510,12 @@ public class ModularWorldGenerator : MonoBehaviour {
 
 
     // OTHER UTILITY
-    private static TItem GetRandom<TItem>(TItem[] array) {
-        return array[Random.Range(0, array.Length)];
+    public Module[] getGeneratedModulesWithStartLeadingAndExitLast() {
+        var modules = new List<Module>(); 
+        modules.Add(mainPath.First());
+        modules.AddRange(allModules.Where(e => e != mainPath.First() && e != mainPath.Last()));
+        modules.Add(mainPath.Last());
+        return modules.ToArray();
     }
 
     private static ModuleConnector GetRandomExitWithTag(Module module, TileTagsEnum tagToMatch) {
@@ -520,7 +523,7 @@ public class ModularWorldGenerator : MonoBehaviour {
         var possibleExits = module.GetExits();
         var matchingExits = possibleExits.Where(e => (e.hasTag(tagToMatch)));
         //Debug.Log("Matching Modules for "+tagToMatch+": "+matchingModules.Count());
-        return GetRandom<ModuleConnector>(matchingExits.ToArray());
+        return Helper.GetRandom<ModuleConnector>(matchingExits.ToArray());
     }
 
     private Module GetRandomMatchingTile(ModuleConnector mainExit, bool deadendNeeded) {
@@ -532,9 +535,9 @@ public class ModularWorldGenerator : MonoBehaviour {
         Where(d => d.hasTag(mainExit.GetComponentInParent<Module>().tags) && (d.tags & mainExit.GetComponentInParent<Module>().tags) != TileTagsEnum.DeadEnd).Count() > 0
         && e.hasTag(TileTagsEnum.DeadEnd) == deadendNeeded);
         if (possibleModules.Count() > 0) {
-            return GetRandom<Module>(possibleModules.ToArray());
+            return Helper.GetRandom<Module>(possibleModules.ToArray());
         } else {
-            return GetRandom<Module>(Modules.Where(e => e.hasTag(FALLBACK_TAG) && !e.hasTag(TileTagsEnum.DeadEnd)).ToArray());
+            return Helper.GetRandom<Module>(Modules.Where(e => e.hasTag(FALLBACK_TAG) && !e.hasTag(TileTagsEnum.DeadEnd)).ToArray());
         }
     }
 }
