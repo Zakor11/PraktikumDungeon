@@ -1,0 +1,450 @@
+fileFormatVersion: 2
+guid: f8ee91d1f3fcf8345aa8d6df917c3bb1
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Nefu_Body
+    100004: Nefu_Body_Group
+    100006: Nefu_Head
+    100008: Nefu_Hips
+    100010: Nefu_LeftArm
+    100012: Nefu_LeftFoot
+    100014: Nefu_LeftForeArm
+    100016: Nefu_LeftHand
+    100018: Nefu_LeftLeg
+    100020: Nefu_LeftShoulder
+    100022: Nefu_LeftToeBase
+    100024: Nefu_LeftUpLeg
+    100026: Nefu_Neck
+    100028: Nefu_Reference
+    100030: Nefu_RightArm
+    100032: Nefu_RightFoot
+    100034: Nefu_RightForeArm
+    100036: Nefu_RightHand
+    100038: Nefu_RightLeg
+    100040: Nefu_RightShoulder
+    100042: Nefu_RightToeBase
+    100044: Nefu_RightUpLeg
+    100046: Nefu_Spine
+    100048: Nefu_Spine1
+    100050: Nefu_Spine2
+    400000: //RootNode
+    400002: Nefu_Body
+    400004: Nefu_Body_Group
+    400006: Nefu_Head
+    400008: Nefu_Hips
+    400010: Nefu_LeftArm
+    400012: Nefu_LeftFoot
+    400014: Nefu_LeftForeArm
+    400016: Nefu_LeftHand
+    400018: Nefu_LeftLeg
+    400020: Nefu_LeftShoulder
+    400022: Nefu_LeftToeBase
+    400024: Nefu_LeftUpLeg
+    400026: Nefu_Neck
+    400028: Nefu_Reference
+    400030: Nefu_RightArm
+    400032: Nefu_RightFoot
+    400034: Nefu_RightForeArm
+    400036: Nefu_RightHand
+    400038: Nefu_RightLeg
+    400040: Nefu_RightShoulder
+    400042: Nefu_RightToeBase
+    400044: Nefu_RightUpLeg
+    400046: Nefu_Spine
+    400048: Nefu_Spine1
+    400050: Nefu_Spine2
+    2100000: lambert6
+    4300000: Nefu_Body
+    9500000: //RootNode
+    13700000: Nefu_Body
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human:
+    - boneName: Nefu_Hips
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Nefu_LeftUpLeg
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Nefu_RightUpLeg
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Nefu_LeftLeg
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Nefu_RightLeg
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Nefu_LeftFoot
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Nefu_RightFoot
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Nefu_Spine
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Nefu_Spine1
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Nefu_Neck
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Nefu_Head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Nefu_LeftShoulder
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Nefu_RightShoulder
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Nefu_LeftArm
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Nefu_RightArm
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Nefu_LeftForeArm
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Nefu_RightForeArm
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Nefu_LeftHand
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Nefu_RightHand
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Nefu_LeftToeBase
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Nefu_RightToeBase
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Nefu_Spine2
+      humanName: UpperChest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: Nefu(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_Body_Group
+      parentName: Nefu(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_Body
+      parentName: Nefu_Body_Group
+      position: {x: -0, y: 3.5843668, z: 0.18918076}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_Reference
+      parentName: Nefu(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_Hips
+      parentName: Nefu_Reference
+      position: {x: -0, y: 1.6360279, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_LeftUpLeg
+      parentName: Nefu_Hips
+      position: {x: -0.2796964, y: -0.22843277, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_LeftLeg
+      parentName: Nefu_LeftUpLeg
+      position: {x: -0, y: -0.57382816, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_LeftFoot
+      parentName: Nefu_LeftLeg
+      position: {x: -0, y: -0.6504708, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_LeftToeBase
+      parentName: Nefu_LeftFoot
+      position: {x: -0.00000014901161, y: -0.113014765, z: 0.116840936}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_RightUpLeg
+      parentName: Nefu_Hips
+      position: {x: 0.28871998, y: -0.22843277, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_RightLeg
+      parentName: Nefu_RightUpLeg
+      position: {x: 0.000000059604645, y: -0.57382816, z: 0.000007922977}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_RightFoot
+      parentName: Nefu_RightLeg
+      position: {x: -0.000000029802322, y: -0.6504708, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_RightToeBase
+      parentName: Nefu_RightFoot
+      position: {x: 0.000019580126, y: -0.113014765, z: 0.11683302}
+      rotation: {x: 0, y: -0.00004189127, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_Spine
+      parentName: Nefu_Hips
+      position: {x: -0, y: 0.21000218, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_Spine1
+      parentName: Nefu_Spine
+      position: {x: -0, y: 0.31021488, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_Spine2
+      parentName: Nefu_Spine1
+      position: {x: -0, y: 0.310215, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_LeftShoulder
+      parentName: Nefu_Spine2
+      position: {x: -0.3085161, y: 0.15285778, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_LeftArm
+      parentName: Nefu_LeftShoulder
+      position: {x: -0.22066373, y: 0.0000026226044, z: 0}
+      rotation: {x: 0, y: 0, z: 0.000006416546, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_LeftForeArm
+      parentName: Nefu_LeftArm
+      position: {x: -0.41021383, y: 0.0000052643118, z: 0}
+      rotation: {x: 0, y: 0, z: -0.00003208273, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_LeftHand
+      parentName: Nefu_LeftForeArm
+      position: {x: -0.56555724, y: -0.000029031393, z: 0}
+      rotation: {x: 0, y: 0, z: 0.00006416546, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_RightShoulder
+      parentName: Nefu_Spine2
+      position: {x: 0.31223702, y: 0.15285778, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_RightArm
+      parentName: Nefu_RightShoulder
+      position: {x: 0.24373472, y: 0.000007867813, z: 0}
+      rotation: {x: 0, y: 0, z: -0.000020231517, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_RightForeArm
+      parentName: Nefu_RightArm
+      position: {x: 0.43352908, y: 0.0000175419, z: 0}
+      rotation: {x: 0, y: 0, z: 0.00010115758, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_RightHand
+      parentName: Nefu_RightForeArm
+      position: {x: 0.5040595, y: -0.0000815831, z: 0}
+      rotation: {x: 0, y: 0, z: -0.00020231516, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_Neck
+      parentName: Nefu_Spine2
+      position: {x: -0, y: 0.31021476, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Nefu_Head
+      parentName: Nefu_Neck
+      position: {x: -0, y: 0.7372067, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 3
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

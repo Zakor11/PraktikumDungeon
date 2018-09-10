@@ -6,8 +6,8 @@ public class ModuleConnector : MonoBehaviour {
     [EnumFlagsAttribute]
     public TileTagsEnum tags;
     public bool IsDefault;
-    private bool ExitMatched;
-    private ModuleConnector otherSide;
+    public bool ExitMatched;
+    public ModuleConnector otherSide;
 
     void OnDrawGizmos() {
         var scale = 1.0f;

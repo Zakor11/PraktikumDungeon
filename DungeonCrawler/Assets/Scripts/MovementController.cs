@@ -3,10 +3,11 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityStandardAssets.CrossPlatformInput;
+using UnityStandardAssets.Characters.ThirdPerson;
 
 public class MovementController : MonoBehaviour {
 
-    private NavMeshAgent agent;
+    private AICharacterControl agent;
     public HoveringArrow arrowPrefab;
     private Module currentModule;
 
@@ -15,9 +16,9 @@ public class MovementController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (agent == null) {
-            agent = GameObject.FindGameObjectWithTag("Player").GetComponent<NavMeshAgent>();
+            agent = GameObject.FindGameObjectWithTag("Player").GetComponent<AICharacterControl>();
         }
-        if (agent.isStopped) {
+        if (agent.getStopstate()) {
             var agentCollider = agent.GetComponent<CapsuleCollider>();
             var possibleCollisions = Physics.OverlapSphere(agentCollider.bounds.center, agentCollider.bounds.extents.magnitude);
             //Debug.Log("Mögliche Playercollisions: "+possibleCollisions.Length);
@@ -51,7 +52,7 @@ public class MovementController : MonoBehaviour {
 
             switch (Convert.ToInt32(correctiveRotation)) {
                 case 0:
-                    Debug.Log("no matching rotation for movement: " + Convert.ToInt32(correctiveRotation));
+                    Debug.Log("Rotation 0 Case");
                     if (h < 0) {
                         agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "left");
                     } else if (h > 0) {
@@ -63,7 +64,7 @@ public class MovementController : MonoBehaviour {
                     }
                     break;
                 case 90:
-                    Debug.Log("no matching rotation for movement: " + Convert.ToInt32(correctiveRotation));
+                    Debug.Log("Rotation 90 Case");
                     if (h < 0) {
                         agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "back");
                     } else if (h > 0) {
@@ -75,7 +76,7 @@ public class MovementController : MonoBehaviour {
                     }
                     break;
                 case -90:
-                    Debug.Log("no matching rotation for movement: " + Convert.ToInt32(correctiveRotation));
+                    Debug.Log("Rotation -90 Case");
                     if (h < 0) {
                         agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "front");
                     } else if (h > 0) {
@@ -87,7 +88,7 @@ public class MovementController : MonoBehaviour {
                     }
                     break;
                 case 180:
-                    Debug.Log("no matching rotation for movement: " + Convert.ToInt32(correctiveRotation));
+                    Debug.Log("Rotation 180 Case");
                     if (h < 0) {
                         agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "right");
                     } else if (h > 0) {
@@ -103,7 +104,7 @@ public class MovementController : MonoBehaviour {
                     break;
             }
             if (agentDestinationModuleConnector != null && agentDestinationModuleConnector.getOtherSide() != null) {
-                agent.destination = Helper.FindComponentInChildWithTag<Transform>(agentDestinationModuleConnector.getOtherSide().GetComponentInParent<Module>().gameObject, "movePoint").transform.position;
+                agent.SetTarget(Helper.FindComponentInChildWithTag<Transform>(agentDestinationModuleConnector.getOtherSide().GetComponentInParent<Module>().gameObject, "movePoint").transform);
                 disableArrows(currentModule);
             }
         }
