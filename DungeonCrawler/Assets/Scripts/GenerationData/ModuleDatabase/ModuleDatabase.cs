@@ -59,7 +59,7 @@ public class ModuleDatabase : ScriptableObject {
             case 2:
                 starts.AddRange(twoWays.getModulesFromData().Where(e => e.hasTag(TileTagsEnum.Start)));
                 starts.AddRange(oneWays.getModulesFromData().Where(e => e.hasTag(TileTagsEnum.Start)));
-                Debug.Log("Starträume gefunden: " + (StartRooms.Length > 0));
+                Debug.Log("Starträume gefunden: " + (starts.Count() > 0));
                 break;
             default:
                 Debug.LogError("Unknown Identifier for maxExits");

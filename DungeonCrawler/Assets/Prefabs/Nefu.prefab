@@ -925,7 +925,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1853412361019744}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1
+  m_Radius: 0.5
   m_Speed: 1
   m_Acceleration: 10
   avoidancePriority: 50

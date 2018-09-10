@@ -12,31 +12,44 @@ public class MovementController : MonoBehaviour {
     private Module currentModule;
 
     private Vector3 heightOffset = new Vector3(0, 1, 0);
+    private bool gameStopped = false;
+
+    public bool GameStopped {
+        get {
+            return gameStopped;
+        }
+
+        set {
+            gameStopped = value;
+        }
+    }
 
     // Update is called once per frame
     void Update() {
-        if (agent == null) {
-            agent = GameObject.FindGameObjectWithTag("Player").GetComponent<AICharacterControl>();
-        }
-        if (agent.getStopstate()) {
-            var agentCollider = agent.GetComponent<CapsuleCollider>();
-            var possibleCollisions = Physics.OverlapSphere(agentCollider.bounds.center, agentCollider.bounds.extents.magnitude);
-            //Debug.Log("Mögliche Playercollisions: "+possibleCollisions.Length);
-            foreach (var possibleCollision in possibleCollisions.Where(e => e != agentCollider && e.GetComponentInParent<Module>() != null)) {
-                //Debug.Log("Player auf Mesh: "+possibleCollision.name);
-                currentModule = possibleCollision.GetComponentInParent<Module>();
-                var exits = currentModule.GetExits();
-                foreach (ModuleConnector exit in exits) {
+        if (!GameStopped) {
+            if (agent == null) {
+                agent = GameObject.FindGameObjectWithTag("Player").GetComponent<AICharacterControl>();
+            }
+            if (agent.getStopstate()) {
+                var agentCollider = agent.GetComponent<CapsuleCollider>();
+                var possibleCollisions = Physics.OverlapSphere(agentCollider.bounds.center, agentCollider.bounds.extents.magnitude);
+                //Debug.Log("Mögliche Playercollisions: "+possibleCollisions.Length);
+                foreach (var possibleCollision in possibleCollisions.Where(e => e != agentCollider && e.GetComponentInParent<Module>() != null)) {
+                    //Debug.Log("Player auf Mesh: "+possibleCollision.name);
+                    currentModule = possibleCollision.GetComponentInParent<Module>();
+                    var exits = currentModule.GetExits();
+                    foreach (ModuleConnector exit in exits) {
 #pragma warning disable CS0618 // Typ oder Element ist veraltet know, but unity is shit
-                    exit.gameObject.SetActiveRecursively(true);
+                        exit.gameObject.SetActiveRecursively(true);
 #pragma warning restore CS0618 // Typ oder Element ist veraltet
-                    if (exit.GetComponentInChildren<HoveringArrow>() == null) {
-                        HoveringArrow arrow = Instantiate(arrowPrefab, exit.transform.position + heightOffset, Quaternion.LookRotation(-exit.transform.forward));
-                        arrow.transform.parent = exit.transform;
+                        if (exit.GetComponentInChildren<HoveringArrow>() == null) {
+                            HoveringArrow arrow = Instantiate(arrowPrefab, exit.transform.position + heightOffset, Quaternion.LookRotation(-exit.transform.forward));
+                            arrow.transform.parent = exit.transform;
+                        }
                     }
                 }
+                handleMovement();
             }
-            handleMovement();
         }
     }
 

@@ -33,13 +33,13 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             if (agent.remainingDistance > agent.stoppingDistance) {
                 agent.isStopped = false;
                 character.Move(agent.desiredVelocity, false, false);
-                Debug.Log("Should Move");
+                //Debug.Log("Should Move");
             }
             else
             {
                 agent.isStopped = true;
                 character.Move(Vector3.zero,false,false);
-                Debug.Log("Stop");
+                //Debug.Log("Stop");
             }
 
         }
