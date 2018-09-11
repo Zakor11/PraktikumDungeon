@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 23274328828063470}
   - component: {fileID: 208166530571743650}
   - component: {fileID: 65651063601591158}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 23782708791540074}
   - component: {fileID: 208436423260865462}
   - component: {fileID: 65442993456866052}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 23118641381475740}
   - component: {fileID: 208307151817022104}
   - component: {fileID: 65296963970031386}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 23242299030354394}
   - component: {fileID: 208445930113355764}
   - component: {fileID: 65828063746180774}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 23028125660374818}
   - component: {fileID: 208542644442738008}
   - component: {fileID: 65187802796047010}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 23528232691661678}
   - component: {fileID: 208851495586880850}
   - component: {fileID: 65961258575605344}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 23191339331647640}
   - component: {fileID: 208972578010452210}
   - component: {fileID: 65002948815017818}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 23268346367347326}
   - component: {fileID: 208977480727368976}
   - component: {fileID: 65180154480113310}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +297,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1605814043343238}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -35.65, y: 10.67, z: -30.845547}
+  m_LocalPosition: {x: 22.725279, y: 24.941187, z: -16.167908}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4834186162551788}

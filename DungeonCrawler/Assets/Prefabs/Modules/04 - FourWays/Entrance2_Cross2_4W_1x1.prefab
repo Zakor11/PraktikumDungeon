@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 23682771232501162}
   - component: {fileID: 208600146343350086}
   - component: {fileID: 65080567562925314}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Railing020
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 23941566447325678}
   - component: {fileID: 208451227784479518}
   - component: {fileID: 65710733065244712}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Railing018
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,7 +77,7 @@ GameObject:
   - component: {fileID: 23341318418160530}
   - component: {fileID: 208094568133628676}
   - component: {fileID: 65450214251513892}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Railing017
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 23973347863391574}
   - component: {fileID: 208105894386504766}
   - component: {fileID: 65297640953938800}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Railing019
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,7 +312,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1795473079477894}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.77, y: 10.12, z: -30.677624}
+  m_LocalPosition: {x: 25.932655, y: 28.816572, z: -18.454578}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4969764602902452}

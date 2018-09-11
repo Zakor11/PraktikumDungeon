@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23339690801849658}
   - component: {fileID: 208896199562182684}
   - component: {fileID: 65415015411888112}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 23613393114702756}
   - component: {fileID: 208740008391280994}
   - component: {fileID: 65509158851591066}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 23723905242827382}
   - component: {fileID: 208743725107763942}
   - component: {fileID: 65627996838046760}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 23984112937092534}
   - component: {fileID: 208869433201654738}
   - component: {fileID: 65274673702757988}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 23569367629015756}
   - component: {fileID: 208600706335681060}
   - component: {fileID: 65065206676711666}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 23742535327707048}
   - component: {fileID: 208603249502592442}
   - component: {fileID: 65558352237444488}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -332,7 +332,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1818706462154314}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.71, y: 33.063656, z: -27.241016}
+  m_LocalPosition: {x: 10.138359, y: 12.084339, z: -4.9140964}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4129699713226756}
@@ -766,6 +766,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: 75
   IsDefault: 0
+  ExitMatched: 0
+  otherSide: {fileID: 0}
 --- !u!114 &114467344129800190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -779,6 +781,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: 75
   IsDefault: 0
+  ExitMatched: 0
+  otherSide: {fileID: 0}
 --- !u!114 &114786230237255738
 MonoBehaviour:
   m_ObjectHideFlags: 1
