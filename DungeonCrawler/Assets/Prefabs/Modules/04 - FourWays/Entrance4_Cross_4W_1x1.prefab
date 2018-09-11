@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23619696306964166}
   - component: {fileID: 208382233457128414}
   - component: {fileID: 65367822999349234}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Railing037
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 23102848545073522}
   - component: {fileID: 208592887705724940}
   - component: {fileID: 65042571387806414}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Railing035
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 23113475684004264}
   - component: {fileID: 208937574260845990}
   - component: {fileID: 65718403840228038}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Railing033
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 23714131640263190}
   - component: {fileID: 208202107749304974}
   - component: {fileID: 65870988935410478}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Railing040
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 23846975427999894}
   - component: {fileID: 208767730669379010}
   - component: {fileID: 65964682740440240}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Railing039
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 23236124576622876}
   - component: {fileID: 208054696876125930}
   - component: {fileID: 65955412590009070}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Railing034
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 23121359049674696}
   - component: {fileID: 208787237773077234}
   - component: {fileID: 65700863879869094}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Railing038
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 23000872794557746}
   - component: {fileID: 208098479729415664}
   - component: {fileID: 65199288025453260}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Railing036
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -440,7 +440,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1915712955076350}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -20.183205, y: 7.57, z: -40.64}
+  m_LocalPosition: {x: 27.409859, y: 29.767565, z: -18.731174}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4120768917649910}

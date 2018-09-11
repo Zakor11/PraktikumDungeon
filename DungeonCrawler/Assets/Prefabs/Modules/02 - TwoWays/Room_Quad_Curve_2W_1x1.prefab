@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 23777694894008490}
   - component: {fileID: 208811481237463508}
   - component: {fileID: 65226987512943176}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 23607532890587210}
   - component: {fileID: 208542333353067368}
   - component: {fileID: 65949127574623932}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 23372143004500472}
   - component: {fileID: 208460674954170126}
   - component: {fileID: 65580233313354694}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 23248196166786650}
   - component: {fileID: 208367919423803956}
   - component: {fileID: 65091997194369484}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 23099619018847188}
   - component: {fileID: 208164423668271280}
   - component: {fileID: 65768319897426096}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 23011817566060676}
   - component: {fileID: 208808373257470710}
   - component: {fileID: 65023937001269624}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1151514877746520}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.44, y: 30.063656, z: -30.003902}
+  m_LocalPosition: {x: 9.08297, y: 9.617355, z: -1.9140961}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4706092781913404}
@@ -790,6 +790,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: 75
   IsDefault: 0
+  ExitMatched: 0
+  otherSide: {fileID: 0}
 --- !u!114 &114726081654928020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -803,6 +805,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: 75
   IsDefault: 0
+  ExitMatched: 0
+  otherSide: {fileID: 0}
 --- !u!208 &208164423668271280
 NavMeshObstacle:
   m_ObjectHideFlags: 1

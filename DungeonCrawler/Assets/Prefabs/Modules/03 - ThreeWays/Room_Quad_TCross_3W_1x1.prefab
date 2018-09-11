@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23680975009684020}
   - component: {fileID: 208619906311142864}
   - component: {fileID: 65280960889798580}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 23060665059210046}
   - component: {fileID: 208789909620925782}
   - component: {fileID: 65576270643930422}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 23753970171140048}
   - component: {fileID: 208653907225631830}
   - component: {fileID: 65750740544576570}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 23246731433264430}
   - component: {fileID: 208000649305941992}
   - component: {fileID: 65840818737233518}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 23766386072327790}
   - component: {fileID: 208023348329553120}
   - component: {fileID: 65716921647119686}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 23041344569600874}
   - component: {fileID: 208865517091681206}
   - component: {fileID: 65685939428079046}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 23975528854538338}
   - component: {fileID: 208237642659127862}
   - component: {fileID: 65614881902039838}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,7 +393,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1895256891371724}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -21.70641, y: 19.43, z: -36.94}
+  m_LocalPosition: {x: 24.118092, y: 24.441187, z: -16.224417}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4328528010443974}
@@ -895,6 +895,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: 75
   IsDefault: 0
+  ExitMatched: 0
+  otherSide: {fileID: 0}
 --- !u!114 &114235910044898980
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -908,6 +910,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: 75
   IsDefault: 0
+  ExitMatched: 0
+  otherSide: {fileID: 0}
 --- !u!114 &114326914035060922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -933,6 +937,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: 75
   IsDefault: 0
+  ExitMatched: 0
+  otherSide: {fileID: 0}
 --- !u!208 &208000649305941992
 NavMeshObstacle:
   m_ObjectHideFlags: 1

@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 23632308656656352}
   - component: {fileID: 208065380969776596}
   - component: {fileID: 65298942026252016}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 23364710721329700}
   - component: {fileID: 208062774670691816}
   - component: {fileID: 65834501747029068}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 23222202150175404}
   - component: {fileID: 208697707720733492}
   - component: {fileID: 65292997502611366}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1085793043633542}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.173, y: 6.958475, z: -17.183392}
+  m_LocalPosition: {x: -1.2754002, y: 3.892314, z: -1.1228306}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4612407083423526}
@@ -474,6 +474,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: 3
   IsDefault: 0
+  ExitMatched: 0
+  otherSide: {fileID: 0}
 --- !u!114 &114865397741297036
 MonoBehaviour:
   m_ObjectHideFlags: 1

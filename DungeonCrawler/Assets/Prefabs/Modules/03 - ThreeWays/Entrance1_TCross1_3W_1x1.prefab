@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 23753826001763758}
   - component: {fileID: 208059807939328206}
   - component: {fileID: 65639482774804662}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Railing02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 23612198916183712}
   - component: {fileID: 208724414528916696}
   - component: {fileID: 65966528378532074}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Railing01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -219,7 +219,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1912232455853000}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -36.19, y: 18.79, z: -28.843481}
+  m_LocalPosition: {x: 18.663694, y: 22.054604, z: -18.08678}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4672989258402474}

@@ -2383,6 +2383,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followDistance: {x: 0, y: 15, z: -15}
   distanceDamp: 0.2
+  transparentTex: {fileID: 2100000, guid: 57e4a4fc207757244b8971231bc28d89, type: 2}
+  normalTex: {fileID: 2100000, guid: 4c818153ba0900f4b9b34d1c09a3ab0c, type: 2}
 --- !u!1 &2011476668
 GameObject:
   m_ObjectHideFlags: 0
