@@ -11,7 +11,7 @@ public class MovementController : MonoBehaviour {
     public HoveringArrow arrowPrefab;
     private Module currentModule;
 
-    private Vector3 heightOffset = new Vector3(0, 1, 0);
+    private Vector3 heightOffset = new Vector3(0, 2.5f, 0);
     private bool gameStopped = false;
 
     public bool GameStopped {

@@ -41,11 +41,11 @@ public class FollowCam : MonoBehaviour {
             wall.gameObject.layer = 2;
             wall.material = transparentTex;
         }
-        Debug.LogError("While verlassen");
+        //Debug.LogError("While verlassen");
         wallListNew.ForEach(e => e.gameObject.layer = 9);
         var toReset = wallListOld.Where(e => !wallListNew.Contains(e)).ToList();
-        Debug.Log(toReset.Count());
-        Debug.Log(wallListOld.Count());
+        //Debug.Log(toReset.Count());
+        //Debug.Log(wallListOld.Count());
         toReset.ForEach(e => e.material = normalTex);
         wallListOld.Clear();
         wallListOld.AddRange(wallListNew);

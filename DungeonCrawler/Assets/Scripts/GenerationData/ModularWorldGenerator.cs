@@ -119,26 +119,24 @@ public class ModularWorldGenerator : MonoBehaviour {
 
         }
 
-        var finalMainExits = mainPath.Last().GetExits().Where(e => e.IsMatched() != true).ToArray();
-        var finalMainExit = Helper.GetRandom(finalMainExits);
         var endModulePrefab = Database.getEndRoom();
         var endModule = Instantiate(endModulePrefab);
-        endModule.gameObject.name = "Final";
-        //TODO Throws Nullpointer if last on mainpath can't connect to room currently, fixed by creating a bridgeroom before final
-        //TODO Catch deadend match
-        ModuleConnector finalExitToMatch = null;
+        ModuleConnector finalMainExit = null;
         try {
-            finalExitToMatch = GetRandomExitWithTag(endModule, finalMainExit.GetComponentInParent<Module>().tags);
+            finalMainExit = GetRandomExitWithTag(mainPath.Last(),endModule.tags);
         } catch (IndexOutOfRangeException e) {
             Debug.LogWarning(e);
-            BuildBridgeForFinal(finalMainExit);
-            finalMainExit = Helper.GetRandom(mainPath.Last().GetExits().Where(d => d.IsMatched() != true).ToArray());
-            finalExitToMatch = GetRandomExitWithTag(endModule, finalMainExit.GetComponentInParent<Module>().tags);
+            BuildBridgeForFinal(mainPath.Last());
+            finalMainExit = GetRandomExitWithTag(mainPath.Last(), endModule.tags);
         }
+
+        ModuleConnector finalExitToMatch = GetRandomExitWithTag(endModule, finalMainExit.GetComponentInParent<Module>().tags);
         MatchExits(finalMainExit, finalExitToMatch);
 
+        endModule.gameObject.name = "Final";
         CurrentRooms++;
         mainPath.Add(endModule);
+
         if (CollisionDetection(endModule, finalMainExit.GetComponentInParent<Module>())) {
             Backtrack(3);
             BuildMainPath();
@@ -148,21 +146,26 @@ public class ModularWorldGenerator : MonoBehaviour {
             finalExitToMatch.SetMatched(true);
             finalExitToMatch.setOtherSide(finalMainExit);
             endModule.transform.parent = moduleHolder.transform;
-            pendingExits.AddRange(finalMainExits.Where(e => e.IsMatched() != true));
+            pendingExits.AddRange(finalMainExit.GetComponentInParent<Module>().GetExits().Where(e => e.IsMatched() != true));
             pendingExits.AddRange(endModule.GetExits().Where(e => e.IsMatched() != true));
         }
 
     }
 
-    private void BuildBridgeForFinal(ModuleConnector finalMainExit) {
+    private void BuildBridgeForFinal(Module finalMain) {
+
+        var finalMainExit = Helper.GetRandom(finalMain.GetExits().Where(e=> !e.IsMatched()).ToArray());
 
         ModuleConnector bridgeConnector = Instantiate(finalMainExit);
+        bridgeConnector.name = "BridgeConnector";
         bridgeConnector.transform.parent = finalMainExit.transform.parent;
+        bridgeConnector.transform.SetPositionAndRotation(finalMainExit.transform.position, finalMainExit.transform.rotation);
         bridgeConnector.tags = TileTagsEnum.Entrance;
 
         var bridgePrefab = GetRandomMatchingTile(bridgeConnector, false);
         var bridgeModule = (Module)Instantiate(bridgePrefab);
         bridgeModule.gameObject.name = "FinalBridge";
+        bridgeConnector.gameObject.SetActive(false);
         var bridgeModuleExitToMatch = GetRandomExitWithTag(bridgeModule, finalMainExit.GetComponentInParent<Module>().tags);
         MatchExits(finalMainExit, bridgeModuleExitToMatch);
 
@@ -171,18 +174,19 @@ public class ModularWorldGenerator : MonoBehaviour {
             Debug.Log("Gameobject " + bridgeModule.name + " disabled");
             Destroy(bridgeModule.gameObject);
             bridgeModule = null;
+
+            Destroy(bridgeConnector.gameObject);
+            BuildBridgeForFinal(finalMain);
         }
-        if (bridgeModule != null) {
+        else{
             finalMainExit.SetMatched(true);
             finalMainExit.setOtherSide(bridgeModuleExitToMatch);
             bridgeModuleExitToMatch.SetMatched(true);
             bridgeModuleExitToMatch.setOtherSide(finalMainExit);
             mainPath.Add(bridgeModule);
             bridgeModule.transform.parent = moduleHolder.transform;
-            pendingExits.AddRange(bridgeModule.GetExits().Where(e => !e.IsMatched()));
+            pendingExits.AddRange(finalMain.GetExits().Where(e => !e.IsMatched()));
             CurrentRooms++;
-        } else {
-            BuildBridgeForFinal(finalMainExit);
         }
     }
 
@@ -192,7 +196,7 @@ public class ModularWorldGenerator : MonoBehaviour {
         int pendingsExitBeforeCleanup = pendingExits.Count();
         pendingExits = pendingExits.Where(e => e != null && !(e.IsMatched() || e.getOtherSide() != null)).ToList();
         if (pendingExits.Count() < pendingsExitBeforeCleanup) {
-            Debug.LogError("Cleanup had to remove exits!");
+            Debug.LogWarning("Cleanup had to remove exits!");
         }
     }
 
@@ -295,8 +299,8 @@ public class ModularWorldGenerator : MonoBehaviour {
         Debug.Log("Relevante Collisions für Anschluss an Tile " + currentModuleConnector.transform.parent.name + ":" + intersects);
         if (intersects > 0) {
             var outDistance = 0f;
-            float maxDistance = newModuleCollider.bounds.size.z+currentModuleCollider.bounds.extents.z;
-            Debug.Log("MaxRayDistance for " + currentModuleCollider.name + ": " + maxDistance);
+            //float maxDistance = newModuleCollider.bounds.size.z+currentModuleCollider.bounds.extents.z;
+            //Debug.Log("MaxRayDistance for " + currentModuleCollider.name + ": " + maxDistance);
             var modulesInExitDirection = relevantCollisions.Where(e => e.bounds.
             IntersectRay(new Ray(currentModuleCollider.bounds.center, currentModuleConnector.transform.forward), out outDistance)
             && outDistance <= 6
@@ -333,7 +337,7 @@ public class ModularWorldGenerator : MonoBehaviour {
                 Debug.Log("Endroommatching: " + (matched | exitsFit));
                 if (matched) {
                     adjacentModule.gameObject.SetActive(false);
-                    Destroy(adjacentModule.gameObject);
+                    //Destroy(adjacentModule.gameObject);
                 } else {
                     Debug.Log("No Match Case");
                     buildDeadendOutOfCurrentRoom(currentModuleConnector);
@@ -436,7 +440,7 @@ public class ModularWorldGenerator : MonoBehaviour {
                         int index = mainPath.IndexOf(otherModule);
                         mainPath.Insert(index,testedModule);
                     }
-                    testedModule.gameObject.name = "Endroom " + CurrentRooms;
+                    testedModule.gameObject.name = "Endroom " + CurrentRooms+ "("+otherModule.gameObject.name+")";
                     testedModule.gameObject.transform.parent = moduleHolder.transform;
                     Debug.Log("Matching suceess: " + testedModule.gameObject.name);
                     return true;
@@ -454,7 +458,7 @@ public class ModularWorldGenerator : MonoBehaviour {
         bool matched = FindMatchingModuleWithExits(exitsToMatch.Count(), exitToMatch.getOtherSide(), moduleToChange);
         if (matched) {
             moduleToChange.gameObject.SetActive(false);
-            Destroy(moduleToChange.gameObject);
+            //Destroy(moduleToChange.gameObject);
         } else {
             Debug.LogError("No DeadendMatch!");
         }
@@ -533,7 +537,7 @@ public class ModularWorldGenerator : MonoBehaviour {
             var correctiveTranslation = oldExit.transform.position - newExit.transform.position;
             newModule.transform.position += correctiveTranslation;
         } catch (MissingReferenceException e) {
-            Debug.Log("Missing Ref catched: " + e.Message);
+            Debug.LogError("Missing Ref catched: " + e.Message);
         }
     }
 
@@ -542,7 +546,7 @@ public class ModularWorldGenerator : MonoBehaviour {
 
         Vector3 spawnPoint = Helper.GetRandom(mainPath.First().GetSpawns()).transform.parent.position;
         Quaternion spawnRotation = Quaternion.identity;
-        Debug.Log("Spawn Point located at: " + spawnPoint.ToString());
+        //Debug.Log("Spawn Point located at: " + spawnPoint.ToString());
 
         GameObject newPlayer = (GameObject)Instantiate(player, spawnPoint, spawnRotation);
         Debug.Log("Player created");
@@ -563,10 +567,8 @@ public class ModularWorldGenerator : MonoBehaviour {
     }
 
     private static ModuleConnector GetRandomExitWithTag(Module module, TileTagsEnum tagToMatch) {
-        //Debug.Log("Modules: "+modules.Count());
         var possibleExits = module.GetExits();
         var matchingExits = possibleExits.Where(e => (e.hasTag(tagToMatch)));
-        //Debug.Log("Matching Modules for "+tagToMatch+": "+matchingModules.Count());
         return Helper.GetRandom<ModuleConnector>(matchingExits.ToArray());
     }
 
