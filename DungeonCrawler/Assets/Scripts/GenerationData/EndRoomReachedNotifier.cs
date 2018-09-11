@@ -1,20 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EndRoomReachedNotifier : MonoBehaviour {
 
-    private void OnTriggerEnter(Collider other) {
-        if (other.tag == "Player") {
-            Debug.Log("player entered endroom");
-            SendMessageUpwards("PlayerInEndroom", true);
-        }
-    }
+    bool contains = false;
 
-    private void OnTriggerExit(Collider other) {
-        if (other.tag == "Player") {
-            Debug.Log("Player left endroom");
-            SendMessageUpwards("PlayerInEndroom", false);
+    private void LateUpdate() {
+        var collider = GetComponent<BoxCollider>();
+        var playerPosition = FindObjectOfType<NavMeshAgent>().transform.position;
+        if (collider.bounds.Contains(playerPosition)!=contains){
+            contains = !contains;
+            SendMessageUpwards("PlayerInEndroom", contains);
         }
     }
 }

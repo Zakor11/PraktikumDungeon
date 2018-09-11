@@ -55,8 +55,13 @@ public class ModularWorldGenerator : MonoBehaviour {
         ColorMainPath();
 
         moduleHolder.AddComponent<NavMeshSurface>();
-        moduleHolder.GetComponent<NavMeshSurface>().collectObjects = CollectObjects.Children;
-        moduleHolder.GetComponent<NavMeshSurface>().BuildNavMesh();
+        var navBuilder = moduleHolder.GetComponent<NavMeshSurface>();
+        navBuilder.collectObjects = CollectObjects.Children;
+        navBuilder.overrideVoxelSize = true;
+        navBuilder.voxelSize=0.08f;
+        navBuilder.overrideTileSize = true;
+        navBuilder.tileSize = 38;
+        navBuilder.BuildNavMesh();
 
         SpawnPlayer();
         
