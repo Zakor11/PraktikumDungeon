@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections.Generic;
+using System;
 
 public class ModularWorldGenerator : MonoBehaviour {
     public const TileTagsEnum FALLBACK_TAG = TileTagsEnum.Corridor;
@@ -29,7 +30,7 @@ public class ModularWorldGenerator : MonoBehaviour {
         Database = levelGenData.database;
         genParams = levelGenData.genParams;
         Modules = Database.getModulesWithMaxExits(genParams.maxExits);
-        Random.InitState(genParams.seed);
+        UnityEngine.Random.InitState(genParams.seed);
         moduleHolder = new GameObject();
         moduleHolder.name = "Module Holder";
         moduleHolder.transform.parent = this.transform.parent;
@@ -125,7 +126,15 @@ public class ModularWorldGenerator : MonoBehaviour {
         endModule.gameObject.name = "Final";
         //TODO Throws Nullpointer if last on mainpath can't connect to room currently, fixed by creating a bridgeroom before final
         //TODO Catch deadend match
-        var finalExitToMatch = GetRandomExitWithTag(endModule, finalMainExit.GetComponentInParent<Module>().tags);
+        ModuleConnector finalExitToMatch = null;
+        try {
+            finalExitToMatch = GetRandomExitWithTag(endModule, finalMainExit.GetComponentInParent<Module>().tags);
+        } catch (IndexOutOfRangeException e) {
+            Debug.LogWarning(e);
+            BuildBridgeForFinal(finalMainExit);
+            finalMainExit = Helper.GetRandom(mainPath.Last().GetExits().Where(d => d.IsMatched() != true).ToArray());
+            finalExitToMatch = GetRandomExitWithTag(endModule, finalMainExit.GetComponentInParent<Module>().tags);
+        }
         MatchExits(finalMainExit, finalExitToMatch);
 
         CurrentRooms++;
@@ -143,6 +152,38 @@ public class ModularWorldGenerator : MonoBehaviour {
             pendingExits.AddRange(endModule.GetExits().Where(e => e.IsMatched() != true));
         }
 
+    }
+
+    private void BuildBridgeForFinal(ModuleConnector finalMainExit) {
+
+        ModuleConnector bridgeConnector = Instantiate(finalMainExit);
+        bridgeConnector.transform.parent = finalMainExit.transform.parent;
+        bridgeConnector.tags = TileTagsEnum.Entrance;
+
+        var bridgePrefab = GetRandomMatchingTile(bridgeConnector, false);
+        var bridgeModule = (Module)Instantiate(bridgePrefab);
+        bridgeModule.gameObject.name = "FinalBridge";
+        var bridgeModuleExitToMatch = GetRandomExitWithTag(bridgeModule, finalMainExit.GetComponentInParent<Module>().tags);
+        MatchExits(finalMainExit, bridgeModuleExitToMatch);
+
+        if (CollisionDetection(bridgeModule, finalMainExit.GetComponentInParent<Module>())) {
+            bridgeModule.gameObject.SetActive(false);
+            Debug.Log("Gameobject " + bridgeModule.name + " disabled");
+            Destroy(bridgeModule.gameObject);
+            bridgeModule = null;
+        }
+        if (bridgeModule != null) {
+            finalMainExit.SetMatched(true);
+            finalMainExit.setOtherSide(bridgeModuleExitToMatch);
+            bridgeModuleExitToMatch.SetMatched(true);
+            bridgeModuleExitToMatch.setOtherSide(finalMainExit);
+            mainPath.Add(bridgeModule);
+            bridgeModule.transform.parent = moduleHolder.transform;
+            pendingExits.AddRange(bridgeModule.GetExits().Where(e => !e.IsMatched()));
+            CurrentRooms++;
+        } else {
+            BuildBridgeForFinal(finalMainExit);
+        }
     }
 
     //Dirty Workaround for null in pending exits
