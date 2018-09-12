@@ -550,7 +550,7 @@ public class ModularWorldGenerator : MonoBehaviour {
 
         GameObject newPlayer = (GameObject)Instantiate(player, spawnPoint, spawnRotation);
         Debug.Log("Player created");
-        Camera.main.GetComponent<FollowCam>().target = newPlayer.transform;
+        Camera.main.GetComponentInParent<FollowCam>().target = newPlayer.transform;
         newPlayer.gameObject.AddComponent<NavMeshAgent>();
         newPlayer.tag = "Player";
 

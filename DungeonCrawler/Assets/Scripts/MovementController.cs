@@ -62,8 +62,16 @@ public class MovementController : MonoBehaviour {
             var correctiveRotation = Helper.Azimuth(forwardVectorToMatch) - Helper.Azimuth(camForward);
             Debug.Log("RotationTile: " + forwardVectorToMatch + ", Rotation Cam: " + Camera.main.transform.forward + ",Correction: " + correctiveRotation);
             ModuleConnector agentDestinationModuleConnector = null;
-
-            switch (Convert.ToInt32(correctiveRotation)) {
+            int rotation = Convert.ToInt32(correctiveRotation);
+            if (-45 <= rotation && rotation <= 45)
+                rotation = 0;
+            else if (-135 <= rotation && rotation < -45)
+                rotation = -90;
+            else if (45 < rotation && rotation <= 135)
+                rotation = 90;
+            else
+                rotation = 180;
+            switch (rotation) {
                 case 0:
                     Debug.Log("Rotation 0 Case");
                     if (h < 0) {
