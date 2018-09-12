@@ -28,20 +28,25 @@ public class ModularWorldGenerator : MonoBehaviour {
     public void PrepareGeneration() {
         
         Database = levelGenData.database;
-        genParams = levelGenData.genParams;
-        Modules = Database.getModulesWithMaxExits(genParams.maxExits);
-        UnityEngine.Random.InitState(genParams.seed);
+        genParams = levelGenData.genParams;     
         moduleHolder = new GameObject();
         moduleHolder.name = "Module Holder";
         moduleHolder.transform.parent = this.transform.parent;
+        
+    }
+
+    public void overridePresetValues(LevelParams levelParams) {
+        genParams = levelParams;
+    }
+
+    public void GenerateRooms() {
+        Modules = Database.getModulesWithMaxExits(genParams.maxExits);
+        UnityEngine.Random.InitState(genParams.seed);
         var startModule = Instantiate(Helper.GetRandom(Database.getStartRooms()), transform.position, transform.rotation);
         startModule.transform.parent = moduleHolder.transform;
         startModule.gameObject.name = "Start";
         mainPath.Add(startModule);
         CurrentRooms++;
-    }
-
-    public void GenerateRooms() {
 
         BuildMainPath();
 
@@ -232,44 +237,13 @@ public class ModularWorldGenerator : MonoBehaviour {
                 allModules.Add(newModule);
                 CurrentRooms++;
             }
+            CleanUp();
         }
     }
 
     private void BuildPathEndings() {
 
-        while (pendingExits.Count() > 0) {
-            //OLD SIMPLE ENDROOMGENERATION
-            //if (Random.value < genParams.endRoomChance) {
-            //    var newModulePrefab = GetRandomMatchingTile(pendingExit,true);
-            //    var newModule = (Module)Instantiate(newModulePrefab);
-            //    newModule.gameObject.name = CurrentRooms + "";
-
-            //    var newModuleExits = newModule.GetExits();
-            //    var exitToMatch = newModuleExits.FirstOrDefault(x => x.IsDefault) ?? GetRandom(newModuleExits);
-            //    MatchExits(pendingExit, exitToMatch);
-
-            //    if (CollisionDetection(newModule, pendingExit.GetComponentInParent<Module>())) {
-            //        //var triedModules = new List<Module>();
-            //        //triedModules.Add(newModule);
-            //        newModule.gameObject.SetActive(false);
-            //        Debug.Log("Gameobject " + newModule.name + " disabled");
-            //        GameObject.Destroy(newModule.gameObject);
-            //        newModule = null;
-            //    }
-
-            //    if (newModule != null) {
-            //        pendingExit.SetMatched(true);
-            //        pendingExit.setOtherSide(exitToMatch);
-            //        exitToMatch.SetMatched(true);
-            //        exitToMatch.setOtherSide(pendingExit);
-
-            //        CurrentRooms++;
-            //    } else {
-            //        pendingExit.gameObject.SetActive(false);
-            //    }
-            //} else {
-            //    pendingExit.gameObject.SetActive(false);
-            //}
+        while (pendingExits.Count() > 0) {           
             var pendingExit = pendingExits.First();
             if (pendingExit.gameObject.activeSelf && pendingExit.transform.parent.gameObject.activeSelf) {
                 Module newModulePrefab = GetRandomMatchingTile(pendingExit, true);

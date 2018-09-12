@@ -23,6 +23,9 @@ public class GameController : MonoBehaviour {
         dungeonGenerator = Instantiate(dungeonGenerator);
         dungeonGenerator.transform.parent = this.transform;
         dungeonGenerator.PrepareGeneration();
+        if (LevelProperties.HasChanges()) {
+            dungeonGenerator.overridePresetValues(LevelProperties.GetParams());
+        }
         dungeonGenerator.GenerateRooms();
         KeyPickUpGenerator = Instantiate(KeyPickUpGenerator);
         
