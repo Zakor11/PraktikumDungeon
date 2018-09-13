@@ -51,7 +51,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         }
 
         public bool getStopstate() {
-            return agent.isStopped;
+            if(agent!=null)
+                return agent.isStopped;
+            else
+                return false;
         }
     }
 }
