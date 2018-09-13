@@ -27,7 +27,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         {
             if (target != null) {
                 agent.SetDestination(target.position);
-                Debug.Log("Destination Set: " + target.position);
+                //Debug.Log("Destination Set: " + target.position);
             }
 
             if (agent.remainingDistance > agent.stoppingDistance) {

@@ -11,8 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10d4b406bd0d6a840941212dc5007d88, type: 3}
   m_Name: TestPreset
   m_EditorClassIdentifier: 
-  seed: 2082
+  seed: 1337
   maxExits: 3
-  mainPathRooms: 10
-  maxRoomCount: 12
+  mainPathRooms: 50
+  maxRoomCount: 90
   endRoomChance: 1

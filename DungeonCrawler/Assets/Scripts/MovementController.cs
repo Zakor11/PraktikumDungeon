@@ -63,11 +63,11 @@ public class MovementController : MonoBehaviour {
             Debug.Log("RotationTile: " + forwardVectorToMatch + ", Rotation Cam: " + Camera.main.transform.forward + ",Correction: " + correctiveRotation);
             ModuleConnector agentDestinationModuleConnector = null;
             int rotation = Convert.ToInt32(correctiveRotation);
-            if (-45 <= rotation && rotation <= 45)
+            if (-45 <= rotation && rotation <= 45 ||315<rotation)
                 rotation = 0;
-            else if (-135 <= rotation && rotation < -45)
+            else if (-135 <= rotation && rotation < -45 || 225<rotation && rotation<=315)
                 rotation = -90;
-            else if (45 < rotation && rotation <= 135)
+            else if (45 < rotation && rotation <= 135 || -315<=rotation && rotation<-225)
                 rotation = 90;
             else
                 rotation = 180;

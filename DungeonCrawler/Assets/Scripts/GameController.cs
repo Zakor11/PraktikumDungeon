@@ -34,7 +34,7 @@ public class GameController : MonoBehaviour {
     }
 
     private void Update() {
-        Debug.Log(keysCollected + " / " + maxKeys + " / " + playerInEndroom);
+        //Debug.Log(keysCollected + " / " + maxKeys + " / " + playerInEndroom);
         if (keysCollected == maxKeys && playerInEndroom) {
             EndGame();
         }
