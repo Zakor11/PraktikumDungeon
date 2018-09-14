@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace VRStandardAssets.Utils
 {
@@ -38,7 +39,9 @@ namespace VRStandardAssets.Utils
 
 
         private const string k_SliderMaterialPropertyName = "_SliderValue"; // The name of the property on the SlidingUV shader that needs to be changed in order for it to fill.
-
+        [SerializeField]
+        private int m_SceneToLoad;
+        private bool loadScene=false;
 
         private void OnEnable ()
         {
@@ -47,8 +50,20 @@ namespace VRStandardAssets.Utils
 
             m_InteractiveItem.OnOver += HandleOver;
             m_InteractiveItem.OnOut += HandleOut;
+
+            this.OnBarFilled += BarFilledHandler;
         }
 
+        private void BarFilledHandler()
+        {
+            Debug.LogWarning("Bar Filled Handler");
+            if (!loadScene)
+            {
+
+                loadScene = true;
+                StartCoroutine(LoadLevelAsync());
+            }
+        }
 
         private void OnDisable ()
         {
@@ -67,8 +82,22 @@ namespace VRStandardAssets.Utils
 
             // If this bar is using a UIFader turn off the collider when it's invisible.
             m_Collider.enabled = m_UIFader.Visible;
+
         }
 
+
+
+        private IEnumerator LoadLevelAsync()
+        {
+            // Load the level.
+            AsyncOperation async = SceneManager.LoadSceneAsync(m_SceneToLoad);
+
+            // While the asynchronous operation to load the new scene is not yet complete, continue waiting until it's done.
+            while (!async.isDone)
+            {
+                yield return null;
+            }
+        }
 
         public IEnumerator WaitForBarToFill ()
         {

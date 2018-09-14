@@ -34,6 +34,7 @@ namespace VRStandardAssets.Utils
 
         private void HandleOver ()
         {
+            Debug.Log("Handle Over");
             // When the user looks at the VRInteractiveItem go through all the images...
             for (int i = 0; i < m_ImagesToTint.Length; i++)
             {

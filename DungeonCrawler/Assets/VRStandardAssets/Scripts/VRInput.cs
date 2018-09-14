@@ -52,8 +52,9 @@ namespace VRStandardAssets.Utils
         {
             // Set the default swipe to be none.
             SwipeDirection swipe = SwipeDirection.NONE;
-
-            if (Input.GetButtonDown("Fire1"))
+            SteamVR_Controller.Device mDevice = SteamVR_Controller.Input((int) GetComponent<SteamVR_TrackedObject>().index);
+            float axisValue = mDevice.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).x;
+            if (axisValue>0.8)
             {
                 // When Fire1 is pressed record the position of the mouse.
                 m_MouseDownPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
@@ -62,9 +63,16 @@ namespace VRStandardAssets.Utils
                 if (OnDown != null)
                     OnDown();
             }
+            
+            {
+                // When Fire1 is released record the position of the mouse.
+                m_MouseUpPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
 
+                // Detect the direction between the mouse positions when Fire1 is pressed and released.
+                swipe = DetectSwipe();
+            }
             // This if statement is to gather information about the mouse when the button is up.
-            if (Input.GetButtonUp ("Fire1"))
+            if (axisValue==0)
             {
                 // When Fire1 is released record the position of the mouse.
                 m_MouseUpPosition = new Vector2 (Input.mousePosition.x, Input.mousePosition.y);
@@ -82,7 +90,7 @@ namespace VRStandardAssets.Utils
                 OnSwipe(swipe);
 
             // This if statement is to trigger events based on the information gathered before.
-            if(Input.GetButtonUp ("Fire1"))
+            if(axisValue==0)
             {
                 // If anything has subscribed to OnUp call it.
                 if (OnUp != null)

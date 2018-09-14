@@ -72,6 +72,7 @@ namespace VRStandardAssets.Utils
             // Do the raycast forweards to see if we hit an interactive item
             if (Physics.Raycast(ray, out hit, m_RayLength, ~m_ExclusionLayers))
             {
+                Debug.Log(hit.collider.name);
                 VRInteractiveItem interactible = hit.collider.GetComponent<VRInteractiveItem>(); //attempt to get the VRInteractiveItem on the hit object
                 m_CurrentInteractible = interactible;
 
