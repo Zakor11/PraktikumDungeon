@@ -12,14 +12,29 @@ public class GameController : MonoBehaviour {
     public Text keysCollectedGameText;
     public MovementController moveController;
     public CanvasRenderer endPanel;
+    [SerializeField]
+    private SteamVR_TrackedController grabController;
 
     private int keysCollected = 0;
     private int maxKeys = 0;
 
     private bool playerInEndroom = false;
 
-	// Use this for initialization
-	void Start () {
+    public SteamVR_TrackedController GrabController
+    {
+        get
+        {
+            return grabController;
+        }
+
+        set
+        {
+            grabController = value;
+        }
+    }
+
+    // Use this for initialization
+    void Start () {
         dungeonGenerator = Instantiate(dungeonGenerator);
         dungeonGenerator.transform.parent = this.transform;
         dungeonGenerator.PrepareGeneration();

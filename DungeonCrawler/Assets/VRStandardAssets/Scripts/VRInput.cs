@@ -72,7 +72,7 @@ namespace VRStandardAssets.Utils
                 swipe = DetectSwipe();
             }
             // This if statement is to gather information about the mouse when the button is up.
-            if (axisValue==0)
+            if (axisValue<=0.8)
             {
                 // When Fire1 is released record the position of the mouse.
                 m_MouseUpPosition = new Vector2 (Input.mousePosition.x, Input.mousePosition.y);
@@ -90,7 +90,7 @@ namespace VRStandardAssets.Utils
                 OnSwipe(swipe);
 
             // This if statement is to trigger events based on the information gathered before.
-            if(axisValue==0)
+            if(axisValue<=0.8)
             {
                 // If anything has subscribed to OnUp call it.
                 if (OnUp != null)

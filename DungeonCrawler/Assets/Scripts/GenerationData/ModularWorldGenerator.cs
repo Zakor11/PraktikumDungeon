@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections.Generic;
 using System;
+using VRStandardAssets.Utils;
 
 public class ModularWorldGenerator : MonoBehaviour {
     public const TileTagsEnum FALLBACK_TAG = TileTagsEnum.Corridor;
@@ -32,6 +33,9 @@ public class ModularWorldGenerator : MonoBehaviour {
         moduleHolder = new GameObject();
         moduleHolder.name = "Module Holder";
         moduleHolder.transform.parent = this.transform.parent;
+        moduleHolder.AddComponent<VRInteractiveItem>();
+        moduleHolder.AddComponent<VRMoveableDungeon>();
+        moduleHolder.GetComponent<VRMoveableDungeon>().ControllerToFollow = GetComponentInParent<GameController>().GrabController;
         
     }
 
@@ -527,7 +531,8 @@ public class ModularWorldGenerator : MonoBehaviour {
         Camera.main.GetComponentInParent<FollowCam>().target = newPlayer.transform;
         newPlayer.gameObject.AddComponent<NavMeshAgent>();
         newPlayer.tag = "Player";
-
+        newPlayer.transform.parent = moduleHolder.transform;
+        newPlayer.GetComponent<NefuAIController>().Controller = GetComponentInParent<GameController>().GrabController;
     }
 
 

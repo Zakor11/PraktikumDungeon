@@ -8,7 +8,7 @@ using UnityStandardAssets.Characters.ThirdPerson;
 
 public class MovementController : MonoBehaviour {
 
-    private AICharacterControl agent;
+    private NefuAIController agent;
     public HoveringArrow arrowPrefab;
     private Module currentModule;
     private KeywordRecognizer keywordRecognizer;
@@ -70,7 +70,7 @@ public class MovementController : MonoBehaviour {
     void FixedUpdate() {
         if (!GameStopped) {
             if (agent == null) {
-                agent = GameObject.FindGameObjectWithTag("Player").GetComponent<AICharacterControl>();
+                agent = GameObject.FindGameObjectWithTag("Player").GetComponent<NefuAIController>();
             }
             if (agent.getStopstate()) {
                 var agentCollider = agent.GetComponent<CapsuleCollider>();
