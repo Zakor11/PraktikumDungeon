@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4827638914482730}
   - component: {fileID: 114865397741297036}
+  - component: {fileID: 65066888348358128}
   m_Layer: 0
   m_Name: Corridor_DeadEnd_1W_1x1
   m_TagString: Untagged
@@ -72,7 +73,7 @@ GameObject:
   - component: {fileID: 23632308656656352}
   - component: {fileID: 208065380969776596}
   - component: {fileID: 65298942026252016}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +92,7 @@ GameObject:
   - component: {fileID: 23364710721329700}
   - component: {fileID: 208062774670691816}
   - component: {fileID: 65834501747029068}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +127,7 @@ GameObject:
   - component: {fileID: 23222202150175404}
   - component: {fileID: 208697707720733492}
   - component: {fileID: 65292997502611366}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +193,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1085793043633542}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.275183, y: 30.615482, z: -10.652273}
+  m_LocalPosition: {x: -1.2754002, y: 3.892314, z: -1.1228306}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4612407083423526}
@@ -412,6 +413,18 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300002, guid: 483619144cce23149a9ad6c721302f39, type: 3}
+--- !u!65 &65066888348358128
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1085793043633542}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 3, z: 4.5}
+  m_Center: {x: 0, y: 1.5, z: -0.75}
 --- !u!65 &65292997502611366
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -461,6 +474,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: 3
   IsDefault: 0
+  ExitMatched: 0
+  otherSide: {fileID: 0}
 --- !u!114 &114865397741297036
 MonoBehaviour:
   m_ObjectHideFlags: 1

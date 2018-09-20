@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class FollowCam : MonoBehaviour {
 
@@ -8,6 +10,12 @@ public class FollowCam : MonoBehaviour {
     [SerializeField]float distanceDamp = 0.2f;
 
     public Transform target { get; set; }
+
+    public Material transparentTex;
+    public Material normalTex;
+
+    List<MeshRenderer> wallListOld = new List<MeshRenderer>();
+    List<MeshRenderer> wallListNew = new List<MeshRenderer>();
 
     Transform myT;
     Vector3 velocity = Vector3.one;
@@ -22,6 +30,32 @@ public class FollowCam : MonoBehaviour {
         SmoothFollow();
     }
 
+    void FixedUpdate() {
+        RaycastHit hit;
+
+        Debug.DrawLine(transform.position, target.transform.position, Color.white);
+        while (Physics.Linecast(Camera.main.transform.position, target.transform.position, out hit, 1<<9, QueryTriggerInteraction.Ignore))
+        {
+            MeshRenderer wall = hit.collider.GetComponent<MeshRenderer>();
+            wallListNew.Add(wall);
+            wall.gameObject.layer = 2;
+            wall.material = transparentTex;
+        }
+        //Debug.LogError("While verlassen");
+        wallListNew.ForEach(e => e.gameObject.layer = 9);
+        var toReset = wallListOld.Where(e => !wallListNew.Contains(e)).ToList();
+        //Debug.Log(toReset.Count());
+        //Debug.Log(wallListOld.Count());
+        toReset.ForEach(e => e.material = normalTex);
+        wallListOld.Clear();
+        wallListOld.AddRange(wallListNew);
+        wallListNew.Clear();
+    }
+   /* void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, target.transform.position);
+    }
+    */
     void SmoothFollow()
     {
         if(target != null)

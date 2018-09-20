@@ -25,17 +25,21 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Update()
         {
-            if (target != null)
+            if (target != null) {
                 agent.SetDestination(target.position);
+                Debug.Log("Destination Set: " + target.position);
+            }
 
             if (agent.remainingDistance > agent.stoppingDistance) {
                 agent.isStopped = false;
                 character.Move(agent.desiredVelocity, false, false);
+                //Debug.Log("Should Move");
             }
             else
             {
                 agent.isStopped = true;
                 character.Move(Vector3.zero,false,false);
+                //Debug.Log("Stop");
             }
 
         }
@@ -44,6 +48,13 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         public void SetTarget(Transform target)
         {
             this.target = target;
+        }
+
+        public bool getStopstate() {
+            if(agent!=null)
+                return agent.isStopped;
+            else
+                return false;
         }
     }
 }

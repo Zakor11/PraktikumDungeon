@@ -35,14 +35,18 @@ namespace UnityStandardAssets.Utility
         private void OnEnable()
         {
             EditorApplication.update += Update;
+#pragma warning disable CS0618 // Typ oder Element ist veraltet
             EditorUserBuildSettings.activeBuildTargetChanged += Update;
+#pragma warning restore CS0618 // Typ oder Element ist veraltet
         }
 
 
         private void OnDisable()
         {
             EditorApplication.update -= Update;
+#pragma warning disable CS0618 // Typ oder Element ist veraltet
             EditorUserBuildSettings.activeBuildTargetChanged -= Update;
+#pragma warning restore CS0618 // Typ oder Element ist veraltet
         }
 
         private void Update()

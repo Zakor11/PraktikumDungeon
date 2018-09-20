@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23924447289323168}
   - component: {fileID: 208508083031334190}
   - component: {fileID: 65491692338752908}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 23025022188632580}
   - component: {fileID: 208715708457138866}
   - component: {fileID: 65783709141157334}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,6 +58,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4152698330868080}
   - component: {fileID: 114222143912309522}
+  - component: {fileID: 65332522154383028}
   m_Layer: 0
   m_Name: Corridor_Curve_2W_1x1
   m_TagString: Untagged
@@ -126,7 +127,7 @@ GameObject:
   - component: {fileID: 23137193274931980}
   - component: {fileID: 208945877619151848}
   - component: {fileID: 65479172330975082}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +146,7 @@ GameObject:
   - component: {fileID: 23567819358022770}
   - component: {fileID: 208803991582930870}
   - component: {fileID: 65336929616442600}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wall01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +176,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211005299676738}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.399315, y: 36.670593, z: -20.260382}
+  m_LocalPosition: {x: 9.921213, y: 8.333302, z: 1.7855496}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4586092041121108}
@@ -517,6 +518,18 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300002, guid: 446baf8660b91e847b7e973a8aee9616, type: 3}
+--- !u!65 &65332522154383028
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1211005299676738}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.5, y: 3, z: 4.5}
+  m_Center: {x: -0.75, y: 1.5, z: -0.75}
 --- !u!65 &65336929616442600
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -590,6 +603,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: 75
   IsDefault: 0
+  ExitMatched: 0
+  otherSide: {fileID: 0}
 --- !u!114 &114907442450631552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -603,6 +618,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: 75
   IsDefault: 0
+  ExitMatched: 0
+  otherSide: {fileID: 0}
 --- !u!208 &208508083031334190
 NavMeshObstacle:
   m_ObjectHideFlags: 1

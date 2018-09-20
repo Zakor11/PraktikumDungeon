@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23525347074940308}
   - component: {fileID: 208102195910356548}
   - component: {fileID: 65561602764764790}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Railing025
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 23734209339846284}
   - component: {fileID: 208974755203556396}
   - component: {fileID: 65398653054213194}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Railing023
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 23221607183399468}
   - component: {fileID: 208768671940379578}
   - component: {fileID: 65394873921693538}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Railing026
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 23120352952602322}
   - component: {fileID: 208253432387928070}
   - component: {fileID: 65096166468723854}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Railing024
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 23474670153741304}
   - component: {fileID: 208341771342555788}
   - component: {fileID: 65624589629394986}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Railing021
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 23933151461109348}
   - component: {fileID: 208318930276702132}
   - component: {fileID: 65085497094603906}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Railing022
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,6 +166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4295562562213204}
   - component: {fileID: 114890462436693814}
+  - component: {fileID: 65706850265168998}
   m_Layer: 0
   m_Name: Entrance3_TCross_3W_1x1
   m_TagString: Untagged
@@ -229,7 +230,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1718853877692588}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.234276, y: 65.66024, z: -50.484352}
+  m_LocalPosition: {x: 22.496103, y: 24.011133, z: -16.487474}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4298075796324662}
@@ -769,6 +770,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 3.5, z: 1.5}
   m_Center: {x: 1.2500001, y: -1.8747e-32, z: -2.25}
+--- !u!65 &65706850265168998
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1718853877692588}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.5, y: 3.5, z: 6}
+  m_Center: {x: -0.75, y: 1.75, z: 0}
 --- !u!114 &114174202181783000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -780,8 +793,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 511df0b57e059d34bbc82570cc741269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tags: 11
+  tags: 9
   IsDefault: 0
+  ExitMatched: 0
+  otherSide: {fileID: 0}
 --- !u!114 &114284267456546364
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -793,8 +808,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 511df0b57e059d34bbc82570cc741269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tags: 11
+  tags: 9
   IsDefault: 0
+  ExitMatched: 0
+  otherSide: {fileID: 0}
 --- !u!114 &114639270937767478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -806,8 +823,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 511df0b57e059d34bbc82570cc741269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tags: 11
+  tags: 9
   IsDefault: 0
+  ExitMatched: 0
+  otherSide: {fileID: 0}
 --- !u!114 &114890462436693814
 MonoBehaviour:
   m_ObjectHideFlags: 1
