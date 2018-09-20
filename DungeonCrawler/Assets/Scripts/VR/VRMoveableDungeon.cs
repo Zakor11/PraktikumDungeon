@@ -33,8 +33,8 @@ public class VRMoveableDungeon : MonoBehaviour
         {
             ControllerToFollow.Gripped += GrippedHandler;
             ControllerToFollow.Ungripped += UngrippedHandler;
-            oldParent = transform.parent;
         }
+        oldParent = transform.parent;
 
     }
 

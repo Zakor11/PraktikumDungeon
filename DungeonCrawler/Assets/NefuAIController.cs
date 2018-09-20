@@ -109,7 +109,7 @@ public class NefuAIController : MonoBehaviour
 
     public bool getStopstate()
     {
-        if (Agent != null)
+        if (Agent != null && Agent.isActiveAndEnabled)
             return Agent.isStopped;
         else
             return false;

@@ -42,6 +42,7 @@ namespace VRStandardAssets.Utils
         [SerializeField]
         private int m_SceneToLoad;
         private bool loadScene=false;
+        private bool clicked;
 
         private void OnEnable ()
         {
@@ -56,7 +57,6 @@ namespace VRStandardAssets.Utils
 
         private void BarFilledHandler()
         {
-            Debug.LogWarning("Bar Filled Handler");
             if (!loadScene)
             {
 
@@ -145,7 +145,7 @@ namespace VRStandardAssets.Utils
                 yield return null;
 
                 // If the user is still looking at the bar, go on to the next iteration of the loop.
-                if (m_GazeOver)
+                if (clicked)
                     continue;
 
                 // If the user is no longer looking at the bar, reset the timer and bar and leave the function.
@@ -188,6 +188,8 @@ namespace VRStandardAssets.Utils
             // If the user is looking at the bar start the FillBar coroutine and store a reference to it.
             if (m_GazeOver)
                 m_FillBarRoutine = StartCoroutine(FillBar());
+
+            clicked = true;
         }
 
 
@@ -197,6 +199,7 @@ namespace VRStandardAssets.Utils
             if(m_FillBarRoutine != null)
                 StopCoroutine (m_FillBarRoutine);
 
+            clicked = false;
             // Reset the timer and bar values.
             m_Timer = 0f;
             SetSliderValue(0f);
