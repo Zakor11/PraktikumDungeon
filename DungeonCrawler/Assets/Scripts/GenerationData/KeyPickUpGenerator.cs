@@ -8,7 +8,7 @@ public class KeyPickUpGenerator : MonoBehaviour {
     public KeyPickup keyPickUpPrefab;
 
     public int generatePickUps(Module[] modules) {
-        var modulesToConsider = modules.Where(e => (e.hasTag(TileTagsEnum.Room) || e.hasTag(TileTagsEnum.DeadEnd)) && e != modules.First() && e != modules.Last()).ToArray();
+        var modulesToConsider = modules.Where(e => (e.hasTag(TileTagsEnum.Room) || e.hasTag(TileTagsEnum.DeadEnd)) && e != modules.First() && e != modules.Last() && e.gameObject.activeSelf).ToArray();
         int keysPlaced = 0;
         if (modulesToConsider.Length > 0) {
             while (keysPlaced < modulesToConsider.Length / 10 +1) {

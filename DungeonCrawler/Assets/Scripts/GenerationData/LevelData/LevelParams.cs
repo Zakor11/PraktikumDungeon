@@ -8,8 +8,6 @@ public class LevelParams : UpdatableData {
     public int maxExits = 2;
     public int mainPathRooms = 10;
     public int maxRoomCount = 20;
-    [Range(0, 1)]
-    public float endRoomChance = 0.5f;
 
     protected override void OnValidate() {
 
