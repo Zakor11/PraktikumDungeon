@@ -20,4 +20,12 @@ public static class Helper {
     public static TItem GetRandom<TItem>(TItem[] array) {
         return array[Random.Range(0, array.Length)];
     }
+
+    public static void SetAlpha(Material material, float value)
+    {
+        Color color = material.color;
+        color.a = value;
+        material.color = color;
+        Debug.Log("Set Alpha to " + value);
+    }
 }

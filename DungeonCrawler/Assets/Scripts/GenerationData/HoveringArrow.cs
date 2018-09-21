@@ -17,10 +17,10 @@ public class HoveringArrow : MonoBehaviour {
 	void FixedUpdate () {
         if (upwards) {
             times++;
-            transform.position = transform.position + new Vector3(0, 0.005f, 0);
+            transform.position = transform.position +  transform.up * 0.005f;
         } else {
             times--;
-            transform.position = transform.position - new Vector3(0, 0.005f, 0);
+            transform.position = transform.position - transform.up* 0.005f;
         }
         if (times >= maxTimes || times <= 0) {
             upwards = !upwards;

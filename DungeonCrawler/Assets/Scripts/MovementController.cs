@@ -14,7 +14,7 @@ public class MovementController : MonoBehaviour
     private Module currentModule;
     private KeywordRecognizer keywordRecognizer;
 
-    private Vector3 heightOffset = new Vector3(0, 2.5f, 0);
+    private float heightOffset = 2.5f;
     private bool gameStopped = false;
     private bool voiceMovement = false;
     private VoiceDirection voiceDirection = VoiceDirection.NONE;
@@ -30,6 +30,14 @@ public class MovementController : MonoBehaviour
         set
         {
             gameStopped = value;
+        }
+    }
+
+    public Module CurrentModule
+    {
+        get
+        {
+            return currentModule;
         }
     }
 
@@ -101,8 +109,14 @@ public class MovementController : MonoBehaviour
 #pragma warning restore CS0618 // Typ oder Element ist veraltet
                         if (exit.GetComponentInChildren<HoveringArrow>() == null)
                         {
-                            HoveringArrow arrow = Instantiate(arrowPrefab, exit.transform.position + heightOffset, Quaternion.LookRotation(-exit.transform.forward));
+                            HoveringArrow arrow = Instantiate(arrowPrefab, exit.transform.position + exit.transform.up * heightOffset, Quaternion.LookRotation(-exit.transform.forward, exit.transform.up));
                             arrow.transform.parent = exit.transform;
+                        }
+                        HoveringArrow instancedArrow = GetComponentInChildren<HoveringArrow>();
+                        if (instancedArrow != null)
+                        {
+                            instancedArrow.transform.position = exit.transform.position + exit.transform.up * heightOffset;
+                            instancedArrow.transform.rotation = Quaternion.LookRotation(-exit.transform.forward, exit.transform.up);
                         }
                     }
                 }
@@ -126,7 +140,7 @@ public class MovementController : MonoBehaviour
             Vector3 camDown = -camUp;
 
             Vector3 camFront = Camera.main.transform.forward;
-            Vector3 camLeft = Quaternion.AngleAxis(-90f,camUp) * camFront;
+            Vector3 camLeft = Quaternion.AngleAxis(-90f, camUp) * camFront;
             Vector3 camRight = Quaternion.AngleAxis(90f, camUp) * camFront;
             Vector3 camBack = -camFront;
 
@@ -134,14 +148,14 @@ public class MovementController : MonoBehaviour
             Vector3 currentModuleCorrection = new Vector3(0, 0, 0);
             var rotDif = Vector3.Angle(camUp, currentModuleUp);
 
-            if (rotDif>45&&rotDif<135 || rotDif>225 && rotDif<315)
+            if (rotDif > 45 && rotDif < 135 || rotDif > 225 && rotDif < 315)
             {
                 currentModuleCorrection = Quaternion.FromToRotation(currentModuleUp, camUp).eulerAngles;
             }
             Debug.Log("Corrective Rotation: " + currentModuleCorrection);
 
-            Vector3 directionToMatch= new Vector3(0,0,0);
-            if (h < 0 ||voiceDirection.Equals(VoiceDirection.LEFT))
+            Vector3 directionToMatch = new Vector3(0, 0, 0);
+            if (h < 0 || voiceDirection.Equals(VoiceDirection.LEFT))
             {
                 Debug.Log("Case Links");
                 directionToMatch = camLeft;
@@ -150,11 +164,13 @@ public class MovementController : MonoBehaviour
             {
                 Debug.Log("Case Rechts");
                 directionToMatch = camRight;
-            }else if(v<0 || voiceDirection.Equals(VoiceDirection.BACKWARD))
+            }
+            else if (v < 0 || voiceDirection.Equals(VoiceDirection.BACKWARD))
             {
                 Debug.Log("Case Runter");
                 directionToMatch = camBack;
-            }else if(v>0 || voiceDirection.Equals(VoiceDirection.FORWARD))
+            }
+            else if (v > 0 || voiceDirection.Equals(VoiceDirection.FORWARD))
             {
                 Debug.Log("Case Hoch");
                 directionToMatch = camFront;
@@ -162,103 +178,20 @@ public class MovementController : MonoBehaviour
             Debug.Log("Direction to match: " + directionToMatch);
             foreach (ModuleConnector connector in currentModule.GetExits())
             {
-                
+
                 Debug.Log("Exit: " + connector.tag + "; Forward: " + Quaternion.Euler(currentModuleCorrection) * connector.transform.forward);
-                if (Vector3.Angle(directionToMatch,Quaternion.Euler(currentModuleCorrection)*connector.transform.forward) < 45) {
+                if (Vector3.Angle(directionToMatch, Quaternion.Euler(currentModuleCorrection) * connector.transform.forward) < 45)
+                {
                     voiceMovement = false;
                     voiceDirection = VoiceDirection.NONE;
                     agent.SetTarget(Helper.FindComponentInChildWithTag<Transform>(connector.getOtherSide().GetComponentInParent<Module>().gameObject, "movePoint").transform);
-                    Debug.Log("Matched with "+connector.tag);
+                    Debug.Log("Matched with " + connector.tag);
                     return;
                 }
             }
 
             voiceMovement = false;
             voiceDirection = VoiceDirection.NONE;
-
-            /*var parentForward = transform.parent.forward;
-
-            var upVectorToMatch = currentModule.transform.up;
-            float upCorrection = Helper.Azimuth(upVectorToMatch) - Helper.Azimuth(Vector3.up);
-
-            var forwardVectorToMatch = currentModule.transform.forward;
-            if (-45>= upCorrection && upCorrection >= 45) {
-               forwardVectorToMatch = Quaternion.Euler(0,0,upCorrection)* forwardVectorToMatch;
-            }
-            else {
-            }
-
-            var camForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
-            var correctiveRotation = Helper.Azimuth(forwardVectorToMatch) - Helper.Azimuth(camForward);
-            Debug.Log("RotationTile: " + forwardVectorToMatch + ", Rotation Cam: " + camForward + ",Correction: " + correctiveRotation);
-            ModuleConnector agentDestinationModuleConnector = null;
-            int rotation = Convert.ToInt32(correctiveRotation);
-            if (-45 <= rotation && rotation <= 45 ||315<rotation)
-                rotation = 0;
-            else if (-135 <= rotation && rotation < -45 || 225<rotation && rotation<=315)
-                rotation = -90;
-            else if (45 < rotation && rotation <= 135 || -315<=rotation && rotation<-225)
-                rotation = 90;
-            else
-                rotation = 180;
-            switch (rotation) {
-                case 0:
-                    Debug.Log("Rotation 0 Case");
-                    if (h < 0 || voiceDirection == VoiceDirection.LEFT) {
-                        agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "left");
-                    } else if (h > 0 || voiceDirection == VoiceDirection.RIGHT) {
-                        agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "right");
-                    } else if (v < 0 || voiceDirection == VoiceDirection.BACKWARD) {
-                        agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "back");
-                    } else if (v > 0 || voiceDirection == VoiceDirection.FORWARD) {
-                        agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "front");
-                    }
-                    break;
-                case 90:
-                    Debug.Log("Rotation 90 Case");
-                    if (h < 0 || voiceDirection == VoiceDirection.LEFT) {
-                        agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "back");
-                    } else if (h > 0 || voiceDirection == VoiceDirection.RIGHT) {
-                        agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "front");
-                    } else if (v < 0 || voiceDirection == VoiceDirection.BACKWARD) {
-                        agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "right");
-                    } else if (v > 0 || voiceDirection == VoiceDirection.FORWARD) {
-                        agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "left");
-                    }
-                    break;
-                case -90:
-                    Debug.Log("Rotation -90 Case");
-                    if (h < 0 || voiceDirection == VoiceDirection.LEFT) {
-                        agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "front");
-                    } else if (h > 0 || voiceDirection == VoiceDirection.RIGHT) {
-                        agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "back");
-                    } else if (v < 0 || voiceDirection == VoiceDirection.BACKWARD) {
-                        agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "left");
-                    } else if (v > 0 || voiceDirection == VoiceDirection.FORWARD) {
-                        agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "right");
-                    }
-                    break;
-                case 180:
-                    Debug.Log("Rotation 180 Case");
-                    if (h < 0 || voiceDirection == VoiceDirection.LEFT) {
-                        agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "right");
-                    } else if (h > 0 || voiceDirection == VoiceDirection.RIGHT) {
-                        agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "left");
-                    } else if (v < 0 || voiceDirection == VoiceDirection.BACKWARD) {
-                        agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "front");
-                    } else if (v > 0 || voiceDirection == VoiceDirection.FORWARD) {
-                        agentDestinationModuleConnector = Helper.FindComponentInChildWithTag<ModuleConnector>(currentModule.gameObject, "back");
-                    }
-                    break;
-                default:
-                    Debug.Log("no matching rotation for movement: " + Convert.ToInt32(correctiveRotation));
-                    break;
-            }
-            if (agentDestinationModuleConnector != null && agentDestinationModuleConnector.getOtherSide() != null || voiceMovement ) {
-                voiceMovement = false;
-                voiceDirection = VoiceDirection.NONE;
-                agent.SetTarget(Helper.FindComponentInChildWithTag<Transform>(agentDestinationModuleConnector.getOtherSide().GetComponentInParent<Module>().gameObject, "movePoint").transform);           
-            }*/
         }
     }
 

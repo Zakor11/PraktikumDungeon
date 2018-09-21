@@ -34,6 +34,7 @@ public class NefuAIController : MonoBehaviour
     public Transform target;                                    // target to aim for
     private SteamVR_TrackedController controller;
     private bool gripped;
+    private Module resetModule;
 
     private void Start()
     {
@@ -62,11 +63,18 @@ public class NefuAIController : MonoBehaviour
     private void UngrippedHandler(object sender, ClickedEventArgs e)
     {
         gripped = false;
+        ResetToModule();
+    }
+
+    private void ResetToModule()
+    {
+        Agent.transform.position = Helper.FindComponentInChildWithTag<Transform>(resetModule.gameObject, "movePoint").transform.position;
     }
 
     private void GrippedHandler(object sender, ClickedEventArgs e)
     {
         gripped = true;
+        resetModule = FindObjectOfType<MovementController>().CurrentModule;
     }
 
     private void Update()
