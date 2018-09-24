@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
 using UnityStandardAssets.CrossPlatformInput;
-using UnityStandardAssets.Characters.ThirdPerson;
 
 public class MovementController : MonoBehaviour
 {
@@ -19,6 +18,7 @@ public class MovementController : MonoBehaviour
     private bool voiceMovement = false;
     private VoiceDirection voiceDirection = VoiceDirection.NONE;
     Dictionary<string, Action> keywords = new Dictionary<string, Action>();
+    private SteamVR_TrackedController controller;
 
     public bool GameStopped
     {
@@ -92,6 +92,10 @@ public class MovementController : MonoBehaviour
             {
                 agent = GameObject.FindGameObjectWithTag("Player").GetComponent<NefuAIController>();
             }
+            if (controller == null)
+            {
+                controller = FindObjectOfType<SteamVR_TrackedController>();
+            }
             if (agent.getStopstate())
             {
                 var agentCollider = agent.GetComponent<CapsuleCollider>();
@@ -131,10 +135,13 @@ public class MovementController : MonoBehaviour
 
     private void HandleMovement()
     {
-
+        var trackedController = SteamVR_Controller.Input((int)controller.GetComponent<SteamVR_TrackedObject>().index);
         float h = CrossPlatformInputManager.GetAxis("Horizontal");
         float v = CrossPlatformInputManager.GetAxis("Vertical");
-        if (h != 0 || v != 0 || voiceMovement)
+        float touchH = trackedController.GetAxis().x;
+        float touchV = trackedController.GetAxis().y;
+        touchH = Math.Abs(touchH) > Math.Abs(touchV) ? touchH : 0;
+        if (h != 0 || v != 0 || voiceMovement || trackedController.GetPress(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
         {
             Vector3 camUp = Camera.main.transform.up;
             Vector3 camDown = -camUp;
@@ -155,22 +162,22 @@ public class MovementController : MonoBehaviour
             Debug.Log("Corrective Rotation: " + currentModuleCorrection);
 
             Vector3 directionToMatch = new Vector3(0, 0, 0);
-            if (h < 0 || voiceDirection.Equals(VoiceDirection.LEFT))
+            if (h < 0 || voiceDirection.Equals(VoiceDirection.LEFT) || touchH < 0)
             {
                 Debug.Log("Case Links");
                 directionToMatch = camLeft;
             }
-            else if (h > 0 || voiceDirection.Equals(VoiceDirection.RIGHT))
+            else if (h > 0 || voiceDirection.Equals(VoiceDirection.RIGHT) || touchH > 0)
             {
                 Debug.Log("Case Rechts");
                 directionToMatch = camRight;
             }
-            else if (v < 0 || voiceDirection.Equals(VoiceDirection.BACKWARD))
+            else if (v < 0 || voiceDirection.Equals(VoiceDirection.BACKWARD) || touchV < 0)
             {
                 Debug.Log("Case Runter");
                 directionToMatch = camBack;
             }
-            else if (v > 0 || voiceDirection.Equals(VoiceDirection.FORWARD))
+            else if (v > 0 || voiceDirection.Equals(VoiceDirection.FORWARD) || touchV > 0)
             {
                 Debug.Log("Case Hoch");
                 directionToMatch = camFront;
